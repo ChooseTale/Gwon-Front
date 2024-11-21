@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
+import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 
 const geistSans = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -21,7 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable}  antialiased`}>{children}</body>
+      <body className={`${geistSans.variable}  antialiased`}>
+        <SessionProvider>
+          <CheckAuth />
+          {children}
+        </SessionProvider>
+      </body>
     </html>
   );
 }
