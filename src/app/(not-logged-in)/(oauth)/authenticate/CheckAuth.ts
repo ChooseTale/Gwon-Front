@@ -14,7 +14,7 @@ export default function CheckAuth() {
   useEffect(() => {
     const isLoggedin = status === "authenticated" && sidCookie !== undefined;
 
-    if (!isLoggedin && pathname !== "/oauth") {
+    if (status !== "loading" && !isLoggedin && pathname !== "/oauth") {
       deleteCookie("connect.sid");
       deleteCookie("loggedIn");
       router.push("/oauth");
