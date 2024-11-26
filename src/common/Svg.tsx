@@ -1,4 +1,4 @@
-import { colors } from "../../\bconfig/tail-wind/tailwind.config";
+import { colors } from "../../tailwind.config";
 import {
   arrowDownRightIcon,
   arrowRightIcon,
@@ -86,7 +86,7 @@ export default function Svg({
   options?: SvgOptions;
 }) {
   const SvgComponent = SvgIcons[icon];
-  console.log(SvgComponent);
+
   return (
     <div className="flex justify-center items-center">
       <SvgComponent

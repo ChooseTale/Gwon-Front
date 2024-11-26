@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "./global.css";
+
 import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 
@@ -23,10 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable}  antialiased`}>
+      <body
+        className={`${geistSans.variable} flex  w-full h-[100vh] bg-background-dark  `}
+      >
         <SessionProvider>
           <CheckAuth />
-          {children}
+          <div className="flex w-[calc(100%-40px)] flex-col ml-[20px] mr-[20px] ">
+            {children}
+          </div>
         </SessionProvider>
       </body>
     </html>

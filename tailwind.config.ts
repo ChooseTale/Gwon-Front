@@ -30,7 +30,7 @@ export const colors = {
 };
 
 const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
-  content: ["./src/**/*.tsx"],
+  content: ["./src/**/*.{ts,tsx}"],
   // presets: [sharedConfig],
   // plugins: [require("tailwindcss-animate")],
   theme: {
