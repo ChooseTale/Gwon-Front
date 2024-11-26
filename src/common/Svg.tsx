@@ -67,7 +67,7 @@ const SvgIcons = {
   xIcon,
 };
 
-type SvgName = keyof typeof SvgIcons;
+export type SvgName = keyof typeof SvgIcons;
 
 type SvgOptions = {
   size?: {
@@ -93,7 +93,7 @@ export default function Svg({
         width={options?.size?.width}
         height={options?.size?.height}
         viewBox={options?.viewBox || "0 0 24 24"}
-        fill={options?.color ? colors[options.color] : "none"}
+        stroke={options?.color ? colors[options.color] : "none"}
       />
     </div>
   );
