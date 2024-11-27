@@ -1,43 +1,38 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Icon from "./NavBar/Icon";
 import Link from "next/link";
 
 export default function NavBar() {
-  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const lastPath = pathname.split("/").pop();
 
   return (
     <div className="fixed left-0 bottom-0 w-full h-[4rem] shrink-0 bg-background-dark border-t border-grey-900">
       <div className="flex justify-center w-full h-[4rem] shrink-0 bg-background-dark border-t border-grey-900">
         <Link
           className="flex justify-center items-center"
-          href="/game-list?category=game"
+          href="/game-list/game"
         >
           <Icon
             icon="bookOpenIcon"
             label="게임"
-            isSelected={searchParams.get("category") === "game"}
+            isSelected={lastPath === "game"}
           />
         </Link>
         <Link
           className="flex justify-center items-center"
-          href="/game-list?category=builder"
+          href="/game-list/builder"
         >
           <Icon
             icon="editIcon"
             label="빌더"
-            isSelected={searchParams.get("category") === "builder"}
+            isSelected={lastPath === "builder"}
           />
         </Link>
-        <Link
-          className="flex justify-center items-center"
-          href="/game-list?category=my"
-        >
-          <Icon
-            icon="userIcon"
-            label="마이"
-            isSelected={searchParams.get("category") === "my"}
-          />
+        <Link className="flex justify-center items-center" href="/game-list/my">
+          <Icon icon="userIcon" label="마이" isSelected={lastPath === "my"} />
         </Link>
       </div>
     </div>

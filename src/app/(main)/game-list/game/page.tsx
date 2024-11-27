@@ -3,7 +3,7 @@
 import { getGameListCall } from "@/app/(actions)/main/game";
 import React, { useEffect, useState } from "react";
 import CardList from "./_components/CardList";
-import { GameListEntity } from "../_domain/game-list.entity";
+import { GameListEntity } from "../../_domain/game-list.entity";
 
 export default function GameList() {
   const [gameList, setGameList] = useState<GameListEntity>(
@@ -21,7 +21,7 @@ export default function GameList() {
   }, []);
 
   return (
-    <div className="">
+    <div className="flex">
       <CardList gameList={gameList} />
     </div>
   );
