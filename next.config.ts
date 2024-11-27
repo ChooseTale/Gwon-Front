@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["img.sbs.co.kr", "i.pinimg.com", "www.shutterstock.com"],
+    domains: ["img.sbs.co.kr", "182.172.181.90", "lh3.googleusercontent.com"],
   },
   /* config options here */
   webpack: (config) => {

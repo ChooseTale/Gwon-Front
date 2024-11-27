@@ -21,11 +21,11 @@ type CardProps = {
   clickCard: (cardId: number) => void;
 };
 
-export default function Crad({ cards, enrich, users, clickCard }: CardProps) {
+export default function Card({ cards, enrich, users, clickCard }: CardProps) {
   return (
-    <div className="flex flex-col w-[10rem]">
+    <div className="flex flex-col w-full">
       <div
-        className="w-[10rem] h-[10rem] bg-grey-900 rounded-[8px] overflow-hidden relative"
+        className="w-full h-full aspect-square bg-grey-900 rounded-[8px] overflow-hidden relative"
         onClick={() => clickCard(cards.id)}
       >
         <Image src={cards.image} alt="game" layout="fill" objectFit="cover" />

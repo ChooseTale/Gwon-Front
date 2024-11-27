@@ -1,36 +1,28 @@
 "use client";
 
-import Crad from "@/common/Game/Crad";
-import React from "react";
+import { getGameListCall } from "@/app/(actions)/main/game";
+import React, { useEffect, useState } from "react";
+import CardList from "./_components/CardList";
+import { GameListEntity } from "../_domain/game-list.entity";
 
-export default function page() {
+export default function GameList() {
+  const [gameList, setGameList] = useState<GameListEntity>(
+    new GameListEntity([])
+  );
+
+  useEffect(() => {
+    const getGameList = async () => {
+      const res = await getGameListCall();
+      console.log(res.map((game) => game.game.player));
+      setGameList(new GameListEntity(res));
+    };
+
+    getGameList();
+  }, []);
+
   return (
-    <div>
-      <Crad
-        clickCard={(cardId: number) => {
-          console.log(cardId);
-        }}
-        cards={{
-          id: 1,
-          image:
-            "https://img.sbs.co.kr/newsnet/etv/upload/2024/04/25/30000922260_1280.jpg",
-          title: "게임 제목",
-          category: "게임 카테고리",
-        }}
-        enrich={{ players: 10 }}
-        users={[
-          {
-            id: 1,
-            imageUrl:
-              "https://img.sbs.co.kr/newsnet/etv/upload/2024/04/25/30000922260_1280.jpg",
-          },
-          {
-            id: 2,
-            imageUrl:
-              "https://img.sbs.co.kr/newsnet/etv/upload/2024/04/25/30000922260_1280.jpg",
-          },
-        ]}
-      />
+    <div className="">
+      <CardList gameList={gameList} />
     </div>
   );
 }
