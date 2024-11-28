@@ -1,15 +1,43 @@
 "use client";
 import Svg from "@/common/Svg";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import GenreBottomSheet from "./GenreBottomSheet";
 
 export default function TopNavBar() {
+  const [isGenreBottomSheetOpen, setIsGenreBottomSheetOpen] = useState(false);
+
+  useEffect(() => {
+    if (isGenreBottomSheetOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // 컴포넌트가 언마운트될 때 스크롤을 복원합니다.
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isGenreBottomSheetOpen]);
+
+  const handleGenreBottomSheetOpen = () => {
+    setIsGenreBottomSheetOpen(true);
+  };
+
   return (
     <div className="">
+      {isGenreBottomSheetOpen && (
+        <GenreBottomSheet
+          handleClose={() => setIsGenreBottomSheetOpen(false)}
+        />
+      )}
       <div className="text-green-500 text-2xl font-bold mb-[16px]">
         ChooseTale
       </div>
       <div className="flex  w-full mb-[20px] justify-between items-center">
-        <div className="flex flex-row justify-center items-center w-[92px] h-[38px] border border-grey-700 rounded-[8px]">
+        <div
+          onClick={handleGenreBottomSheetOpen}
+          className="flex flex-row justify-center items-center w-[92px] h-[38px] border border-grey-700 rounded-[8px]"
+        >
           <Svg
             icon="slidersIcon"
             options={{

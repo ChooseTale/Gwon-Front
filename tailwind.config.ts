@@ -6,16 +6,16 @@ export const colors = {
   "background-dark": "#191919",
   "font-dark": "#f2f2f2",
   black: "#111111",
-  "grey-50": "#efefef",
-  "grey-100": "#d2d2d2",
-  "grey-200": "#bbbbbb",
-  "grey-300": "#a4a4a4",
-  "grey-400": "#8e8e8e",
-  "grey-500": "#777777",
-  "grey-600": "#636363",
-  "grey-700": "#4f4f4f",
-  "grey-800": "#3c3c3c",
-  "grey-900": "#282828",
+  "gray-50": "#efefef",
+  "gray-100": "#d2d2d2",
+  "gray-200": "#bbbbbb",
+  "gray-300": "#a4a4a4",
+  "gray-400": "#8e8e8e",
+  "gray-500": "#777777",
+  "gray-600": "#636363",
+  "gray-700": "#4f4f4f",
+  "gray-800": "#3c3c3c",
+  "gray-900": "#282828",
   "green-100": "#b5ecc9",
   "green-200": "#91e2af",
   "green-300": "#6cd894",
@@ -36,6 +36,15 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
   // plugins: [require("tailwindcss-animate")],
   theme: {
     extend: {
+      keyframes: {
+        slideUp: {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+      },
+      animation: {
+        slideUp: "slideUp 0.3s ease-out",
+      },
       screens: {
         xs: "320px",
       },

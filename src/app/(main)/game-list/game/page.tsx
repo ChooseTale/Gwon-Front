@@ -13,7 +13,6 @@ export default function GameList() {
   useEffect(() => {
     const getGameList = async () => {
       const res = await getGameListCall();
-      console.log(res.map((game) => game.game.player));
       setGameList(new GameListEntity(res));
     };
 

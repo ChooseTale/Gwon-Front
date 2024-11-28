@@ -2,7 +2,7 @@
 
 import React from "react";
 import { GameListEntity } from "../../../_domain/game-list.entity";
-import Card from "@/common/Game/Crad";
+import Card from "@/common/Game/Card";
 
 export default function CardList({ gameList }: { gameList: GameListEntity }) {
   return (
