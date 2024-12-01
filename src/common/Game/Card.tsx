@@ -25,13 +25,13 @@ export default function Card({ cards, enrich, users, clickCard }: CardProps) {
   return (
     <div className="flex flex-col w-full">
       <div
-        className="w-full h-full aspect-square bg-grey-900 rounded-[8px] overflow-hidden relative"
+        className="w-full h-full aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
         onClick={() => clickCard(cards.id)}
       >
         <Image src={cards.image} alt="game" layout="fill" objectFit="cover" />
       </div>
       <span className="text-white headline-md mt-[8px]">{cards.title}</span>
-      <span className="caption-rg text-grey-200">{cards.category}</span>
+      <span className="caption-rg text-gray-200">{cards.category}</span>
       <div className="flex flex-row ">
         <div className="flex flex-row w-[2rem] -space-x-2">
           {users.reduce((prev, curr, idx) => {
