@@ -1,5 +1,3 @@
-import { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
-
 export const GenresKorean = {
   FANTASY: "판타지",
   SCI_FI: "공상 과학",

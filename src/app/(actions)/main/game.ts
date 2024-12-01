@@ -1,14 +1,21 @@
 "use server";
 
 import { fetchIncetance } from "@/app/(actions)/fetch";
+import { GenresKorean } from "@/common/Game/Genre";
 import { getList } from "@choosetale/nestia-type/lib/functional/game_play/list/index";
 
-export const getGameListCall = async (): Promise<getList.Output> => {
+interface GetGameListCallProps {
+  genres: (keyof typeof GenresKorean)[];
+}
+
+export const getGameListCall = async ({
+  genres,
+}: GetGameListCallProps): Promise<getList.Output> => {
   const queryParams = new URLSearchParams({
     page: "1",
     limit: "10",
     order: "LATEST",
-    genre: "ALL",
+    genre: genres.length > 0 ? genres.join(",") : "ALL",
   });
 
   const res = await fetchIncetance(

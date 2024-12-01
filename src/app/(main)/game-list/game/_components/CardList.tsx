@@ -6,7 +6,7 @@ import Card from "@/common/Game/Card";
 
 export default function CardList({ gameList }: { gameList: GameListEntity }) {
   return (
-    <div className="flex flex-row gap-2 flex-wrap justify-between">
+    <div className="flex w-full flex-row gap-2 flex-wrap justify-between">
       {gameList.gameList.map((game) => {
         return (
           <div className="flex w-[calc(50%-4px)] mb-[24px]" key={game.game.id}>

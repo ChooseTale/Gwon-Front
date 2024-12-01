@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React from "react";
 import UserImage from "./Card/Image";
+import { GenresKorean } from "./Genre";
 
 type CardProps = {
   cards: {
@@ -31,7 +32,9 @@ export default function Card({ cards, enrich, users, clickCard }: CardProps) {
         <Image src={cards.image} alt="game" layout="fill" objectFit="cover" />
       </div>
       <span className="text-white headline-md mt-[8px]">{cards.title}</span>
-      <span className="caption-rg text-gray-200">{cards.category}</span>
+      <span className="caption-rg text-gray-200">
+        {GenresKorean[cards.category as keyof typeof GenresKorean]}
+      </span>
       <div className="flex flex-row ">
         <div className="flex flex-row w-[2rem] -space-x-2">
           {users.reduce((prev, curr, idx) => {
