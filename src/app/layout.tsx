@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} flex  w-full h-[100vh] bg-background-dark  `}
+        className={`${geistSans.variable} flex   w-full h-[100vh] bg-background-dark  `}
       >
         <SessionProvider>
           <CheckAuth />

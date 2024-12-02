@@ -1,29 +1,18 @@
-"use client";
+"use server";
 
-import { getGameListCall } from "@/app/(actions)/main/game";
-import React, { useEffect, useState } from "react";
-import CardList from "./_components/CardList";
-import { GameListEntity } from "../../_domain/game-list.entity";
-import { useGameFilterStore } from "@/store/Game/GameFilter.store";
+import React from "react";
+import GameList from "./(client)/GameLIst";
+import RowCardListStatic from "@/common/Game/StaticRowCardList";
 
-export default function GameList() {
-  const [gameList, setGameList] = useState<GameListEntity>(
-    new GameListEntity([])
-  );
-  const selectedGenres = useGameFilterStore((state) => state.selectedGenres);
-
-  useEffect(() => {
-    const getGameList = async () => {
-      const res = await getGameListCall({ genres: selectedGenres });
-      setGameList(new GameListEntity(res));
-    };
-
-    getGameList();
-  }, [selectedGenres]);
-
+export default async function GamePage() {
   return (
-    <div className="flex ">
-      <CardList gameList={gameList} />
+    <div className="flex flex-col">
+      <RowCardListStatic
+        title="이번주 Top 10 👑"
+        gameFilterOptions={{ genres: [] }}
+      />
+      <div className="w-[100vw] h-[12px] bg-gray-900  mt-[40px] mb-[40px] ml-[-20px]" />
+      <GameList />
     </div>
   );
 }

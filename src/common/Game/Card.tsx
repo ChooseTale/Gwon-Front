@@ -6,7 +6,7 @@ import UserImage from "./Card/Image";
 import { GenresKorean } from "./Genre";
 
 type CardProps = {
-  cards: {
+  cardData: {
     id: number;
     image: string;
     title: string;
@@ -22,7 +22,12 @@ type CardProps = {
   clickCard: (cardId: number) => void;
 };
 
-export default function Card({ cards, enrich, users, clickCard }: CardProps) {
+export default function Card({
+  cardData: cards,
+  enrich,
+  users,
+  clickCard,
+}: CardProps) {
   return (
     <div className="flex flex-col w-full">
       <div

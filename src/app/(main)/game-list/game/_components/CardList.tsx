@@ -11,7 +11,7 @@ export default function CardList({ gameList }: { gameList: GameListEntity }) {
         return (
           <div className="flex w-[calc(50%-4px)] mb-[24px]" key={game.game.id}>
             <Card
-              cards={{
+              cardData={{
                 id: game.game.id,
                 image: game.game.thumbnail?.url ?? "",
                 title: game.game.title,
