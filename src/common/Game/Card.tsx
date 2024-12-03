@@ -34,7 +34,13 @@ export default function Card({
         className="w-full h-full aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
         onClick={() => clickCard(cards.id)}
       >
-        <Image src={cards.image} alt="game" layout="fill" objectFit="cover" />
+        <Image
+          className="object-cover w-full h-full"
+          src={cards.image}
+          alt="game"
+          width={100}
+          height={100}
+        />
       </div>
       <span className="text-white headline-md mt-[8px]">{cards.title}</span>
       <span className="caption-rg text-gray-200">
