@@ -30,9 +30,7 @@ export default function TopNavBar() {
           handleClose={() => setIsGenreBottomSheetOpen(false)}
         />
       )}
-      <div className="text-green-500 text-2xl font-bold mb-[16px]">
-        ChooseTale
-      </div>
+
       <div className="flex  w-full mb-[20px] justify-between items-center">
         <div
           onClick={handleGenreBottomSheetOpen}
