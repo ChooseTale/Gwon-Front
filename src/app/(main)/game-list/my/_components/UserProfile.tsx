@@ -12,7 +12,7 @@ export default function UserProfile() {
         마이페이지
       </div>
       <div
-        className="flex flex-col justify-start items-center    w-[30%]  rounded-[8px] mt-[32px]"
+        className="flex flex-col justify-start items-center    w-[135px]  rounded-[8px] mt-[32px]"
         style={{ aspectRatio: "7 / 8" }}
       >
         <div className="flex w-[84px] aspect-square rounded-[18px] ">

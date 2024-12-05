@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function NavBar() {
   const pathname = usePathname();
 
-  const lastPath = pathname.split("/").pop();
+  console.log(pathname);
 
   return (
     <div className="fixed left-0 bottom-[-1px] w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">
@@ -18,7 +18,7 @@ export default function NavBar() {
           <Icon
             icon="bookOpenIcon"
             label="게임"
-            isSelected={lastPath === "game"}
+            isSelected={pathname.startsWith("/game-list/game")}
           />
         </Link>
         <Link
@@ -28,11 +28,15 @@ export default function NavBar() {
           <Icon
             icon="editIcon"
             label="빌더"
-            isSelected={lastPath === "builder"}
+            isSelected={pathname.startsWith("/game-list/builder")}
           />
         </Link>
         <Link className="flex justify-center items-center" href="/game-list/my">
-          <Icon icon="userIcon" label="마이" isSelected={lastPath === "my"} />
+          <Icon
+            icon="userIcon"
+            label="마이"
+            isSelected={pathname.startsWith("/game-list/my")}
+          />
         </Link>
       </div>
     </div>

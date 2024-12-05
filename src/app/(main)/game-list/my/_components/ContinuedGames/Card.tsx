@@ -4,7 +4,7 @@ import React from "react";
 
 export default function ContinuedGamesCard() {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full aspect-square flex flex-col">
       <Image
         className="w-full h-full object-cover rounded-[8px]"
         src={
