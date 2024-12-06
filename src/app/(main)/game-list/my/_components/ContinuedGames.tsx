@@ -1,10 +1,29 @@
 "use client";
 
 import Svg from "@/common/Svg";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ContinuedGamesCard from "./ContinuedGames/Card";
+import { getContinuedGameList } from "@choosetale/nestia-type/lib/functional/my_page/continued_game";
+import { getMyContinuedGameListCall } from "@/app/(actions)/main/my-game";
 
 export default function ContinuedGames() {
+  const [continuedGameList, setContinuedGameList] =
+    useState<getContinuedGameList.Output>([]);
+  console.log(continuedGameList);
+  useEffect(() => {
+    const getMyContinuedGameList = async () => {
+      const res = await getMyContinuedGameListCall({
+        page: 1,
+        limit: 8,
+        order: "LATEST",
+        genre: ["ALL"],
+      });
+      setContinuedGameList(res);
+    };
+
+    getMyContinuedGameList();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center">
@@ -18,16 +37,14 @@ export default function ContinuedGames() {
         </div>
       </div>
       <div className="flex flex-row h-[244px] gap-2 flex-nowrap overflow-x-auto mt-[12px]">
-        <div className="flex w-[170px] bg-red-500 h-[173px] ">
-          <ContinuedGamesCard />
-        </div>
-
-        <div className="flex w-[170px] h-[173px] ">
-          <ContinuedGamesCard />
-        </div>
-        <div className="flex w-[170px] h-[173px] ">
-          <ContinuedGamesCard />
-        </div>
+        {continuedGameList.map((game) => (
+          <div
+            className="flex w-[170px] h-[173px] "
+            key={game.game.id.toString()}
+          >
+            <ContinuedGamesCard game={game} />
+          </div>
+        ))}
       </div>
     </div>
   );

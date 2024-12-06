@@ -2,7 +2,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["img.sbs.co.kr", "182.172.181.90", "lh3.googleusercontent.com"],
+    domains: [
+      "img.sbs.co.kr",
+      process.env.NEXT_PUBLIC_IMAGE_DOMAIN ?? "",
+      "lh3.googleusercontent.com",
+    ],
   },
   /* config options here */
   webpack: (config) => {
