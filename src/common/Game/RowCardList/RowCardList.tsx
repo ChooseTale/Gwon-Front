@@ -15,7 +15,7 @@ export default function RowCardList({
   const gameListEntity = new GameListEntity(cards);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <span className="title2-sb text-white">{title}</span>
       <div className="flex overflow-x-auto gap-2 flex-nowrap  h-[266px] mt-4">
         {gameListEntity.gameList.map((card) => {

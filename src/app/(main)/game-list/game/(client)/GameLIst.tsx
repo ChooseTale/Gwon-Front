@@ -23,7 +23,7 @@ export default function GameList() {
   }, [selectedGenres]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <CardList gameList={gameList} />
     </div>
   );

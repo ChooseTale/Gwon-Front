@@ -25,11 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} flex   w-full h-[100vh] bg-background-dark  `}
+        className={`${geistSans.variable} flex justify-center  w-full h-[100vh] bg-background-dark  `}
       >
         <SessionProvider>
           <CheckAuth />
-          <div className="flex w-[calc(100%-40px)] flex-col ml-[20px] mr-[20px] ">
+          <div className="flex w-[calc(100%-40px)] min-w-[320px] max-w-[600px] flex-col ml-[20px] mr-[20px] ">
             {children}
           </div>
         </SessionProvider>

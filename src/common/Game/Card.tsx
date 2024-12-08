@@ -29,7 +29,7 @@ export default function Card({
   clickCard,
 }: CardProps) {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-[171px] h-[266px]">
       <div
         className="w-full h-full aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
         onClick={() => clickCard(cards.id)}
