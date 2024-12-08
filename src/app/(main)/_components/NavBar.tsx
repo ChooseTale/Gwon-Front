@@ -11,31 +11,25 @@ export default function NavBar() {
   return (
     <div className="fixed left-0 bottom-[-1px] w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">
       <div className="flex justify-center w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">
-        <Link
-          className="flex justify-center items-center"
-          href="/game-list/game"
-        >
+        <Link className="flex justify-center items-center" href="/main/game">
           <Icon
             icon="bookOpenIcon"
             label="게임"
-            isSelected={pathname.startsWith("/game-list/game")}
+            isSelected={pathname.startsWith("/main/game")}
           />
         </Link>
-        <Link
-          className="flex justify-center items-center"
-          href="/game-list/builder"
-        >
+        <Link className="flex justify-center items-center" href="/main/builder">
           <Icon
             icon="editIcon"
             label="빌더"
-            isSelected={pathname.startsWith("/game-list/builder")}
+            isSelected={pathname.startsWith("/main/builder")}
           />
         </Link>
-        <Link className="flex justify-center items-center" href="/game-list/my">
+        <Link className="flex justify-center items-center" href="/main/my">
           <Icon
             icon="userIcon"
             label="마이"
-            isSelected={pathname.startsWith("/game-list/my")}
+            isSelected={pathname.startsWith("/main/my")}
           />
         </Link>
       </div>
