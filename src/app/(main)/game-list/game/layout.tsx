@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div
       ref={scrollRef}
       onScroll={handleScroll}
-      className="flex flex-col w-full h-full overflow-y-auto"
+      className="flex flex-col w-full h-full overflow-y-auto overflow-x-hidden"
     >
       {scrollPosition > 700 && <MoveTopButton onClick={scrollToTop} />}
       {children}
