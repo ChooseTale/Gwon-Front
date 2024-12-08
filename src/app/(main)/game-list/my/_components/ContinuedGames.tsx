@@ -36,10 +36,10 @@ export default function ContinuedGames() {
           />
         </div>
       </div>
-      <div className="flex flex-row h-[244px] gap-2 flex-nowrap overflow-x-auto mt-[12px]">
+      <div className="flex flex-row  h-[244px] gap-2 flex-nowrap  overflow-x-auto overflow-y-hidden mt-[12px]">
         {continuedGameList.map((game) => (
           <div
-            className="flex w-[170px] h-[173px] "
+            className="flex  w-[170px] h-[173px] "
             key={game.game.id.toString()}
           >
             <ContinuedGamesCard game={game} />
