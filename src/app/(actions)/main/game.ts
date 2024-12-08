@@ -6,11 +6,12 @@ import { getList } from "@choosetale/nestia-type/lib/functional/game_play/list/i
 
 interface GetGameListCallProps {
   genres: (keyof typeof GenresKorean)[];
+  order: "LATEST" | "OLDEST" | "POPULAR";
 }
 
 interface GetStaticGameListCallProps {
   genres: (keyof typeof GenresKorean)[];
-  order: "LATEST" | "POPULAR";
+  order: "LATEST" | "OLDEST" | "POPULAR";
   revalidateOption: {
     time: number;
   };
@@ -18,11 +19,12 @@ interface GetStaticGameListCallProps {
 
 export const getGameListCall = async ({
   genres,
+  order,
 }: GetGameListCallProps): Promise<getList.Output> => {
   const queryParams = new URLSearchParams({
     page: "1",
     limit: "10",
-    order: "LATEST",
+    order,
     genre: genres.length > 0 ? genres.join(",") : "ALL",
   });
 

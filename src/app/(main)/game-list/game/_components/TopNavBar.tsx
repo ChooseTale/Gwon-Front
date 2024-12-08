@@ -2,9 +2,16 @@
 import Svg from "@/common/Svg";
 import React, { useState, useEffect } from "react";
 import GenreBottomSheet from "./GenreBottomSheet";
+import DropDown from "@/common/DropDown";
+import { useGameOrderStore } from "@/store/Game/GameOrder.store";
 
 export default function TopNavBar() {
   const [isGenreBottomSheetOpen, setIsGenreBottomSheetOpen] = useState(false);
+  const [isSortBottomSheetOpen, setIsSortBottomSheetOpen] = useState(false);
+
+  const handleSortBottomSheet = () => {
+    setIsSortBottomSheetOpen(!isSortBottomSheetOpen);
+  };
 
   useEffect(() => {
     if (isGenreBottomSheetOpen) {
@@ -46,8 +53,13 @@ export default function TopNavBar() {
           />
           <span className="headline-md text-white ml-[6px]">장르</span>
         </div>
-        <div className="flex flex-row justify-center items-center">
-          <span className="body-rg text-white">최신순</span>
+        <div
+          onClick={handleSortBottomSheet}
+          className="flex flex-row justify-center items-center "
+        >
+          <span className="body-rg text-white">
+            {useGameOrderStore.getState().selectedOrderValue}
+          </span>
           <div className="flex flex-row w-[18px] h-[18px] justify-center items-center ">
             <Svg
               icon="chevronDownIcon"
@@ -58,6 +70,40 @@ export default function TopNavBar() {
               }}
             />
           </div>
+          {isSortBottomSheetOpen && (
+            <div className="flex  relative top-[15px] right-[116px] z-30">
+              <DropDown
+                values={[
+                  {
+                    key: "LATEST",
+                    value: "최신순",
+                  },
+                  {
+                    key: "OLDEST",
+                    value: "오래된순",
+                  },
+                  {
+                    key: "POPULAR",
+                    value: "인기순",
+                  },
+                ]}
+                onChange={(key, value) => {
+                  const currentOrder =
+                    useGameOrderStore.getState().selectedOrder;
+                  if (currentOrder === key) {
+                    return;
+                  }
+
+                  useGameOrderStore
+                    .getState()
+                    .setStoreSelectedOrder(
+                      key as "LATEST" | "OLDEST" | "POPULAR",
+                      value
+                    );
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
