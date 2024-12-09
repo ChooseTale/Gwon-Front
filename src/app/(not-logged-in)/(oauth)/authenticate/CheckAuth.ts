@@ -20,7 +20,7 @@ export default function CheckAuth() {
       router.push("/oauth");
     }
     if (isLoggedin && pathname === "/oauth") {
-      router.push("/game-list/game");
+      router.push("/main/game");
     }
   }, [status, sidCookie, pathname, router]);
   return null;
