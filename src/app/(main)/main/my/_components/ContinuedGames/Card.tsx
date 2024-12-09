@@ -1,4 +1,4 @@
-import Svg from "@/common/Svg";
+import { convertDate } from "@/app/(utils)/convert-date";
 import { GetContinuedGameListResDto } from "@choosetale/nestia-type/lib/structures/GetContinuedGameListResDto";
 import Image from "next/image";
 import React from "react";
@@ -18,10 +18,12 @@ export default function ContinuedGamesCard({
         height={100}
       />
       <div className="flex  flex-col mt-[8px]">
-        <span className="caption-rg text-gray-100">{game.play.createdAt}</span>
-        <div className="headline-md text-white">{game.game.title}</div>
-        <div className="flex flex-row items-center">
-          <div className="caption-rg text-green-500 line-clamp-1">
+        <span className="caption-rg text-gray-100 mt-[8px]">
+          {convertDate(game.play.createdAt)}
+        </span>
+        <div className="headline-md text-white mt-[2px]">{game.game.title}</div>
+        <div className="flex flex-row items-center mt-[2px]">
+          <div className="caption-rg text-green-500 line-clamp-1 mt-[2px]">
             {game.play.page.abridgement}
           </div>
         </div>

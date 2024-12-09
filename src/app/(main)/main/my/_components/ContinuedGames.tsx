@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import ContinuedGamesCard from "./ContinuedGames/Card";
 import { getContinuedGameList } from "@choosetale/nestia-type/lib/functional/my_page/continued_game";
 import { getMyContinuedGameListCall } from "@/app/(actions)/main/my-game";
+import Link from "next/link";
 
 export default function ContinuedGames() {
   const [continuedGameList, setContinuedGameList] =
@@ -28,13 +29,15 @@ export default function ContinuedGames() {
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center">
         <div className="title2-sb text-white">진행중인 게임</div>
-        <div className="flex  flex-row text-gray-500">
-          <span className="body1-sb">전체보기</span>
-          <Svg
-            icon="chevronRightIcon"
-            options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
-          />
-        </div>
+        <Link href="/main/my/continued-game">
+          <div className="flex  flex-row text-gray-500">
+            <span className="body1-sb">전체보기</span>
+            <Svg
+              icon="chevronRightIcon"
+              options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
+            />
+          </div>
+        </Link>
       </div>
       <div className="flex flex-row  h-[244px] gap-2 flex-nowrap  overflow-x-auto overflow-y-hidden mt-[12px]">
         {continuedGameList.map((game) => (
