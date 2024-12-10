@@ -75,6 +75,7 @@ type SvgOptions = {
     height?: number;
   };
   color?: keyof typeof colors;
+  fillColor?: keyof typeof colors;
   viewBox?: string;
 };
 
@@ -94,6 +95,7 @@ export default function Svg({
         height={options?.size?.height}
         viewBox={options?.viewBox || "0 0 24 24"}
         stroke={options?.color ? colors[options.color] : "none"}
+        fill={options?.fillColor ? colors[options.fillColor] : "none"}
       />
     </div>
   );
