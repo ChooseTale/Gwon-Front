@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function ContinuedGames() {
   const [continuedGameList, setContinuedGameList] =
     useState<getContinuedGameList.Output>([]);
-  console.log(continuedGameList);
+
   useEffect(() => {
     const getMyContinuedGameList = async () => {
       const res = await getMyContinuedGameListCall({

@@ -6,8 +6,6 @@ import Link from "next/link";
 export default function NavBar() {
   const pathname = usePathname();
 
-  console.log(pathname);
-
   return (
     <div className="fixed left-0 bottom-[-1px] w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">
       <div className="flex justify-center w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">
