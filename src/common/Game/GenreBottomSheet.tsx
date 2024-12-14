@@ -1,19 +1,21 @@
 import Svg from "@/common/Svg";
 import React, { useEffect, useState } from "react";
 import { GenresKorean } from "@/common/Game/Genre";
-import { useGameFilterStore } from "@/store/Game/GameFilter.store";
 
 interface GenreBottomSheetProps {
+  userSelectedGenres: (keyof typeof GenresKorean)[];
   handleClose: () => void;
+  handleApply: (genres: (keyof typeof GenresKorean)[]) => void;
 }
 
 export default function GenreBottomSheet({
+  userSelectedGenres,
   handleClose,
+  handleApply,
 }: GenreBottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedGenres, setSelectedGenres] = useState<
-    (keyof typeof GenresKorean)[]
-  >(useGameFilterStore.getState().selectedGenres);
+  const [selectedGenres, setSelectedGenres] =
+    useState<(keyof typeof GenresKorean)[]>(userSelectedGenres);
 
   const handleSelectGenre = (genre: keyof typeof GenresKorean) => {
     if (selectedGenres.includes(genre)) {
@@ -25,11 +27,6 @@ export default function GenreBottomSheet({
 
   const handleReset = () => {
     setSelectedGenres([]);
-  };
-
-  const handleApply = () => {
-    useGameFilterStore.getState().setStoreSelectedGenres(selectedGenres);
-    handleClose();
   };
 
   useEffect(() => {
@@ -99,7 +96,10 @@ export default function GenreBottomSheet({
             </div>
             <div
               className="flex w-[calc(252/390*100%)] h-[48px] justify-center items-center bg-green-500 text-black title2-md rounded-[8px]"
-              onClick={handleApply}
+              onClick={() => {
+                handleApply(selectedGenres);
+                handleClose();
+              }}
             >
               {selectedGenres.length > 0
                 ? selectedGenres.length + "건 적용하기"

@@ -1,10 +1,13 @@
 "use client";
 import Svg from "@/common/Svg";
 import React, { useState, useEffect } from "react";
-import ContinuedGameGenreBottomSheet from "./ContinuedGameGenreBottomSheet";
+
 import DropDown from "@/common/DropDown";
 import { useGameOrderStore } from "@/store/Game/GameOrder.store";
 import { useContinuedGameOrderStore } from "@/store/Game/continued/ContinuedGameOrder.store";
+import GenreBottomSheet from "../../../../../../common/Game/GenreBottomSheet";
+import { useContinuedGameFilterStore } from "@/store/Game/continued/ContinuedGameFilter.store";
+import { GenresKorean } from "@/common/Game/Genre";
 
 export default function TopNavBar() {
   const [isGenreBottomSheetOpen, setIsGenreBottomSheetOpen] = useState(false);
@@ -34,8 +37,16 @@ export default function TopNavBar() {
   return (
     <div className="">
       {isGenreBottomSheetOpen && (
-        <ContinuedGameGenreBottomSheet
+        <GenreBottomSheet
+          userSelectedGenres={
+            useContinuedGameFilterStore.getState().selectedGenres
+          }
           handleClose={() => setIsGenreBottomSheetOpen(false)}
+          handleApply={(selectedGenres: (keyof typeof GenresKorean)[]) => {
+            useContinuedGameFilterStore
+              .getState()
+              .setStoreSelectedGenres(selectedGenres);
+          }}
         />
       )}
 

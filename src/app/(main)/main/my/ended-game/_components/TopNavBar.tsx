@@ -1,10 +1,12 @@
 "use client";
 import Svg from "@/common/Svg";
 import React, { useState, useEffect } from "react";
-import GenreBottomSheet from "../../../../../common/Game/GenreBottomSheet";
+
 import DropDown from "@/common/DropDown";
 import { useGameOrderStore } from "@/store/Game/GameOrder.store";
-import { useGameFilterStore } from "@/store/Game/GameFilter.store";
+import GenreBottomSheet from "../../../../../../common/Game/GenreBottomSheet";
+import { useEndedGameFilterStore } from "@/store/Game/ended/EndedGameFilter.store";
+import { useEndedGameOrderStore } from "@/store/Game/ended/EndedGameOrder";
 import { GenresKorean } from "@/common/Game/Genre";
 
 export default function TopNavBar() {
@@ -36,10 +38,10 @@ export default function TopNavBar() {
     <div className="">
       {isGenreBottomSheetOpen && (
         <GenreBottomSheet
-          userSelectedGenres={useGameFilterStore.getState().selectedGenres}
+          userSelectedGenres={useEndedGameFilterStore.getState().selectedGenres}
           handleClose={() => setIsGenreBottomSheetOpen(false)}
           handleApply={(selectedGenres: (keyof typeof GenresKorean)[]) => {
-            useGameFilterStore
+            useEndedGameFilterStore
               .getState()
               .setStoreSelectedGenres(selectedGenres);
           }}
@@ -90,24 +92,17 @@ export default function TopNavBar() {
                     key: "OLDEST",
                     value: "오래된순",
                   },
-                  {
-                    key: "POPULAR",
-                    value: "인기순",
-                  },
                 ]}
                 onChange={(key, value) => {
                   const currentOrder =
-                    useGameOrderStore.getState().selectedOrder;
+                    useEndedGameOrderStore.getState().selectedOrder;
                   if (currentOrder === key) {
                     return;
                   }
 
-                  useGameOrderStore
+                  useEndedGameOrderStore
                     .getState()
-                    .setStoreSelectedOrder(
-                      key as "LATEST" | "OLDEST" | "POPULAR",
-                      value
-                    );
+                    .setSelectedOrder(key as "LATEST" | "OLDEST");
                 }}
               />
             </div>
