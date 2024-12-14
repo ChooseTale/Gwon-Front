@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@choosetale/nestia-type": "^0.1.15",
+    "@choosetale/nestia-type": "^1.1.12",
     "@tailwindcss/line-clamp": "^0.4.4",
     "cookies-next": "^5.0.2",
     "next": "15.0.3",
