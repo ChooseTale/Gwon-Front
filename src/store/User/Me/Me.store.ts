@@ -1,4 +1,4 @@
-import { getCookie } from "cookies-next";
+import { getCookie, deleteCookie } from "cookies-next";
 import { create } from "zustand";
 import { getMe } from "@choosetale/nestia-type/lib/functional/user/me/index";
 
@@ -16,6 +16,7 @@ interface MeStore {
   };
 
   setMe: () => void;
+  deleteMe: () => void;
 }
 
 export const useMeStore = create<MeStore>((set) => ({
@@ -46,5 +47,11 @@ export const useMeStore = create<MeStore>((set) => ({
           },
         },
       };
+    }),
+
+  deleteMe: () =>
+    set(() => {
+      deleteCookie("me");
+      return {};
     }),
 }));

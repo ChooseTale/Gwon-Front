@@ -2,18 +2,24 @@
 
 import UserImage from "@/assets/png/UserImage.png";
 import Svg from "@/common/Svg";
-import { useMeStore } from "@/store/User/Me/Me.store";
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function Profile() {
-  const me = useMeStore((state) => state.me);
+import { useMeStore } from "@/store/User/Me/Me.store";
+
+interface ProfileProps {
+  userData: ReturnType<typeof useMeStore.getState>["me"];
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function Profile({ userData, handleFileChange }: ProfileProps) {
   const [file, setFile] = useState<File | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCurrentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setFile(file);
+      handleFileChange(e);
     }
   };
 
@@ -21,12 +27,12 @@ export default function Profile() {
     <div className="flex flex-col items-center justify-center">
       <div className="relative flex flex-col items-center justify-center">
         <Image
-          className="w-[84px] h-[84px] object-cover cursor-pointer"
+          className="w-[84px] h-[84px] rounded-[18px] object-cover cursor-pointer"
           src={
             file
               ? URL.createObjectURL(file)
-              : me.profileImage?.url
-              ? me.profileImage.url
+              : userData.profileImage?.url
+              ? userData.profileImage.url
               : UserImage
           }
           alt="user"
@@ -52,7 +58,7 @@ export default function Profile() {
           type="file"
           accept="image/*"
           className="hidden"
-          onChange={handleFileChange}
+          onChange={handleCurrentFileChange}
         />
       </div>
     </div>

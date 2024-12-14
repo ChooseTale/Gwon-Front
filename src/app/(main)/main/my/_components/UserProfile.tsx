@@ -21,7 +21,7 @@ export default function UserProfile() {
       >
         <div className="flex w-[84px] h-[84px]  aspect-square rounded-[18px] ">
           <Image
-            className="w-full h-full object-cover"
+            className="w-full h-full rounded-[18px] object-cover"
             src={me.profileImage?.url ? me.profileImage.url : UserImage}
             alt="user"
             width={100}
