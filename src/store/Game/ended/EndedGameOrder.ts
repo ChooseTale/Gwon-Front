@@ -1,9 +1,20 @@
 import { create } from "zustand";
 
 export const useEndedGameOrderStore = create<{
-  selectedOrder: "LATEST" | "OLDEST";
-  setSelectedOrder: (order: "LATEST" | "OLDEST") => void;
+  selectedOrderKey: "LATEST" | "OLDEST";
+  selectedOrderValue: string;
+  setSelectedOrder: (order: {
+    key: "LATEST" | "OLDEST";
+    value: string;
+  }) => void;
 }>((set) => ({
-  selectedOrder: "LATEST",
-  setSelectedOrder: (order) => set({ selectedOrder: order }),
+  selectedOrderKey: "LATEST",
+  selectedOrderValue: "최신순",
+  setSelectedOrder: (order) =>
+    set((state) => {
+      return {
+        selectedOrderKey: order.key,
+        selectedOrderValue: order.value,
+      };
+    }),
 }));

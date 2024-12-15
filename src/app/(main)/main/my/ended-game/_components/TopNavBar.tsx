@@ -3,7 +3,6 @@ import Svg from "@/common/Svg";
 import React, { useState, useEffect } from "react";
 
 import DropDown from "@/common/DropDown";
-import { useGameOrderStore } from "@/store/Game/GameOrder.store";
 import GenreBottomSheet from "../../../../../../common/Game/GenreBottomSheet";
 import { useEndedGameFilterStore } from "@/store/Game/ended/EndedGameFilter.store";
 import { useEndedGameOrderStore } from "@/store/Game/ended/EndedGameOrder";
@@ -68,7 +67,7 @@ export default function TopNavBar() {
           className="flex flex-row justify-center items-center "
         >
           <span className="body-rg text-white">
-            {useGameOrderStore.getState().selectedOrderValue}
+            {useEndedGameOrderStore.getState().selectedOrderValue}
           </span>
           <div className="flex flex-row w-[18px] h-[18px] justify-center items-center ">
             <Svg
@@ -93,16 +92,17 @@ export default function TopNavBar() {
                     value: "오래된순",
                   },
                 ]}
-                onChange={(key, value) => {
+                onChange={(key: any, value) => {
                   const currentOrder =
-                    useEndedGameOrderStore.getState().selectedOrder;
+                    useEndedGameOrderStore.getState().selectedOrderKey;
+
                   if (currentOrder === key) {
                     return;
                   }
 
                   useEndedGameOrderStore
                     .getState()
-                    .setSelectedOrder(key as "LATEST" | "OLDEST");
+                    .setSelectedOrder({ key, value });
                 }}
               />
             </div>

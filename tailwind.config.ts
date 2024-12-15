@@ -28,6 +28,7 @@ export const colors = {
   "system-red": "#ff3b30",
   "system-blue": "#007aff",
   "system-yellow": "#ffcc00",
+  "ending-gradiant": "linear-gradient(90deg, #40FC6C, #45DCD2, #61D2FF)",
 };
 
 const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
@@ -155,6 +156,9 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
           fontWeight: "400",
           letterSpacing: "-0.025em",
           lineHeight: "1.4",
+        },
+        ".ending-gradiant": {
+          background: "linear-gradient(90deg, #40FC6C, #45DCD2, #61D2FF)",
         },
       });
     },

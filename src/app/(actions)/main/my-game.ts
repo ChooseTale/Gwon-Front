@@ -1,8 +1,9 @@
 "use server";
 
 import { getContinuedGameList } from "@choosetale/nestia-type/lib/functional/my_page/continued_game/index";
-import { getEndedGameList } from "@choosetale/nestia-type/lib/functional/my_page/ended_game/index";
+
 import { fetchIncetance } from "../fetch";
+import { getEndedGroupGameList } from "@choosetale/nestia-type/lib/functional/my_page/ended_game/group_game";
 
 export const getMyContinuedGameListCall = async (
   query: getContinuedGameList.Query
@@ -23,9 +24,9 @@ export const getMyContinuedGameListCall = async (
   return await res.json();
 };
 
-export const getMyEndedGameListCall = async (
-  query: getEndedGameList.Query
-): Promise<getEndedGameList.Output> => {
+export const getMyEndedGameGroupListCall = async (
+  query: getEndedGroupGameList.Query
+): Promise<getEndedGroupGameList.Output> => {
   const queryParams = new URLSearchParams({
     page: query.page.toString(),
     limit: query.limit.toString(),
@@ -35,7 +36,7 @@ export const getMyEndedGameListCall = async (
 
   const res = await fetchIncetance(
     `${process.env.NEXT_PUBLIC_BACKEND_API}${
-      getEndedGameList.METADATA.path
+      getEndedGroupGameList.METADATA.path
     }?${queryParams.toString()}`,
     {}
   );

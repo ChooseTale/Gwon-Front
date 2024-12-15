@@ -33,6 +33,8 @@ import {
   xIcon,
 } from "../assets/icons";
 
+import taleGradientIcon from "../assets/icons/gradient/tale.svg";
+
 const SvgIcons = {
   arrowDownRightIcon,
   arrowRightIcon,
@@ -60,6 +62,7 @@ const SvgIcons = {
   slidersWhiteIcon,
   socialGoogleButtonIcon,
   taleIcon,
+  taleGradientIcon,
   userIcon,
   usersProfilesIcon,
   xCircleIcon,
