@@ -1,9 +1,18 @@
 "use client";
 
 import Svg from "@/common/Svg";
+import { useCommonStore } from "@/store/common.store";
 import React from "react";
 
 export default function MoveTopButton({ onClick }: { onClick: () => void }) {
+  const isModalOrBottomSheetOpen = useCommonStore(
+    (state) => state.isModalOrBottomSheetOpen
+  );
+
+  if (isModalOrBottomSheetOpen) {
+    return <></>;
+  }
+
   return (
     <div id="move-top-button" className="flex flex-col w-full h-full">
       <button

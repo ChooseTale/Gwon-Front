@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import UserImage from "./Card/Image";
 import { GenresKorean } from "./Genre";
+import GameBottomSheet from "./DetailBottomSheet/GameBottomSheet";
 
 type CardProps = {
   cardData: {
@@ -28,11 +29,26 @@ export default function Card({
   users,
   clickCard,
 }: CardProps) {
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClickCard = () => {
+    setIsClicked(true);
+    clickCard(cards.id);
+  };
+
+  const handleCloseBottomSheet = () => {
+    setIsClicked(false);
+  };
   return (
     <div className="flex flex-col w-[171px] h-[266px]">
+      {isClicked && (
+        <GameBottomSheet
+          gameId={cards.id}
+          handleClose={handleCloseBottomSheet}
+        />
+      )}
       <div
         className="w-full h-full aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
-        onClick={() => clickCard(cards.id)}
+        onClick={handleClickCard}
       >
         <Image
           className="object-cover w-full h-full"
