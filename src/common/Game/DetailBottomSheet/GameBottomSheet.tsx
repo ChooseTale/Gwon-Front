@@ -8,6 +8,8 @@ import React, { useEffect, useState } from "react";
 import { GenresKorean } from "../Genre";
 import { getIntroScreenCall } from "@/app/(actions)/main/play-game/intro";
 import { useCommonStore } from "@/store/common.store";
+import goldBadge from "@/assets/png/gold.png";
+import silverBadge from "@/assets/png/silver.png";
 
 type GameBottomSheetProps = {
   gameId: number;
@@ -94,9 +96,33 @@ export default function GameBottomSheet({
               width={100}
               height={100}
             />
+            {game.enrichData.completedEnding > 0 &&
+              game.enrichData.completedEnding < game.enrichData.totalEnding && (
+                <div className="absolute top-[260px] left-[12px]   flex flex-row gap-x-2 items-center ">
+                  <Image
+                    src={silverBadge}
+                    alt="producer"
+                    width={48}
+                    height={48}
+                  />
+                  <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
+                    {game.enrichData.completedEnding}개의 엔딩을 봤어요
+                  </span>
+                </div>
+              )}
+            {/* 엔딩 완료 배지 */}
+            {game.enrichData.completedEnding ===
+              game.enrichData.totalEnding && (
+              <div className="absolute top-[260px] left-[12px]   flex flex-row gap-x-2 items-center ">
+                <Image src={goldBadge} alt="producer" width={48} height={48} />
+                <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
+                  모든 엔딩을 봤어요
+                </span>
+              </div>
+            )}
           </div>
-          {/* 박��� 쉐도우 */}
-          <div className="absolute w-full h-[162px] bottom-sheet left-0 top-[194px]  "></div>
+          {/* 박 쉐도우 */}
+          <div className="absolute w-full h-[62px] bottom-sheet left-0 top-[294px]  "></div>
           {/* 컨텐츠 내용들 */}
           <div
             className="absolute top-[323px] flex flex-col w-[calc(100%-32px)]
@@ -104,6 +130,9 @@ export default function GameBottomSheet({
           >
             <div className="flex flex-col w-full h-full">
               {/* 장르, 제목, 작성자 */}
+
+              <div className="flex flex-row justify-center items-center "></div>
+
               <div className="flex flex-col gap-y-4">
                 <span className="flex body-rg text-gray-100">
                   {GenresKorean[game.game.genre as keyof typeof GenresKorean]}

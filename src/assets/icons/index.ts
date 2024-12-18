@@ -32,6 +32,8 @@ import xIcon from "./x.svg";
 
 /** api/gen-icons-list로 fs의 아이콘 목록 확인 가능 */
 
+import taleGradientIcon from "./gradient/tale.svg";
+
 export {
   arrowDownRightIcon,
   arrowRightIcon,
@@ -59,6 +61,7 @@ export {
   slidersWhiteIcon,
   socialGoogleButtonIcon,
   taleIcon,
+  taleGradientIcon,
   userIcon,
   usersProfilesIcon,
   xCircleIcon,

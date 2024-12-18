@@ -165,6 +165,9 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
         ".ending-gradiant": {
           background: "linear-gradient(90deg, #40FC6C, #45DCD2, #61D2FF)",
         },
+        ".ending-gradiant-90": {
+          background: "linear-gradient(180deg, #40FC6C, #45DCD2, #61D2FF)",
+        },
         ".bottom-sheet": {
           background:
             "linear-gradient(180deg, rgba(40, 40, 40, 0), rgba(40, 40, 40, 0.5), rgba(40, 40, 40, 1))",

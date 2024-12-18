@@ -51,7 +51,7 @@ export default function Card({
             {GenresKorean[cards.category as keyof typeof GenresKorean]}
           </span>
           <span className="text-white headline-md line-clamp-2">
-            {cards.title} 짱짱길면어떻게하지
+            {cards.title}
           </span>
         </div>
 
