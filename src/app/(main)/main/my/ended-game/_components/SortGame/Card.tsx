@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React from "react";
-import UserImage from "@/common/Game/Card/Image";
 import { GenresKorean } from "@/common/Game/Genre";
 import Svg from "@/common/Svg";
 
@@ -20,22 +19,13 @@ type CardProps = {
     id: number;
     imageUrl: string;
   }[];
-  clickCard: (cardId: number) => void;
 };
 
-export default function Card({
-  cardData: cards,
-  enrich,
-  users,
-  clickCard,
-}: CardProps) {
+export default function Card({ cardData: cards, enrich, users }: CardProps) {
   return (
     <div className="flex flex-col justify-between w-[171px] h-[270px]">
       {/* 이미지 */}
-      <div
-        className="w-full  aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
-        onClick={() => clickCard(cards.id)}
-      >
+      <div className="w-full  aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative">
         <Image
           className="object-cover w-full h-full"
           src={cards.image}
