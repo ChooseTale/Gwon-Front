@@ -36,15 +36,21 @@ export const useMeStore = create<MeStore>((set) => ({
 
       const meCookie = JSON.parse(getCookie("me") as string) as getMe.Output;
 
+      if (!meCookie) {
+        return {};
+      }
+
       return {
         me: {
           userId: meCookie.id,
           email: meCookie.email,
           nickname: meCookie.nickname,
           profileImage: meCookie.profileImage,
-          admin: {
-            isMaster: meCookie.admin.isMaster,
-          },
+          admin: meCookie.admin
+            ? {
+                isMaster: meCookie.admin.isMaster,
+              }
+            : { isMaster: false },
         },
       };
     }),

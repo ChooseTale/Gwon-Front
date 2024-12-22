@@ -50,7 +50,6 @@ export default function ProfilePage() {
         <Button
           value="저장하기"
           onClick={() => {
-            console.log(userData);
             const formData = new FormData();
             formData.append("nickname", userData.nickname);
             formData.append("image", profileImageFile as Blob);

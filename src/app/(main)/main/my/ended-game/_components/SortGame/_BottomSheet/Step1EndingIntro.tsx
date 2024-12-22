@@ -152,7 +152,6 @@ export default function Step1EndingIntro({
               <div
                 className="flex w-full h-[52px] pt-[10px] pb-[10px]  border-gray-600 border-[1px] rounded-[4px] justify-center items-center mt-3"
                 onClick={() => {
-                  console.log("게임 상세보기 버튼 클릭");
                   handleStep("step2");
                 }}
               >

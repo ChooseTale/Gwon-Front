@@ -2,9 +2,13 @@
 
 import React, { useState } from "react";
 import Modal from "./Modal";
+import { logoutCall, signOutCall } from "@/app/(actions)/user/auth";
+import { useRouter } from "next/navigation";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export default function SignOut() {
   const [modal, setModal] = useState<React.ReactNode | null>(null);
+  const router = useRouter();
 
   const handleModal = (modal: "logout" | "signout") => {
     switch (modal) {
@@ -21,7 +25,15 @@ export default function SignOut() {
               confirmButtonStr: "로그아웃",
             }}
             handleCancel={() => setModal(null)}
-            handleConfirm={() => {}}
+            handleConfirm={() => {
+              logoutCall();
+
+              deleteCookie("connect.sid");
+              deleteCookie("loggedIn");
+              deleteCookie("me");
+
+              router.push("/oauth");
+            }}
           />
         );
         break;
@@ -38,7 +50,14 @@ export default function SignOut() {
               confirmButtonStr: "탈퇴하기",
             }}
             handleCancel={() => setModal(null)}
-            handleConfirm={() => {}}
+            handleConfirm={() => {
+              signOutCall();
+
+              deleteCookie("connect.sid");
+              deleteCookie("loggedIn");
+              deleteCookie("me");
+              router.push("/oauth");
+            }}
           />
         );
         break;
@@ -52,7 +71,9 @@ export default function SignOut() {
       {modal && modal}
       <div
         className="flex text-gray-400 body-rg-14"
-        onClick={() => handleModal("logout")}
+        onClick={() => {
+          handleModal("logout");
+        }}
       >
         로그아웃
       </div>

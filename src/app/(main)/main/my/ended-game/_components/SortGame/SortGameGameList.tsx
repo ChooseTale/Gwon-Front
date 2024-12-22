@@ -26,7 +26,6 @@ export default function SortGameGameList() {
     step: "step1" | "step2" | null,
     gameId: number | null
   ) => {
-    console.log(step, gameId);
     setIsOpenBottomSheet(step);
     setSelectedGameId(gameId);
   };

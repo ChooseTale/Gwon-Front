@@ -1,7 +1,11 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Svg from "@/common/Svg";
+import { testUserLoginCall } from "@/app/(actions)/user/auth";
+import { useRouter } from "next/navigation";
+
 export default function OAuthPage() {
+  const router = useRouter();
   const loginHandler = () => {
     signIn("google");
   };
@@ -15,6 +19,14 @@ export default function OAuthPage() {
          justify-center items-center
          mb-[42px]
       "
+        onClick={() => {
+          const nodeEnv = process.env.NODE_ENV;
+          if (nodeEnv === "development") {
+            testUserLoginCall().then(() => {
+              router.push("/main/game");
+            });
+          }
+        }}
       >
         <Svg
           icon="taleIcon"
@@ -22,6 +34,7 @@ export default function OAuthPage() {
             size: { width: 43, height: 43 },
             color: "green-500",
             viewBox: "0 0 43 43",
+            fillColor: "green-500",
           }}
         />
       </div>
