@@ -10,7 +10,7 @@ export default function page() {
       <UserProfile />
       <div className="mt-[56px]" />
       <ContinuedGames />
-      <div className="w-[100vw] h-[12px] bg-gray-900  mt-[40px] mb-[40px] ml-[-20px]" />
+      <div className="w-[100vw] min-h-[12px] h-[12px] bg-gray-900  mt-[40px] mb-[40px] relative" />
       <EndedGameNav />
       <div className="mt-[26px]" />
       <SignOut />

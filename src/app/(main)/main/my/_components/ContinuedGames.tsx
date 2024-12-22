@@ -40,14 +40,20 @@ export default function ContinuedGames() {
         </Link>
       </div>
       <div className="flex flex-row  h-[244px] gap-2 flex-nowrap  overflow-x-auto overflow-y-hidden mt-[12px]">
-        {continuedGameList.map((game) => (
-          <div
-            className="flex  w-[170px] h-[173px] "
-            key={game.game.id.toString()}
-          >
-            <ContinuedGamesCard game={game} />
+        {continuedGameList.length === 0 ? (
+          <div className="flex text-gray-400 body-sb w-full h-full justify-center items-center ">
+            진행중인 게임이 없어요
           </div>
-        ))}
+        ) : (
+          continuedGameList.map((game) => (
+            <div
+              className="flex  w-[170px] h-[173px] "
+              key={game.game.id.toString()}
+            >
+              <ContinuedGamesCard game={game} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
