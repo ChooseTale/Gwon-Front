@@ -10,7 +10,6 @@ interface EndingCardProps {
 
 export default function EndingCard({ ending, endingNumber }: EndingCardProps) {
   if (!ending) {
-    console.log(endingNumber);
     return (
       <div className="flex w-full bg-gray-800  min-h-[84px] flex-col rounded-[8px]">
         {/* 엔딩 제목, 날짜 */}

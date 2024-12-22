@@ -5,9 +5,20 @@ import { useCommonStore } from "@/store/common.store";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import EndingCard from "./EndingCard";
+import { GenresKorean } from "@/common/Game/Genre";
 
 interface Step1EndingIntroProps {
   totalEndingCount: number;
+  game: {
+    title: string;
+    genre: string;
+    thumbnail: {
+      url: string;
+    };
+    producer: {
+      name: string;
+    };
+  };
   endings: {
     playId: number;
     endingNumber: number;
@@ -15,12 +26,15 @@ interface Step1EndingIntroProps {
     reachedEndingAt: string;
   }[];
   handleClose: () => void;
+  handleStep: (step: string) => void;
 }
 
 export default function Step1EndingIntro({
   totalEndingCount,
   endings,
+  game,
   handleClose,
+  handleStep,
 }: Step1EndingIntroProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +59,7 @@ export default function Step1EndingIntro({
             h-[calc(100%-60px)]
              bottom-0
         z-20
-         bg-gray-900 p-4 rounded-t-[20px] shadow-lg
+         bg-gray-900 pl-4 pr-4 rounded-t-[20px] shadow-lg
         overflow-y-auto
          overflow-x-hidden
 
@@ -60,7 +74,7 @@ export default function Step1EndingIntro({
             <div
               className="absolute flex justify-center items-center rounded-full
                       bg-gray-900
-              top-0 right-0  w-[28px] h-[28px]"
+              top-[26px] right-[6px]  w-[28px] h-[28px]"
             >
               <button
                 onClick={() => {
@@ -73,7 +87,7 @@ export default function Step1EndingIntro({
                   icon="xIcon"
                   options={{
                     size: { width: 24, height: 24 },
-                    color: "gray-700",
+                    color: "white",
                   }}
                 />
               </button>
@@ -85,9 +99,7 @@ export default function Step1EndingIntro({
                 <div className="flex w-[90px] h-[90px] aspect-square">
                   <Image
                     className="object-cover rounded-[4px]"
-                    src={
-                      "https://img.sbs.co.kr/newsnet/etv/upload/2024/04/25/30000922260_1280.jpg"
-                    }
+                    src={game.thumbnail.url}
                     alt="영화 이미지"
                     width={100}
                     height={100}
@@ -95,9 +107,11 @@ export default function Step1EndingIntro({
                 </div>
                 {/* 장르, 제목, 작성자 */}
                 <div className="flex flex-col w-full h-full justify-between items-start gap-y-2 ">
-                  <div className="flex  caption-rg text-gray-100">미스테리</div>
+                  <div className="flex  caption-rg text-gray-100">
+                    {GenresKorean[game.genre as keyof typeof GenresKorean]}
+                  </div>
                   <div className="flex headline-rg text-white line-clamp-2 h-[44px]">
-                    미스테리 영화 속 미스테리 두줄일 수도 있어용 히히히히히
+                    {game.title}
                   </div>
                   <div
                     className="flex h-[28px] bg-gray-800 items-center rounded-[4px] w-fit
@@ -105,15 +119,15 @@ export default function Step1EndingIntro({
                     pl-[6px] pr-[6px]"
                   >
                     <span className="flex body-rg text-white">
-                      @사용자사용자
+                      @{game.producer.name}
                     </span>
                   </div>
                 </div>
               </div>
               {/* 엔딩 리스트 */}
-              <div className="flex w-full h-full flex-col  mt-[32px]">
+              <div className="flex w-full h-full flex-col   mt-[32px]">
                 <span className="flex w-full title2-sb  text-white">엔딩</span>
-                <div className="flex w-full h-[460px] gap-y-[12px] flex-col   mt-3">
+                <div className="flex w-full  gap-y-[12px] flex-col    mt-3">
                   {Array.from({ length: totalEndingCount }).map((_, index) => {
                     return (
                       <EndingCard
@@ -133,6 +147,27 @@ export default function Step1EndingIntro({
                     );
                   })}
                 </div>
+              </div>
+              {/* 게임 상세보기 버튼 */}
+              <div
+                className="flex w-full h-[52px] pt-[10px] pb-[10px]  border-gray-600 border-[1px] rounded-[4px] justify-center items-center mt-3"
+                onClick={() => {
+                  console.log("게임 상세보기 버튼 클릭");
+                  handleStep("step2");
+                }}
+              >
+                <span className="flex body-rg text-white items-center gap-x-1">
+                  게임 상세보기
+                  <div className="flex justify-center items-center">
+                    <Svg
+                      icon="chevronRightIcon"
+                      options={{
+                        size: { width: 24, height: 24 },
+                        color: "white",
+                      }}
+                    />
+                  </div>
+                </span>
               </div>
             </div>
           </div>

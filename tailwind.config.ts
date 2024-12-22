@@ -100,7 +100,7 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
           fontSize: "18px",
           fontWeight: "500",
           letterSpacing: "-0.025em",
-          lineHeight: "1.4",
+          lineHeight: "25.2px",
         },
         ".title2-rg": {
           fontSize: "18px",
