@@ -50,6 +50,8 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
       },
       screens: {
         xs: "320px",
+        cardScreen1: "458px",
+        cardScreen2: "596px",
       },
       fontFamily: {
         pretendard: ["Pretendard", "sans-serif"],

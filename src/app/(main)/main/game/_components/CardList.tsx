@@ -9,7 +9,15 @@ export default function CardList({ gameList }: { gameList: GameListEntity }) {
     <div className="flex w-full h-full flex-row gap-2 flex-wrap justify-start">
       {gameList.gameList.map((game) => {
         return (
-          <div className="flex  mb-[24px]" key={game.game.id}>
+          <div
+            className={`flex mb-[24px]
+            w-[calc(50%-4px)]
+            cardScreen1:w-[calc(33.33%-8px)]
+            cardScreen2:w-[180px]
+              max-w-[180px]
+            `}
+            key={game.game.id}
+          >
             <Card
               cardData={{
                 id: game.game.id,

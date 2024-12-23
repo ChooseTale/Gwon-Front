@@ -46,9 +46,15 @@ export default function SortGameGameList() {
   }, [selectedGenres, selectedOrderKey]);
 
   return (
-    <div className="flex flex-row flex-wrap gap-[8px]">
+    <div className="flex flex-row  flex-wrap gap-[8px]">
       {gameList.map((game) => (
-        <div key={game.game.id}>
+        <div
+          key={game.game.id}
+          className="flex  w-[calc(50%-4px)]
+            cardScreen1:w-[calc(33.33%-4px)]
+            cardScreen2:w-[180px]
+              max-w-[180px]"
+        >
           {isOpenBottomSheet === "step1" && selectedGameId === game.game.id && (
             <Step1EndingIntro
               handleClose={() => handleBottomSheet(null, null)}
@@ -78,6 +84,7 @@ export default function SortGameGameList() {
           <div
             key={game.game.id}
             onClick={() => handleBottomSheet("step1", game.game.id)}
+            className="flex w-full "
           >
             <Card
               key={game.game.id}

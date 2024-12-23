@@ -39,7 +39,7 @@ export default function Card({
     setIsClicked(false);
   };
   return (
-    <div className="flex flex-col w-[171px] h-[266px]">
+    <div className="flex w-full flex-col flex-1 flex-shrink-0">
       {isClicked && (
         <GameBottomSheet
           gameId={cards.id}
@@ -54,8 +54,7 @@ export default function Card({
           className="object-cover w-full h-full"
           src={cards.image}
           alt="game"
-          width={100}
-          height={100}
+          fill
         />
       </div>
       <span className="text-white headline-md mt-[8px]">{cards.title}</span>

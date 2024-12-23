@@ -23,7 +23,7 @@ export default function ContinuedGamesCard({
     setIsOpen(false);
   };
   return (
-    <div className="w-[170px]  h-full   flex flex-col">
+    <div className="w-full  h-full   flex flex-col">
       {isOpen && (
         <GameBottomSheet gameId={game.game.id} handleClose={handleClose} />
       )}

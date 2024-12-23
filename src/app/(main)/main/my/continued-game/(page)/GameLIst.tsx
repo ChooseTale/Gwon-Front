@@ -36,7 +36,13 @@ export default function ContinuedGamesList() {
     <div className="flex flex-col">
       <div className="flex flex-row  flex-wrap gap-2     mt-[12px]">
         {continuedGameList.map((game) => (
-          <div className="flex  w-[170px]  " key={game.game.id.toString()}>
+          <div
+            className="flex  w-[calc(50%-4px)]
+            cardScreen1:w-[calc(33.33%-8px)]
+            cardScreen2:w-[180px]
+              max-w-[180px] "
+            key={game.game.id.toString()}
+          >
             <ContinuedGamesCard game={game} />
           </div>
         ))}

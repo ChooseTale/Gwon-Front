@@ -23,19 +23,18 @@ type CardProps = {
 
 export default function Card({ cardData: cards, enrich, users }: CardProps) {
   return (
-    <div className="flex flex-col justify-between w-[171px] h-[270px]">
+    <div className="flex flex-col justify-between w-full ">
       {/* 이미지 */}
       <div className="w-full  aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative">
         <Image
-          className="object-cover w-full h-full"
+          className="object-cover w-full aspect-square"
           src={cards.image}
           alt="game"
-          width={100}
-          height={100}
+          fill
         />
       </div>
       {/* 장르 */}
-      <div className="flex flex-col h-[90px]  justify-between ">
+      <div className="flex flex-col h-[90px] mt-2  justify-between ">
         <div className="flex flex-col ">
           <span className="caption-rg text-gray-200">
             {GenresKorean[cards.category as keyof typeof GenresKorean]}
