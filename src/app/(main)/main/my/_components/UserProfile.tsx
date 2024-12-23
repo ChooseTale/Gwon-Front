@@ -24,6 +24,7 @@ export default function UserProfile() {
             className="w-full h-full rounded-[18px] object-cover"
             src={me.profileImage?.url ? me.profileImage.url : UserImage}
             alt="user"
+            layout="responsive"
             width={100}
             height={100}
           />

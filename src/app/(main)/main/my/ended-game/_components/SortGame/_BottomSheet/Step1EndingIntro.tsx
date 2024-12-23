@@ -101,6 +101,7 @@ export default function Step1EndingIntro({
                     className="object-cover rounded-[4px]"
                     src={game.thumbnail.url}
                     alt="영화 이미지"
+                    layout="responsive"
                     width={100}
                     height={100}
                   />

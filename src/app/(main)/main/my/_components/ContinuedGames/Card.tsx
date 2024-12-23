@@ -32,6 +32,7 @@ export default function ContinuedGamesCard({
           className="w-full  aspect-square object-cover rounded-[8px]"
           src={game.game.thumbnail.url ?? ""}
           alt="game"
+          layout="responsive"
           width={100}
           height={100}
         />

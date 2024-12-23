@@ -93,6 +93,7 @@ export default function GameBottomSheet({
               className="w-full object-cover rounded-t-[20px]"
               src={game.game.thumbnailUrl}
               alt="game"
+              layout="responsive"
               width={100}
               height={100}
             />
@@ -102,6 +103,7 @@ export default function GameBottomSheet({
                   <Image
                     src={silverBadge}
                     alt="producer"
+                    layout="responsive"
                     width={48}
                     height={48}
                   />
@@ -114,7 +116,13 @@ export default function GameBottomSheet({
             {game.enrichData.completedEnding ===
               game.enrichData.totalEnding && (
               <div className="absolute top-[260px] left-[12px]   flex flex-row gap-x-2 items-center ">
-                <Image src={goldBadge} alt="producer" width={48} height={48} />
+                <Image
+                  src={goldBadge}
+                  alt="producer"
+                  layout="responsive"
+                  width={48}
+                  height={48}
+                />
                 <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
                   모든 엔딩을 봤어요
                 </span>
