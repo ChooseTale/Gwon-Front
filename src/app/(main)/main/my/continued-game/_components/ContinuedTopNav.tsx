@@ -95,7 +95,7 @@ export default function TopNavBar() {
                     value: "오래된순",
                   },
                 ]}
-                onChange={(key, value) => {
+                onChange={(key) => {
                   const currentOrder =
                     useContinuedGameOrderStore.getState().selectedOrder;
                   if (currentOrder === key) {

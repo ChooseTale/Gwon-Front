@@ -11,7 +11,7 @@ export const useEndedGameOrderStore = create<{
   selectedOrderKey: "LATEST",
   selectedOrderValue: "최신순",
   setSelectedOrder: (order) =>
-    set((state) => {
+    set(() => {
       return {
         selectedOrderKey: order.key,
         selectedOrderValue: order.value,

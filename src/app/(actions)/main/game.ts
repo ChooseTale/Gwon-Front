@@ -45,7 +45,7 @@ export const getStaticGameListCall = async ({
 }: GetStaticGameListCallProps): Promise<getList.Output> => {
   const queryParams = new URLSearchParams({
     page: "1",
-    limit: "5",
+    limit: "10",
     order,
     genre: genres.length > 0 ? genres.join(",") : "ALL",
   });

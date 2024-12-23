@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Modal from "./Modal";
 import { logoutCall, signOutCall } from "@/app/(actions)/user/auth";
 import { useRouter } from "next/navigation";
-import { deleteCookie, getCookie } from "cookies-next";
+import { deleteCookie } from "cookies-next";
 
 export default function SignOut() {
   const [modal, setModal] = useState<React.ReactNode | null>(null);

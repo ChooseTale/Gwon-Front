@@ -92,11 +92,15 @@ export default function TopNavBar() {
                     value: "오래된순",
                   },
                 ]}
-                onChange={(key: any, value) => {
+                onChange={(key: string, value) => {
                   const currentOrder =
                     useEndedGameOrderStore.getState().selectedOrderKey;
 
                   if (currentOrder === key) {
+                    return;
+                  }
+
+                  if (key !== "LATEST" && key !== "OLDEST") {
                     return;
                   }
 

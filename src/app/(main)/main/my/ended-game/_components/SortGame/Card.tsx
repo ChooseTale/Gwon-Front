@@ -21,7 +21,7 @@ type CardProps = {
   }[];
 };
 
-export default function Card({ cardData: cards, enrich, users }: CardProps) {
+export default function Card({ cardData: cards }: CardProps) {
   return (
     <div className="flex flex-col justify-between w-full ">
       {/* 이미지 */}
