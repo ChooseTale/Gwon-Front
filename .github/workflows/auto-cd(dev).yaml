@@ -48,7 +48,6 @@ jobs:
           docker build -t gwon-front .
           docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d -p 3000:3000 gwon-front
 
-          nohup ${{ inputs.dev_command }} > output.log 2>&1 &
           sleep 5
           EOF
 
