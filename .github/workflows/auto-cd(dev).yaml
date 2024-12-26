@@ -1,0 +1,62 @@
+name: auto-cd(dev)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dev_command:
+        type: choice
+        required: true
+        description: "dev command"
+        options:
+          - pnpm dev
+
+env:
+  SERVER_HOST: ${{ secrets.DEV_SERVER_HOST }}
+  SERVER_USER: ${{ secrets.DEV_SERVER_USER }}
+  SERVER_SSH_KEY: ${{ secrets.DEV_SERVER_SSH_KEY }}
+  SERVER_SSH_PASSPHRASE: ${{ secrets.DEV_SERVER_SSH_PASSPHRASE }}
+  DEPLOY_PATH: choose-tale/Gwon-Front
+  BRANCH: ${{github.ref_name}}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: echo env
+        run: |
+          echo ${{ env.DEPLOY_PATH }}
+          echo ${{ env.BRANCH }}
+
+      - name: Set up SSH key with passphrase
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ env.SERVER_SSH_KEY }}
+          ssh-passphrase: ${{ env.SERVER_SSH_PASSPHRASE }}
+
+      - name: 원격 서버에 배포
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'EOF'
+
+
+          cd ${{ env.DEPLOY_PATH }}
+          git restore
+          git fetch --all
+          git pull origin ${{ env.BRANCH }}
+
+          docker build -t gwon-front .
+          docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d -p 3000:3000 gwon-front
+
+          nohup ${{ inputs.dev_command }} > output.log 2>&1 &
+          sleep 5
+          EOF
+
+      - name: 슬랙 메시지 전송
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_CHANNEL_WEBHOOK }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"프론트 배포가 완료되었습니다. port: 3000 , branch: ${{ env.BRANCH }}"}' $SLACK_WEBHOOK_URL
+
+      - name: SSH 키 정리
+        run: rm -rf ~/.ssh
