@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "img.sbs.co.kr",
-      process.env.NEXT_PUBLIC_IMAGE_DOMAIN ?? "",
-      "lh3.googleusercontent.com",
+    remotePatterns: [
+      {
+        hostname: "**",
+      },
     ],
   },
   /* config options here */
