@@ -20,7 +20,7 @@ export default function Input({
   const [inputValue, setInputValue] = useState(value);
   const [isError, setIsError] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
+  console.log(isActive);
   useEffect(() => {
     setInputValue(value);
   }, [value]);
@@ -55,7 +55,6 @@ export default function Input({
         border rounded-[6px]
         ${isError ? "border-red-500" : "border-gray-600"}
         outline-none text-white
-        placeholder:text-white
         placeholder:text-body-md p-[10px]
         ${isActive ? "placeholder:text-body-2" : "placeholder:text-gray-600"}
         `}
