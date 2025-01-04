@@ -2,6 +2,7 @@
 
 import { convertDate } from "@/app/(utils)/convert-date";
 import { GenresKorean } from "@/common/Game/Genre";
+import Svg from "@/common/Svg";
 
 import Image from "next/image";
 import React from "react";
@@ -21,9 +22,9 @@ interface GameCardProps {
   };
 }
 
-export default function GmaeCard(game: GameCardProps) {
+export default function PublishedGameCard(game: GameCardProps) {
   return (
-    <div className="w-full h-[170px] rounded-[8px] border border-gray-700">
+    <div className="flex flex-col w-full h-[209px] rounded-[8px] border border-gray-700">
       {/* 장르, 수정 날짜 */}
       <div className="flex flex-row  justify-between items-center ml-4 mr-4 mt-4">
         <div className="caption-rg text-white">{GenresKorean[game.genre]}</div>
@@ -58,10 +59,10 @@ export default function GmaeCard(game: GameCardProps) {
           <div className=" headline-sb h-[44px] text-white text-ellipsis line-clamp-2">
             {game.title}
           </div>
-          <div className="mt-1 body-rg text-gray-600 text-ellipsis line-clamp-2">
+          <div className="mt-1 body-rg h-[40px] text-gray-600 text-ellipsis line-clamp-2">
             {game.description}
           </div>
-          <div className="flex flex-row items-center mt-2">
+          <div className="flex flex-row h-[17px] items-center mt-2">
             <div className="flex caption-rg text-end text-green-500">
               엔딩 {game.counts.ending}개
             </div>
@@ -74,6 +75,22 @@ export default function GmaeCard(game: GameCardProps) {
               페이지 {game.counts.choices}개
             </div>
           </div>
+        </div>
+      </div>
+      {/* 유저 결과 보기 */}
+      <div
+        className="flex flex-row bg-gray-900
+      flex-1  rounded-b-[8px] justify-end items-center mt-4"
+      >
+        <div className="body-md text-white mr-2">유저 결과 보기</div>
+        <div className="mr-4">
+          <Svg
+            icon="chevronRightIcon"
+            options={{
+              size: { width: 20, height: 20 },
+              color: "white",
+            }}
+          />
         </div>
       </div>
     </div>

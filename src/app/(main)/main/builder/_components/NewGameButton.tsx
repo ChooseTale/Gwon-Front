@@ -8,7 +8,7 @@ export default function NewGameButton() {
   const router = useRouter();
   return (
     <div
-      className="absolute bottom-[24px] flex w-[136px] h-[52px] items-center justify-center
+      className="fixed bottom-[88px] flex w-[136px] h-[52px] items-center justify-center
     gap-1
     rounded-[58px] bg-green-500 text-black"
       onClick={() => {

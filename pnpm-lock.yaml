@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@choosetale/nestia-type':
-    specifier: ^1.1.12
-    version: 1.1.12(typescript@5.6.3)
+    specifier: ^1.1.14
+    version: 1.1.14(typescript@5.6.3)
   '@tailwindcss/line-clamp':
     specifier: ^0.4.4
     version: 0.4.4(tailwindcss@3.4.15)
@@ -1244,8 +1244,8 @@ packages:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  /@choosetale/nestia-type@1.1.12(typescript@5.6.3):
-    resolution: {integrity: sha512-JKkf0AmATc2FjTZyO0XrvwNK58YPh3QMrDuyM1LOACZ4bbPWpqQkBlXQeoBG9iH89iyWfy+xHglBFhUVgYNfSg==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.12/cb94e2570b45b12c1d6f8e45d47b623c2c42c417}
+  /@choosetale/nestia-type@1.1.14(typescript@5.6.3):
+    resolution: {integrity: sha512-mgilFD8B5Ao0vxpvjh8MFprwsZkJ9mRpF0T2lvCHoAhkE9o0rMNrIaXBdO4yz5CDrrhNpvMIfofchT1o0QODWA==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.14/0055d2b78cfebc3545332f7c7c1f8490207ca88f}
     dependencies:
       '@nestia/fetcher': 3.19.1(typescript@5.6.3)
       typia: 6.12.0(typescript@5.6.3)
