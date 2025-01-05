@@ -6,8 +6,14 @@ interface InputProps {
   value: string;
   regExp: RegExp;
   maxLength: number;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+const getBoxHeight = (maxLength: number) => {
+  if (maxLength < 30) return { height: 48, paddingTop: 0 };
+  if (maxLength < 100) return { height: 48 * 2, paddingTop: 40 };
+  return { height: 189, paddingTop: 100 };
+};
 
 export default function Input({
   title,
@@ -20,19 +26,29 @@ export default function Input({
   const [inputValue, setInputValue] = useState(value);
   const [isError, setIsError] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  console.log(isActive);
+  const boxHeight = getBoxHeight(maxLength);
+
   useEffect(() => {
     setInputValue(value);
   }, [value]);
 
   useEffect(() => {
     const handleError = () => {
+      if (inputValue.length === 0) {
+        setIsError(false);
+        return;
+      }
+
       setIsError(!regExp.test(inputValue));
     };
     handleError();
   }, [inputValue, regExp]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > maxLength) {
+      setInputValue(e.target.value.slice(0, maxLength));
+      return;
+    }
     setInputValue(e.target.value);
     onChange(e);
   };
@@ -44,21 +60,25 @@ export default function Input({
   const handleFocus = () => {
     setIsActive(true);
   };
+
   return (
     <div>
       <div className="flex flex-row items-center">
         <div className="headline-sb text-white">{title}</div>
         <span className="text-red-500 ml-[2px]">*</span>
       </div>
-      <input
-        className={`w-full h-[48px] mt-[12px] bg-transparent
+      <textarea
+        className={`w-full h-[${boxHeight.height}px] mt-[12px] bg-transparent
         border rounded-[6px]
+
         ${isError ? "border-red-500" : "border-gray-600"}
         outline-none text-white
-        placeholder:text-body-md p-[10px]
+        p-[10px]
+        pb-[${boxHeight.paddingTop}px]
+        placeholder:text-body-md
+
         ${isActive ? "placeholder:text-body-2" : "placeholder:text-gray-600"}
         `}
-        type="text"
         placeholder={placeholder}
         value={inputValue}
         onChange={handleChange}
@@ -67,7 +87,7 @@ export default function Input({
       />
       <div className="flex flex-row items-center justify-end">
         <div
-          className={`caption-rg mt-[4px] text-white ${
+          className={`caption-rg mt-[4px] text-gray-600 ${
             isError ? "text-red-500" : ""
           }`}
         >
