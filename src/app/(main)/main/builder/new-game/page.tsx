@@ -2,10 +2,11 @@
 
 import Input from "@/common/Input";
 import React from "react";
+import Thumbnail from "./_components/Thumbnail";
 
 export default function NewGameBuilder() {
   return (
-    <div>
+    <div className="flex flex-col mt-[20px] gap-6a">
       <Input
         title="제목"
         placeholder="제목을 입력해주세요."
@@ -30,6 +31,7 @@ export default function NewGameBuilder() {
         maxLength={200}
         onChange={() => {}}
       />
+      <Thumbnail />
     </div>
   );
 }

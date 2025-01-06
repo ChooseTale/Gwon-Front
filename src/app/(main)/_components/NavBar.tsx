@@ -3,10 +3,12 @@ import { usePathname } from "next/navigation";
 import Icon from "./NavBar/Icon";
 import Link from "next/link";
 
+const notShowNavBarPath = ["/main/my/profile", "/main/builder/new-game"];
+
 export default function NavBar() {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/main/my/profile")) return null;
+  if (notShowNavBarPath.includes(pathname)) return null;
 
   return (
     <div className="fixed left-0 bottom-[-1px] w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">

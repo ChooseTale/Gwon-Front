@@ -14,8 +14,10 @@ import cpu1Icon from "./cpu-1.svg";
 import editIcon from "./edit.svg";
 import filterIcon from "./filter.svg";
 import gitCommitIcon from "./git-commit.svg";
+import generateBIcon from "./generateB.svg";
 import link2Icon from "./link-2.svg";
 import linkIcon from "./link.svg";
+import imageIcon from "./image.svg";
 import plusIcon from "./plus.svg";
 import robotSolidIcon from "./robot-solid.svg";
 import settingsIcon from "./settings.svg";
@@ -51,8 +53,10 @@ export {
   editIcon,
   filterIcon,
   gitCommitIcon,
+  generateBIcon,
   link2Icon,
   linkIcon,
+  imageIcon,
   plusIcon,
   robotSolidIcon,
   settingsIcon,
