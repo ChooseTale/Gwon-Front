@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@choosetale/nestia-type": "^1.1.14",
+    "@dagrejs/dagre": "^1.1.4",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@xyflow/react": "^12.3.6",
     "cookies-next": "^5.0.2",
     "next": "15.0.3",
     "next-auth": "^4.24.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react-zoom-pan-pinch": "^3.6.1",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
