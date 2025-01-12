@@ -6,6 +6,8 @@ export const colors = {
   "background-dark": "#191919",
   "font-dark": "#f2f2f2",
   black: "#111111",
+
+  "gray-10": "#f7f7f7",
   "gray-50": "#efefef",
   "gray-100": "#d2d2d2",
   "gray-200": "#bbbbbb",
