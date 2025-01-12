@@ -15,7 +15,7 @@ export default function BuilderGamePage() {
         <BuilderGamePageTopNav />
         <PageTitle />
       </div>
-      <div className="absolute w-full h-[100px] bottom-0">
+      <div className="absolute w-full h-[92px] bottom-0">
         <BottomSheet />
       </div>
     </div>

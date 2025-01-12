@@ -171,6 +171,9 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
           background:
             "linear-gradient(180deg, rgba(40, 40, 40, 0), rgba(40, 40, 40, 0.5), rgba(40, 40, 40, 1))",
         },
+        ".drop-shadow": {
+          boxShadow: "0px -2px 8px 0px #6363631A",
+        },
       });
     },
   ],
