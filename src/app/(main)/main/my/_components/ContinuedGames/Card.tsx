@@ -44,7 +44,7 @@ export default function ContinuedGamesCard({
         <div className="headline-md text-white mt-[2px]">{game.game.title}</div>
         <div className="flex flex-row items-center mt-[2px]">
           <div className="caption-rg text-green-500 line-clamp-1 mt-[2px]">
-            {game.play.page.abridgement}
+            {game.play.page.title}
           </div>
         </div>
       </div>

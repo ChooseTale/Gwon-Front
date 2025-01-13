@@ -63,12 +63,12 @@ export default function GameBottomSheet({
         `}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex w-full   justify-center items-center mb-4 relative">
+          <div className="flex w-full mt-[48px]  justify-center items-center mb-4 ">
             {/* 닫기 버튼 */}
             <div
               className="absolute flex justify-center items-center rounded-full
                       bg-gray-900
-              top-0 right-0  w-[28px] h-[28px]"
+              top-3 right-3  w-[28px] h-[28px]"
             >
               <button
                 onClick={() => {
@@ -90,7 +90,7 @@ export default function GameBottomSheet({
           {/* 이미지 */}
           <div className="flex w-[calc(100%+32px)] h-[356px] ml-[-16px] mt-[-32px]  ">
             <Image
-              className="w-full object-cover rounded-t-[20px]"
+              className="w-full object-cover "
               src={game.game.thumbnailUrl}
               alt="game"
               layout="responsive"
@@ -99,14 +99,16 @@ export default function GameBottomSheet({
             />
             {game.enrichData.completedEnding > 0 &&
               game.enrichData.completedEnding < game.enrichData.totalEnding && (
-                <div className="absolute top-[260px] left-[12px]   flex flex-row gap-x-2 items-center ">
-                  <Image
-                    src={silverBadge}
-                    alt="producer"
-                    layout="responsive"
-                    width={48}
-                    height={48}
-                  />
+                <div className="absolute top-[308px] left-[12px]    flex flex-row gap-x-2 items-center ">
+                  <div className="flex w-[48px] h-[48px]">
+                    <Image
+                      src={silverBadge}
+                      alt="producer"
+                      layout="responsive"
+                      width={48}
+                      height={48}
+                    />
+                  </div>
                   <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
                     {game.enrichData.completedEnding}개의 엔딩을 봤어요
                   </span>
@@ -115,7 +117,7 @@ export default function GameBottomSheet({
             {/* 엔딩 완료 배지 */}
             {game.enrichData.completedEnding ===
               game.enrichData.totalEnding && (
-              <div className="absolute top-[260px] left-[12px]   flex flex-row gap-x-2 items-center ">
+              <div className="absolute top-[308px] left-[12px]   flex flex-row gap-x-2 items-center ">
                 <Image
                   src={goldBadge}
                   alt="producer"
@@ -130,10 +132,10 @@ export default function GameBottomSheet({
             )}
           </div>
           {/* 박 쉐도우 */}
-          <div className="absolute w-full h-[62px] bottom-sheet left-0 top-[294px]  "></div>
+          <div className="absolute w-full h-[62px] bottom-sheet left-0 top-[356px]  "></div>
           {/* 컨텐츠 내용들 */}
           <div
-            className="absolute top-[323px] flex flex-col w-[calc(100%-32px)]
+            className="absolute top-[371px] flex flex-col w-[calc(100%-32px)]
           h-fit mb-16 "
           >
             <div className="flex flex-col w-full h-full">
@@ -164,7 +166,7 @@ export default function GameBottomSheet({
                 />
                 {game.play && (
                   <Button
-                    value={"이어하기:" + game.play.page?.abridgement}
+                    value={"이어하기:" + game.play.page?.title}
                     onClick={() => {}}
                     bgColor="bg-green-500"
                     textColor="text-black"
