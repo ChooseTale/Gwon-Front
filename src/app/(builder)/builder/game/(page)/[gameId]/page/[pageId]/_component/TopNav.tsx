@@ -4,11 +4,11 @@ import { useParams } from "next/navigation";
 import React from "react";
 
 export default function BuilderGamePageTopNav() {
-  const { gameId, pageId } = useParams();
+  const { gameId } = useParams();
   return (
     <div className="flex w-full relative h-[48px] justify-center items-center">
       <div className="absolute left-0">
-        <Link href={`/builder/game/${gameId}/page/${pageId}`}>
+        <Link href={`/builder/game/${gameId}`}>
           <div className="flex  flex-row text-gray-500">
             <Svg
               icon="chevronLeftIcon"
