@@ -56,12 +56,19 @@ export default function BuilderGamePage() {
                ? "border-green-500 border-[2px] "
                : "border-gray-50"
            }`}
-                onClick={() => setActiveBlockIdx(idx)}
               >
                 <Block
                   key={idx}
                   text={content.content}
                   isActive={isActiveBlock(idx)}
+                  handleCancel={() => {
+                    setActiveBlockIdx(null);
+                  }}
+                  handleComplete={() => {}}
+                  clickBlock={() => {
+                    console.log("click");
+                    setActiveBlockIdx(idx);
+                  }}
                 />
               </div>
             ))}
