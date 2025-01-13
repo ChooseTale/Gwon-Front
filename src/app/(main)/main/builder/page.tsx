@@ -54,6 +54,7 @@ export default function BuilderPage() {
               return (
                 <GameCard
                   key={game.id}
+                  id={game.id}
                   genre={game.genre as keyof typeof GenresKorean}
                   title={game.title}
                   description={game.description}

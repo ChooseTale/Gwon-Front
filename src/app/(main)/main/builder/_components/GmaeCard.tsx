@@ -4,9 +4,11 @@ import { convertDate } from "@/app/(utils)/convert-date";
 import { GenresKorean } from "@/common/Game/Genre";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface GameCardProps {
+  id: number;
   genre: keyof typeof GenresKorean;
   title: string;
   description: string;
@@ -22,8 +24,17 @@ interface GameCardProps {
 }
 
 export default function GmaeCard(game: GameCardProps) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/builder/game/${game.id}`);
+  };
+
   return (
-    <div className="w-full h-[170px] rounded-[8px] border border-gray-700">
+    <div
+      className="w-full h-[170px] rounded-[8px] border border-gray-700"
+      onClick={handleClick}
+    >
       {/* 장르, 수정 날짜 */}
       <div className="flex flex-row  justify-between items-center ml-4 mr-4 mt-4">
         <div className="caption-rg text-white">{GenresKorean[game.genre]}</div>
