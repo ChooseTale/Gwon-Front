@@ -50,7 +50,7 @@ export default function BuilderGamePage() {
               <div
                 key={idx}
                 id="page-content-container"
-                className={`flex  h-fit flex-1 flex-col
+                className={`flex   flex-1 flex-col
            rounded-[6px] bg-white  p-3 border ${
              isActiveBlock(idx)
                ? "border-green-500 border-[2px] "
