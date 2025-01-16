@@ -1,11 +1,22 @@
+"use client";
+
 import React from "react";
 import NavBar from "./_components/NavBar";
+import { usePathname } from "next/navigation";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const notMarginPath = ["/main/builder/new-game"];
+
   return (
     <>
       <div className="flex w-[calc(100%-40px)] min-w-[280px] max-w-[560px] flex-col ml-[20px] mr-[20px] ">
-        <div className="flex flex-col relative h-full mb-[4rem] overflow-y-auto overflow-x-hidden">
+        <div
+          id="margin-bottom-NavBar"
+          className={`flex flex-col relative h-full ${
+            notMarginPath.includes(pathname) ? "mb-0" : "mb-[4rem]"
+          } overflow-y-auto overflow-x-hidden`}
+        >
           {children}
         </div>
       </div>

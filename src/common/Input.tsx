@@ -10,7 +10,7 @@ interface InputProps {
 }
 
 const getBoxHeight = (maxLength: number) => {
-  if (maxLength < 30) return { height: 48, paddingTop: 0 };
+  if (maxLength < 50) return { height: 48, paddingTop: 0 };
   if (maxLength < 100) return { height: 48 * 2, paddingTop: 40 };
   return { height: 189, paddingTop: 100 };
 };
