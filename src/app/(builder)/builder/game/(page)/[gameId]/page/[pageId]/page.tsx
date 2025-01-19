@@ -14,11 +14,14 @@ export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
 
   const [page, setPage] = useState<getPage.Output | null>(null);
-  const [activeBlockIdx, setActiveBlockIdx] = useState<number | null>(null);
+  const [activeBlockIdx, setActiveBlockIdx] = useState<{
+    idx: number;
+    type: "block" | "choice";
+  } | null>(null);
 
   const isActiveBlock = useCallback(
     (idx: number) => {
-      return activeBlockIdx === idx;
+      return activeBlockIdx?.idx === idx && activeBlockIdx?.type === "block";
     },
     [activeBlockIdx]
   );
@@ -30,6 +33,55 @@ export default function BuilderGamePage() {
     };
     fetchPage();
   }, [gameId, pageId]);
+
+  if (!page) return <div>Loading...</div>;
+
+  const handleBottomSheetClick = (
+    key: "block" | "choice" | "aiChoice" | "background"
+  ) => {
+    switch (key) {
+      case "block":
+        const block = page.contents;
+        // activeBlockIdx가 있다면 해당 블럭의 바로 뒤에 생성
+        if (activeBlockIdx !== null) {
+          block.splice(activeBlockIdx.idx + 1, 0, {
+            content: "",
+          });
+        } else if (activeBlockIdx === null) {
+          // 마지막 블럭 뒤에 생성
+          block.push({
+            content: "",
+          });
+        }
+
+        setPage({
+          ...page,
+          contents: block,
+        });
+        break;
+      case "choice":
+        const choice = page.choices;
+        if (choice.length >= 4) {
+          alert("선택지는 최대 4개까지 생성할 수 있습니다.");
+          return;
+        }
+        choice.push({
+          id: -1,
+          text: "",
+        });
+        setPage({
+          ...page,
+          choices: choice,
+        });
+        break;
+      case "aiChoice":
+        break;
+      case "background":
+        break;
+      default:
+        throw new Error("Invalid key");
+    }
+  };
 
   return (
     <div className="flex w-full h-full flex-col bg-white">
@@ -59,15 +111,24 @@ export default function BuilderGamePage() {
               >
                 <Block
                   key={idx}
-                  text={content.content}
+                  originalText={content.content}
                   isActive={isActiveBlock(idx)}
                   handleCancel={() => {
                     setActiveBlockIdx(null);
                   }}
-                  handleComplete={() => {}}
+                  handleComplete={(text: string) => {
+                    setPage({
+                      ...page,
+                      contents: page.contents.map((content, idx) => ({
+                        ...content,
+                        content:
+                          idx === activeBlockIdx?.idx ? text : content.content,
+                      })),
+                    });
+                    setActiveBlockIdx(null);
+                  }}
                   clickBlock={() => {
-                    console.log("click");
-                    setActiveBlockIdx(idx);
+                    setActiveBlockIdx({ idx, type: "block" });
                   }}
                 />
               </div>
@@ -89,7 +150,7 @@ export default function BuilderGamePage() {
       </div>
       {/* 본문 끝 */}
       <div className="fixed w-full min-w-[280px] max-w-[600px] h-[92px] bottom-0">
-        <BottomSheet />
+        <BottomSheet onClick={handleBottomSheetClick} />
       </div>
     </div>
   );
