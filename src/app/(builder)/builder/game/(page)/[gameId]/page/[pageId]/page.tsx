@@ -19,6 +19,8 @@ export default function BuilderGamePage() {
     type: "block" | "choice";
   } | null>(null);
 
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
+
   const isActiveBlock = useCallback(
     (idx: number) => {
       return activeBlockIdx?.idx === idx && activeBlockIdx?.type === "block";
@@ -136,22 +138,59 @@ export default function BuilderGamePage() {
           </div>
           {/* 선택지 */}
           <div id="choice-container" className="flex flex-col gap-2">
-            {page?.choices.map((choice, idx) => (
-              <div
-                className="flex p-3 bg-gray-800 rounded-[6px] flex-col gap-2"
-                key={idx}
-              >
-                <ChoiceBlock key={idx} order={idx + 1} text={choice.text} />
-              </div>
-            ))}
+            {page?.choices.map((choice, idx) => {
+              const isActive =
+                activeBlockIdx?.idx === idx &&
+                activeBlockIdx?.type === "choice";
+              return (
+                <div
+                  className={`flex p-3 bg-gray-800 rounded-[6px] flex-col gap-2
+                  ${isActive ? "border-green-500 border-[2px]" : ""}
+                `}
+                  key={idx}
+                >
+                  <ChoiceBlock
+                    order={idx + 1}
+                    originalText={choice.text}
+                    handleClick={() => {
+                      setActiveBlockIdx({ idx, type: "choice" });
+                    }}
+                    isActive={isActive}
+                    handleCancel={() => {
+                      setActiveBlockIdx(null);
+                    }}
+                    handleComplete={(text: string) => {
+                      setPage({
+                        ...page,
+                        choices: page.choices.map((choice, idx) => ({
+                          ...choice,
+                          text:
+                            idx === activeBlockIdx?.idx ? text : choice.text,
+                        })),
+                      });
+                      setActiveBlockIdx(null);
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
           {/* 선택지 끝 */}
         </div>
       </div>
       {/* 본문 끝 */}
-      <div className="fixed w-full min-w-[280px] max-w-[600px] h-[92px] bottom-0">
-        <BottomSheet onClick={handleBottomSheetClick} />
-      </div>
+
+      <BottomSheet
+        onClick={handleBottomSheetClick}
+        isOpen={isBottomSheetOpen}
+        handleOpen={(isOpen: boolean) => setIsBottomSheetOpen(isOpen)}
+        activeType={[
+          { key: "block", isActive: true },
+          { key: "choice", isActive: false },
+          { key: "aiChoice", isActive: false },
+          { key: "background", isActive: false },
+        ]}
+      />
     </div>
   );
 }

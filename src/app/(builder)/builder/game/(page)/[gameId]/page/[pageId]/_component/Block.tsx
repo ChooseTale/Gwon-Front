@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 interface BlockProps {
   originalText: string;
@@ -18,28 +18,19 @@ export default function Block({
   clickBlock,
 }: BlockProps) {
   const [editedText, setEditedText] = useState(originalText);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const adjustTextareaHeight = () => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // 높이를 초기화
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // 스크롤 높이에 맞게 재조정
-    }
-  };
+  const boxHeight = useCallback(() => {
+    const lines = editedText.split("\n");
+    return lines.length * 20;
+  }, [editedText]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEditedText(e.target.value);
-    adjustTextareaHeight();
   };
-  console.log(originalText);
+
   useEffect(() => {
     setEditedText(originalText);
   }, [originalText]);
-
-  // 컴포넌트가 마운트될 때 초기 높이를 조정
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [isActive]);
 
   if (!isActive) {
     return (
@@ -47,7 +38,7 @@ export default function Block({
         <div
           className={`flex w-full  body-md `}
           style={{
-            height: `${textareaRef.current?.scrollHeight}px`,
+            height: `${boxHeight()}px`,
             whiteSpace: "pre-wrap", // 줄바꿈과 공백을 유지
             overflowWrap: "break-word",
           }}
@@ -64,11 +55,10 @@ export default function Block({
     return (
       <div className="flex w-full flex-col gap-0.5">
         <textarea
-          ref={textareaRef}
           className="flex w-full  body-md overflow-hidden"
           value={editedText}
           onChange={handleTextChange}
-          style={{ height: `${textareaRef.current?.scrollHeight}px` }}
+          style={{ height: `${boxHeight()}px` }}
         />
         <div className="flex w-full justify-end gap-3">
           <p
