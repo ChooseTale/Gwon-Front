@@ -85,15 +85,19 @@ export default function BottomSheet({
   };
 
   return (
-    <div className="fixed w-full min-w-[280px] max-w-[600px] h-[92px] bottom-0">
+    <div
+      className="fixed w-full min-w-[280px] max-w-[600px] h-[92px] bottom-0"
+      style={{
+        transform: `translateY(${translateY}px)`,
+        // top: `${isOpen ? "0px" : "76px"}`,
+        bottom: `${isOpen ? "0px" : "-76px"}`,
+      }}
+    >
       <div
-        className={`relative top-[${
-          isOpen ? "0px" : "76px"
-        }] flex w-full h-full items-center justify-center flex-col`}
+        className={`relative  flex w-full h-full items-center justify-center flex-col`}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ transform: `translateY(${translateY}px)` }}
       >
         <div className="flex w-[100px] h-[16px] bg-white justify-center items-center drop-shadow rounded-t-[20px] z-20">
           {/* 터치 영역 */}

@@ -9,6 +9,7 @@ import { getPage } from "@choosetale/nestia-type/lib/functional/game/page";
 import { getPageCall } from "@/app/(actions)/builder/page/page";
 import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
+import Image from "next/image";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
@@ -21,7 +22,8 @@ export default function BuilderGamePage() {
   } | null>(null);
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
-
+  const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
+  console.log(backgroundImage);
   const isActiveBlock = useCallback(
     (idx: number) => {
       return activeBlock?.idx === idx && activeBlock?.type === "block";
@@ -80,6 +82,18 @@ export default function BuilderGamePage() {
       case "aiChoice":
         break;
       case "background":
+        // input type="file" 사용자에게 이미지를 받음
+        const file = document.createElement("input");
+        file.type = "file";
+        file.accept = ".jpg, .png, .gif, .jpeg";
+
+        file.onchange = (e) => {
+          if (e.target) {
+            const file = e.target.files[0];
+            setBackgroundImage(file);
+          }
+        };
+        file.click();
         break;
       default:
         throw new Error("Invalid key");
@@ -87,19 +101,31 @@ export default function BuilderGamePage() {
   };
 
   return (
-    <div className="flex w-full h-full flex-col bg-white">
-      <div className="relative flex   ml-[20px] mr-[20px]  flex-col items-center  ">
+    <div className="flex w-full h-full flex-col bg-white ">
+      <div className="relative flex  bg-white ml-[20px] mr-[20px]    flex-col items-center z-10">
         <BuilderGamePageTopNav />
         <PageTitle />
       </div>
       {/* 본문 */}
+
       <div
         id="page-content"
-        className="flex w-full h-full flex-1 flex-col  mt-[12px] bg-gray-10
-        overflow-y-auto
-        "
+        className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto"
+        style={{}}
       >
-        <div className="flex ml-[20px] mr-[20px] flex-col gap-2">
+        {backgroundImage && (
+          // <div className="relative flex w-full h-full">
+          <div className="fixed top-[120px] left-0 w-full h-full z-0 ">
+            <Image
+              src={URL.createObjectURL(backgroundImage)}
+              alt="background"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+            {/* </div> */}
+          </div>
+        )}
+        <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
           <div className="flex flex-col mt-4 gap-2">
             {page?.contents.map((content, idx) => (
               <div
@@ -205,17 +231,19 @@ export default function BuilderGamePage() {
       </div>
       {/* 본문 끝 */}
 
-      <BottomSheet
-        onClick={handleBottomSheetClick}
-        isOpen={isBottomSheetOpen}
-        handleOpen={(isOpen: boolean) => setIsBottomSheetOpen(isOpen)}
-        activeType={[
-          { key: "block", isActive: activeBlock?.type !== "choice" },
-          { key: "choice", isActive: page.choices.length < 4 },
-          { key: "aiChoice", isActive: page.choices.length < 4 },
-          { key: "background", isActive: activeBlock === null },
-        ]}
-      />
+      <div className="fixed bottom-0 w-full z-10">
+        <BottomSheet
+          onClick={handleBottomSheetClick}
+          isOpen={isBottomSheetOpen}
+          handleOpen={(isOpen: boolean) => setIsBottomSheetOpen(isOpen)}
+          activeType={[
+            { key: "block", isActive: activeBlock?.type !== "choice" },
+            { key: "choice", isActive: page.choices.length < 4 },
+            { key: "aiChoice", isActive: page.choices.length < 4 },
+            { key: "background", isActive: activeBlock === null },
+          ]}
+        />
+      </div>
     </div>
   );
 }
