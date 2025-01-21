@@ -12,6 +12,7 @@ import clockIcon from "./clock.svg";
 import cornerDownRightIcon from "./corner-down-right.svg";
 import cpu1Icon from "./cpu-1.svg";
 import editIcon from "./edit.svg";
+import edit2Icon from "./edit2.svg";
 import filterIcon from "./filter.svg";
 import gitCommitIcon from "./git-commit.svg";
 import generateBIcon from "./generateB.svg";
@@ -26,6 +27,7 @@ import slidersIcon from "./sliders.svg";
 import slidersWhiteIcon from "./sliders-white.svg";
 import socialGoogleButtonIcon from "./social-google-button.svg";
 import taleIcon from "./tale.svg";
+import trashIcon from "./trash.svg";
 import userIcon from "./user.svg";
 import usersProfilesIcon from "./users-profiles.svg";
 import xCircleIcon from "./x-circle.svg";
@@ -51,6 +53,7 @@ export {
   cornerDownRightIcon,
   cpu1Icon,
   editIcon,
+  edit2Icon,
   filterIcon,
   gitCommitIcon,
   generateBIcon,
@@ -66,6 +69,7 @@ export {
   socialGoogleButtonIcon,
   taleIcon,
   taleGradientIcon,
+  trashIcon,
   userIcon,
   usersProfilesIcon,
   xCircleIcon,

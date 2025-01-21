@@ -14,18 +14,19 @@ export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
 
   const [page, setPage] = useState<getPage.Output | null>(null);
-  const [activeBlockIdx, setActiveBlockIdx] = useState<{
+  const [activeBlock, setActiveBlock] = useState<{
     idx: number;
     type: "block" | "choice";
+    isHighlight: boolean; // 다른 블럭들의 opacity를 줄이고 현재 블럭을 하이라이팅
   } | null>(null);
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
 
   const isActiveBlock = useCallback(
     (idx: number) => {
-      return activeBlockIdx?.idx === idx && activeBlockIdx?.type === "block";
+      return activeBlock?.idx === idx && activeBlock?.type === "block";
     },
-    [activeBlockIdx]
+    [activeBlock]
   );
 
   useEffect(() => {
@@ -45,11 +46,11 @@ export default function BuilderGamePage() {
       case "block":
         const block = page.contents;
         // activeBlockIdx가 있다면 해당 블럭의 바로 뒤에 생성
-        if (activeBlockIdx !== null) {
-          block.splice(activeBlockIdx.idx + 1, 0, {
+        if (activeBlock !== null) {
+          block.splice(activeBlock.idx + 1, 0, {
             content: "",
           });
-        } else if (activeBlockIdx === null) {
+        } else if (activeBlock === null) {
           // 마지막 블럭 뒤에 생성
           block.push({
             content: "",
@@ -104,7 +105,7 @@ export default function BuilderGamePage() {
               <div
                 key={idx}
                 id="page-content-container"
-                className={`flex   flex-1 flex-col
+                className={`relative flex   flex-1 flex-col
            rounded-[6px] bg-white  p-3 border ${
              isActiveBlock(idx)
                ? "border-green-500 border-[2px] "
@@ -115,8 +116,12 @@ export default function BuilderGamePage() {
                   key={idx}
                   originalText={content.content}
                   isActive={isActiveBlock(idx)}
+                  isOpacity50={
+                    !activeBlock?.isHighlight ? true : idx === activeBlock?.idx
+                  }
+                  isModal={activeBlock?.isHighlight ?? false}
                   handleCancel={() => {
-                    setActiveBlockIdx(null);
+                    setActiveBlock(null);
                   }}
                   handleComplete={(text: string) => {
                     setPage({
@@ -124,13 +129,24 @@ export default function BuilderGamePage() {
                       contents: page.contents.map((content, idx) => ({
                         ...content,
                         content:
-                          idx === activeBlockIdx?.idx ? text : content.content,
+                          idx === activeBlock?.idx ? text : content.content,
                       })),
                     });
-                    setActiveBlockIdx(null);
+                    setActiveBlock(null);
                   }}
                   clickBlock={() => {
-                    setActiveBlockIdx({ idx, type: "block" });
+                    setActiveBlock({
+                      idx,
+                      type: "block",
+                      isHighlight: false,
+                    });
+                  }}
+                  longPress={() => {
+                    setActiveBlock({
+                      idx,
+                      type: "block",
+                      isHighlight: true,
+                    });
                   }}
                 />
               </div>
@@ -140,8 +156,9 @@ export default function BuilderGamePage() {
           <div id="choice-container" className="flex flex-col gap-2">
             {page?.choices.map((choice, idx) => {
               const isActive =
-                activeBlockIdx?.idx === idx &&
-                activeBlockIdx?.type === "choice";
+                activeBlock?.idx === idx &&
+                activeBlock?.type === "choice" &&
+                !activeBlock.isHighlight;
               return (
                 <div
                   className={`flex p-3 bg-gray-800 rounded-[6px] flex-col gap-2
@@ -153,22 +170,30 @@ export default function BuilderGamePage() {
                     order={idx + 1}
                     originalText={choice.text}
                     handleClick={() => {
-                      setActiveBlockIdx({ idx, type: "choice" });
+                      setActiveBlock({
+                        idx,
+                        type: "choice",
+                        isHighlight: false,
+                      });
                     }}
+                    isOpacity50={
+                      !activeBlock?.isHighlight
+                        ? true
+                        : idx === activeBlock?.idx
+                    }
                     isActive={isActive}
                     handleCancel={() => {
-                      setActiveBlockIdx(null);
+                      setActiveBlock(null);
                     }}
                     handleComplete={(text: string) => {
                       setPage({
                         ...page,
                         choices: page.choices.map((choice, idx) => ({
                           ...choice,
-                          text:
-                            idx === activeBlockIdx?.idx ? text : choice.text,
+                          text: idx === activeBlock?.idx ? text : choice.text,
                         })),
                       });
-                      setActiveBlockIdx(null);
+                      setActiveBlock(null);
                     }}
                   />
                 </div>
@@ -185,10 +210,10 @@ export default function BuilderGamePage() {
         isOpen={isBottomSheetOpen}
         handleOpen={(isOpen: boolean) => setIsBottomSheetOpen(isOpen)}
         activeType={[
-          { key: "block", isActive: true },
-          { key: "choice", isActive: false },
-          { key: "aiChoice", isActive: false },
-          { key: "background", isActive: false },
+          { key: "block", isActive: activeBlock?.type !== "choice" },
+          { key: "choice", isActive: page.choices.length < 4 },
+          { key: "aiChoice", isActive: page.choices.length < 4 },
+          { key: "background", isActive: activeBlock === null },
         ]}
       />
     </div>

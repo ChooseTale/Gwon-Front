@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface ChoiceBlockProps {
   order: number;
@@ -9,11 +9,13 @@ interface ChoiceBlockProps {
   isActive: boolean;
   handleCancel: () => void;
   handleComplete: (text: string) => void;
+  isOpacity50: boolean;
 }
 
 export default function ChoiceBlock({
   order,
   originalText,
+  isOpacity50,
   handleClick,
   isActive,
   handleCancel,
@@ -35,7 +37,12 @@ export default function ChoiceBlock({
 
   if (!isActive) {
     return (
-      <div className="flex w-full h-full flex-col gap-2" onClick={handleClick}>
+      <div
+        className={`flex w-full h-full flex-col gap-2 ${
+          isOpacity50 ? "" : "opacity-50"
+        }`}
+        onClick={handleClick}
+      >
         <div className="flex caption-sb text-green-400">선택지{order}</div>
         <div
           className="flex w-full h-full body-md text-white"

@@ -176,6 +176,9 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
         ".drop-shadow": {
           boxShadow: "0px -2px 8px 0px #6363631A",
         },
+        ".drop-shadow-2": {
+          boxShadow: "0px 0px 16px 0px #40404026",
+        },
       });
     },
   ],
