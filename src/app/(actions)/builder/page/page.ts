@@ -1,6 +1,7 @@
 "use server";
 
 import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
+import { update } from "@choosetale/nestia-type/lib/functional/game/page/index";
 import { fetchIncetance } from "../../fetch";
 
 export const getPageCall = async (gameId: number, pageId: number) => {
@@ -15,4 +16,29 @@ export const getPageCall = async (gameId: number, pageId: number) => {
   );
 
   return await res.json();
+};
+
+export const updatePageCall = async (
+  gameId: number,
+  pageId: number,
+  body: update.Input,
+  backgroundImage?: File | null
+) => {
+  const formData = new FormData();
+  formData.append("title", body.title);
+  formData.append("contents", JSON.stringify(body.contents));
+  formData.append("isEnding", body.isEnding.toString());
+  if (backgroundImage) {
+    formData.append("image", backgroundImage);
+  }
+  await fetchIncetance(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}${update.path(gameId, pageId)}`,
+    {
+      method: update.METADATA.method,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    }
+  );
 };

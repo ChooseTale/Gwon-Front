@@ -3,7 +3,11 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 
-export default function BuilderGamePageTopNav() {
+export default function BuilderGamePageTopNav({
+  handleComplete,
+}: {
+  handleComplete: () => void;
+}) {
   const { gameId } = useParams();
   return (
     <div className="flex w-full relative h-[48px] justify-center items-center">
@@ -18,6 +22,11 @@ export default function BuilderGamePageTopNav() {
         </Link>
       </div>
       <div className="title2-sb text-black headline-md">새 페이지</div>
+      <div className="absolute right-0">
+        <div className="flex flex-row text-green-500" onClick={handleComplete}>
+          완료
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,11 +5,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import BuilderGamePageTopNav from "./_component/TopNav";
 import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
-import { getPage } from "@choosetale/nestia-type/lib/functional/game/page";
+import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
 import { getPageCall } from "@/app/(actions)/builder/page/page";
 import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
 import Image from "next/image";
+import SavePage from "./_component/TopNav/SavePage";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
@@ -23,7 +24,20 @@ export default function BuilderGamePage() {
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
   const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
-  console.log(backgroundImage);
+
+  useEffect(() => {
+    const convertUrlToFile = async (url: string) => {
+      const response = await fetch(url);
+      const data = await response.blob();
+      const file = new File([data], "backgroundImage", { type: data.type });
+      setBackgroundImage(file);
+    };
+
+    if (page?.backgroundImage.url) {
+      convertUrlToFile(page.backgroundImage.url);
+    }
+  }, [page?.backgroundImage]);
+
   const isActiveBlock = useCallback(
     (idx: number) => {
       return activeBlock?.idx === idx && activeBlock?.type === "block";
@@ -73,6 +87,7 @@ export default function BuilderGamePage() {
         choice.push({
           id: -1,
           text: "",
+          nextPageId: null,
         });
         setPage({
           ...page,
@@ -100,11 +115,37 @@ export default function BuilderGamePage() {
     }
   };
 
+  const handleComplete = () => {
+    SavePage({
+      gameId: Number(gameId),
+      page: {
+        id: page.id,
+        title: page.title,
+        backgroundImage: backgroundImage,
+        contents: page.contents,
+        isEnding: page.isEnding,
+      },
+      choices: page.choices.map((choice) => ({
+        id: choice.id,
+        text: choice.text,
+        nextPageId: choice.nextPageId,
+      })),
+    });
+  };
+
   return (
     <div className="flex w-full h-full flex-col bg-white ">
       <div className="relative flex  bg-white ml-[20px] mr-[20px]    flex-col items-center z-10">
-        <BuilderGamePageTopNav />
-        <PageTitle />
+        <BuilderGamePageTopNav handleComplete={handleComplete} />
+        <PageTitle
+          title={page.title}
+          setTitle={(title) => {
+            setPage({
+              ...page,
+              title: title,
+            });
+          }}
+        />
       </div>
       {/* 본문 */}
 
@@ -115,14 +156,15 @@ export default function BuilderGamePage() {
       >
         {backgroundImage && (
           // <div className="relative flex w-full h-full">
-          <div className="fixed top-[120px] left-0 w-full h-full z-0 ">
-            <Image
-              src={URL.createObjectURL(backgroundImage)}
-              alt="background"
-              fill
-              style={{ objectFit: "cover" }}
-            />
-            {/* </div> */}
+          <div className="fixed  justify-center items-center top-[120px]  w-full min-w-[280px] max-w-[600px] h-full z-0 ">
+            <div className="relative bg-red-500 flex w-full h-full">
+              <Image
+                src={URL.createObjectURL(backgroundImage)}
+                alt="background"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
         )}
         <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
@@ -146,6 +188,19 @@ export default function BuilderGamePage() {
                     !activeBlock?.isHighlight ? true : idx === activeBlock?.idx
                   }
                   isModal={activeBlock?.isHighlight ?? false}
+                  handleDelete={() => {
+                    const newContents = page.contents.filter((_, idx) => {
+                      if (idx === activeBlock?.idx) {
+                        return false;
+                      }
+                      return true;
+                    });
+                    setPage({
+                      ...page,
+                      contents: newContents,
+                    });
+                    setActiveBlock(null);
+                  }}
                   handleCancel={() => {
                     setActiveBlock(null);
                   }}

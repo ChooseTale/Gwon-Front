@@ -2,7 +2,7 @@
 
 import ContextMenu from "@/common/ContextMenu";
 import Svg from "@/common/Svg";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { colors } from "../../../../../../../../../../tailwind.config";
 
 interface BlockProps {
@@ -10,6 +10,7 @@ interface BlockProps {
   isActive: boolean;
   handleCancel: () => void;
   handleComplete: (text: string) => void;
+  handleDelete: () => void;
   clickBlock: () => void;
   longPress: () => void;
   isOpacity50: boolean;
@@ -22,15 +23,17 @@ export default function Block({
   isOpacity50,
   handleCancel,
   handleComplete,
+  handleDelete,
   clickBlock,
   longPress,
   isModal,
 }: BlockProps) {
   const [editedText, setEditedText] = useState(originalText);
   const [pressTimeout, setPressTimeout] = useState<number>(0);
-
+  const blockRef = useRef<HTMLDivElement>(null);
   const boxHeight = useCallback(() => {
     const lines = editedText.split("\n");
+
     return lines.length * 20;
   }, [editedText]);
 
@@ -45,7 +48,7 @@ export default function Block({
   const endPress = () => {
     const currentTime = Date.now();
 
-    if (currentTime - pressTimeout > 1000) {
+    if (currentTime - pressTimeout > 500) {
       longPress();
     } else {
       clickBlock();
@@ -76,6 +79,7 @@ export default function Block({
   if (!isActive) {
     return (
       <div
+        ref={blockRef}
         className={`flex w-full h-full flex-col gap-0.5 ${
           isOpacity50 ? "" : "opacity-50"
         }`}
@@ -132,7 +136,7 @@ export default function Block({
           />
         ),
         onClick: () => {
-          console.log("삭제");
+          handleDelete();
         },
       },
     ];
