@@ -6,14 +6,18 @@ import BuilderGamePageTopNav from "./_component/TopNav";
 import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
 import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
-import { getPageCall } from "@/app/(actions)/builder/page/page";
+import { getAllGameCall, getPageCall } from "@/app/(actions)/builder/page/page";
 import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
 import Image from "next/image";
 import SavePage from "./_component/TopNav/SavePage";
+import LinkPageBottomSheet from "./_component/LinkPageBottomSheet";
+import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
+
+  const [game, setGame] = useState<getAll.Output | null>(null);
 
   const [page, setPage] = useState<getPage.Output | null>(null);
   const [activeBlock, setActiveBlock] = useState<{
@@ -24,6 +28,10 @@ export default function BuilderGamePage() {
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
   const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
+  const [linkPage, setLinkPage] = useState<{
+    choiceId: number;
+    linkedPageId: number | null;
+  } | null>(null);
 
   useEffect(() => {
     const convertUrlToFile = async (url: string) => {
@@ -40,7 +48,10 @@ export default function BuilderGamePage() {
 
   const isActiveBlock = useCallback(
     (idx: number) => {
-      return activeBlock?.idx === idx && activeBlock?.type === "block";
+      if (activeBlock?.type === "block") {
+        return activeBlock?.idx === idx;
+      }
+      return false;
     },
     [activeBlock]
   );
@@ -50,6 +61,22 @@ export default function BuilderGamePage() {
       const res = await getPageCall(Number(gameId), Number(pageId));
       setPage(res);
     };
+
+    const fetchGame = async () => {
+      const res = await getAllGameCall(Number(gameId));
+
+      setGame({
+        id: res.id,
+        title: res.title,
+        pages: res.pages.filter(
+          (page) =>
+            page.id !== Number(pageId) &&
+            !page.choices.some((choice) => choice.toPageId === Number(pageId))
+        ),
+      });
+    };
+
+    fetchGame();
     fetchPage();
   }, [gameId, pageId]);
 
@@ -135,6 +162,32 @@ export default function BuilderGamePage() {
 
   return (
     <div className="flex w-full h-full flex-col bg-white ">
+      {linkPage && (
+        <LinkPageBottomSheet
+          pageList={
+            game?.pages.map((page) => ({
+              id: page.id,
+              title: page.title,
+            })) || []
+          }
+          page={page}
+          linkedPageId={linkPage?.linkedPageId}
+          handleClose={() => setLinkPage(null)}
+          handleChangePage={(pageId) => {
+            setPage({
+              ...page,
+              choices: page.choices.map((choice) => ({
+                ...choice,
+                nextPageId:
+                  choice.id === linkPage?.choiceId ? pageId : choice.nextPageId,
+              })),
+            });
+
+            setLinkPage(null);
+          }}
+        />
+      )}
+
       <div className="relative flex  bg-white ml-[20px] mr-[20px]    flex-col items-center z-10">
         <BuilderGamePageTopNav handleComplete={handleComplete} />
         <PageTitle
@@ -185,7 +238,10 @@ export default function BuilderGamePage() {
                   originalText={content.content}
                   isActive={isActiveBlock(idx)}
                   isOpacity50={
-                    !activeBlock?.isHighlight ? true : idx === activeBlock?.idx
+                    !activeBlock?.isHighlight
+                      ? true
+                      : idx === activeBlock?.idx &&
+                        activeBlock?.type === "block"
                   }
                   isModal={activeBlock?.isHighlight ?? false}
                   handleDelete={() => {
@@ -242,27 +298,40 @@ export default function BuilderGamePage() {
                 !activeBlock.isHighlight;
               return (
                 <div
-                  className={`flex p-3 bg-gray-800 rounded-[6px] flex-col gap-2
+                  className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2
                   ${isActive ? "border-green-500 border-[2px]" : ""}
                 `}
                   key={idx}
                 >
                   <ChoiceBlock
+                    choiceId={choice.id}
                     order={idx + 1}
                     originalText={choice.text}
-                    handleClick={() => {
-                      setActiveBlock({
-                        idx,
-                        type: "choice",
-                        isHighlight: false,
-                      });
-                    }}
+                    isModal={
+                      activeBlock?.type === "choice" &&
+                      activeBlock?.isHighlight &&
+                      activeBlock?.idx === idx
+                    }
                     isOpacity50={
                       !activeBlock?.isHighlight
                         ? true
                         : idx === activeBlock?.idx
                     }
                     isActive={isActive}
+                    clickBlock={() => {
+                      setActiveBlock({
+                        idx,
+                        type: "choice",
+                        isHighlight: false,
+                      });
+                    }}
+                    longPress={() => {
+                      setActiveBlock({
+                        idx,
+                        type: "choice",
+                        isHighlight: true,
+                      });
+                    }}
                     handleCancel={() => {
                       setActiveBlock(null);
                     }}
@@ -275,6 +344,12 @@ export default function BuilderGamePage() {
                         })),
                       });
                       setActiveBlock(null);
+                    }}
+                    handleLinkPage={(choiceId: number) => {
+                      setLinkPage({
+                        choiceId,
+                        linkedPageId: choice.nextPageId,
+                      });
                     }}
                   />
                 </div>

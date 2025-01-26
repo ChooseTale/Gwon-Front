@@ -1,5 +1,9 @@
 "use server";
 
+import {
+  createChoiceCall,
+  updateChoiceCall,
+} from "@/app/(actions)/builder/choice/choice";
 import { updatePageCall } from "@/app/(actions)/builder/page/page";
 
 interface SavePageProps {
@@ -44,7 +48,26 @@ export default async function SavePage({
 }: SavePageProps) {
   try {
     PageValidator.validate(page, choices);
+
     await updatePageCall(gameId, page.id, page, page.backgroundImage);
+
+    for (const choice of choices) {
+      if (choice.id) {
+        await updateChoiceCall(gameId, choice.id, {
+          parentPageId: page.id,
+          childPageId: choice.nextPageId,
+          title: choice.text,
+          description: "",
+        });
+      } else {
+        await createChoiceCall(gameId, {
+          parentPageId: page.id,
+          childPageId: choice.nextPageId || undefined,
+          title: choice.text,
+          description: "",
+        });
+      }
+    }
   } catch (error) {
     console.log(error);
   }

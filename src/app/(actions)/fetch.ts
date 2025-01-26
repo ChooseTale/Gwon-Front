@@ -8,7 +8,7 @@ export const fetchIncetance = async (url: string, options: RequestInit) => {
 
   const response = await fetch(url, {
     ...options,
-    headers: { Cookie: `connect.sid=${myCookie?.value}` },
+    headers: { Cookie: `connect.sid=${myCookie?.value}`, ...options.headers },
   });
   if (!response.ok) {
     throw new Error("Failed to fetch");
