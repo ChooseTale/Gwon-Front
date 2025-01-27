@@ -35,9 +35,6 @@ class PageValidator {
     if (page.contents.length === 0) {
       throw new Error("페이지에 블럭은 하나 이상 있어야 합니다.");
     }
-    if (choices.length === 0 && !page.isEnding) {
-      throw new Error("선택지가 필요합니다.");
-    }
   }
 }
 
@@ -52,7 +49,7 @@ export default async function SavePage({
     await updatePageCall(gameId, page.id, page, page.backgroundImage);
 
     for (const choice of choices) {
-      if (choice.id) {
+      if (choice.id !== -1) {
         await updateChoiceCall(gameId, choice.id, {
           parentPageId: page.id,
           childPageId: choice.nextPageId,

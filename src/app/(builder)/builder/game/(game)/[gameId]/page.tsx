@@ -19,6 +19,9 @@ import dagre from "@dagrejs/dagre";
 
 import "@xyflow/react/dist/style.css";
 import { useParams, useRouter } from "next/navigation";
+import BuilderGameTopNav from "./_component/TopNav";
+import NewPageButton from "./_component/NewPageButton";
+import { createPageCall } from "@/app/(actions)/builder/page/page";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -101,6 +104,11 @@ export default function GameBuilder() {
     router.push(`/builder/game/${game?.id}/page/${node.id}`);
   };
 
+  const handleNewPageButtonClick = async () => {
+    const newPage = await createPageCall(Number(gameId), {});
+    router.push(`/builder/game/${game?.id}/page/${newPage.id}`);
+  };
+
   useEffect(() => {
     const getVerticalNodes = async () => {
       const game = await builder(Number(gameId));
@@ -137,7 +145,11 @@ export default function GameBuilder() {
   }, [setEdges, setNodes]);
 
   return (
-    <div className="w-full h-full ">
+    <div className="relative w-full h-full overflow-hidden bg-red-500">
+      <BuilderGameTopNav
+        gameTitle={game?.title ?? ""}
+        handleComplete={() => {}}
+      />
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -150,12 +162,35 @@ export default function GameBuilder() {
         onNodeClick={onNodeClick}
       >
         <Panel position="top-right">
-          <button onClick={() => onLayout("TB")}>vertical layout</button>
-          <button onClick={() => onLayout("LR")}>horizontal layout</button>
+          <div
+            className="flex flex-row  w-[114px] h-[36px]
+          rounded-[8px] items-center justify-center bg-white
+          flex-1"
+          >
+            <div className="flex w-full h-full justify-center border-r border-gray-50">
+              <button
+                className="caption-md text-black "
+                onClick={() => onLayout("LR")}
+              >
+                가로정렬
+              </button>
+            </div>
+            <div className="flex w-full h-full justify-center">
+              <button
+                className="caption-md text-black"
+                onClick={() => onLayout("TB")}
+              >
+                세로정렬
+              </button>
+            </div>
+          </div>
         </Panel>
         <Background />
-        <Controls />
+        <div className="absolute bottom-[125px] left-[5px]">
+          <Controls />
+        </div>
       </ReactFlow>
+      <NewPageButton onClick={handleNewPageButtonClick} />
     </div>
   );
 }

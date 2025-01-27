@@ -4,6 +4,7 @@ import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index"
 import { update } from "@choosetale/nestia-type/lib/functional/game/page/index";
 import { fetchIncetance } from "../../fetch";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
+import { create } from "@choosetale/nestia-type/lib/functional/game/page";
 
 export const getPageCall = async (gameId: number, pageId: number) => {
   const res = await fetchIncetance(
@@ -13,6 +14,21 @@ export const getPageCall = async (gameId: number, pageId: number) => {
       headers: {
         "Content-Type": "application/json",
       },
+    }
+  );
+
+  return await res.json();
+};
+
+export const createPageCall = async (
+  gameId: number,
+  body: create.Input
+): Promise<create.Output> => {
+  const res = await fetchIncetance(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}${create.path(gameId)}`,
+    {
+      method: create.METADATA.method,
+      body: JSON.stringify(body),
     }
   );
 
