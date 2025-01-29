@@ -13,6 +13,7 @@ interface PlayGameProps {
       url: string;
     };
     isEnding: boolean;
+    endingOnClick: () => void;
     contents: { content: string }[];
     choices: {
       id: number;
@@ -96,16 +97,28 @@ export default function PlayGame({ game, page }: PlayGameProps) {
         </div>
 
         {/* choice부분 */}
-        <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-          {page.choices.map((choice, index) => (
+        {page.isEnding ? (
+          <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
             <div
-              key={index}
-              className="flex items-center justify-center w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
+              className="flex w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
+              onClick={page.endingOnClick}
             >
-              {choice.title}
+              게임 종료
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
+            {page.choices.map((choice, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
+                onClick={choice.onClick}
+              >
+                {choice.title}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

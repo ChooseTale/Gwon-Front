@@ -165,6 +165,7 @@ export default function GameBuilder() {
           }}
         />
         <PlayGame
+          key={page.id}
           game={game}
           page={{
             id: page.id,
@@ -173,8 +174,17 @@ export default function GameBuilder() {
               url: page.backgroundImage.url,
             },
             isEnding: page.isEnding,
+            endingOnClick: () => {
+              setTestPageId(null);
+            },
             contents: page.contents,
-            choices: page.choices,
+            choices: page.choices.map((choice) => ({
+              id: choice.id,
+              title: choice.title,
+              onClick: () => {
+                setTestPageId(choice.toPageId);
+              },
+            })),
           }}
         />
       </>
