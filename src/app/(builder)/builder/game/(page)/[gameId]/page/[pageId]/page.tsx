@@ -1,21 +1,27 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import BuilderGamePageTopNav from "./_component/TopNav";
 import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
 import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
-import { getAllGameCall, getPageCall } from "@/app/(actions)/builder/page/page";
+import {
+  deletePageCall,
+  getAllGameCall,
+  getPageCall,
+} from "@/app/(actions)/builder/page/page";
 import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
 import Image from "next/image";
 import SavePage from "./_component/TopNav/SavePage";
 import LinkPageBottomSheet from "./_component/LinkPageBottomSheet";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
+import BuilderModal from "../../../../_component/modal";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
+  const router = useRouter();
 
   const [game, setGame] = useState<getAll.Output | null>(null);
 
@@ -33,6 +39,22 @@ export default function BuilderGamePage() {
     linkedPageId: number | null;
   } | null>(null);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
+  const isActiveBlock = useCallback(
+    (idx: number) => {
+      if (activeBlock?.type === "block") {
+        return activeBlock?.idx === idx;
+      }
+      return false;
+    },
+    [activeBlock]
+  );
+
+  const handleDelete = () => {
+    setIsDeleteModalOpen(true);
+  };
+
   useEffect(() => {
     const convertUrlToFile = async (url: string) => {
       const response = await fetch(url);
@@ -45,16 +67,6 @@ export default function BuilderGamePage() {
       convertUrlToFile(page.backgroundImage.url);
     }
   }, [page?.backgroundImage]);
-
-  const isActiveBlock = useCallback(
-    (idx: number) => {
-      if (activeBlock?.type === "block") {
-        return activeBlock?.idx === idx;
-      }
-      return false;
-    },
-    [activeBlock]
-  );
 
   useEffect(() => {
     const fetchPage = async () => {
@@ -160,8 +172,22 @@ export default function BuilderGamePage() {
     });
   };
 
+  const handleDeleteConfirm = async () => {
+    await deletePageCall(Number(gameId), Number(pageId));
+    router.push(`/builder/game/${gameId}`);
+  };
   return (
     <div className="flex w-full h-full flex-col bg-white ">
+      {isDeleteModalOpen && (
+        <BuilderModal
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleDeleteConfirm}
+          title="삭제하시겠어요?"
+          description="삭제한 페이지는 복구할 수 없어요."
+          closeText="취소하기"
+          confirmText="삭제하기"
+        />
+      )}
       {linkPage && (
         <LinkPageBottomSheet
           pageList={
@@ -189,7 +215,11 @@ export default function BuilderGamePage() {
       )}
 
       <div className="relative flex  bg-white ml-[20px] mr-[20px]    flex-col items-center z-10">
-        <BuilderGamePageTopNav handleComplete={handleComplete} />
+        <BuilderGamePageTopNav
+          handleComplete={handleComplete}
+          gameTitle={game?.title ?? ""}
+          handleDelete={handleDelete}
+        />
         <PageTitle
           title={page.title}
           setTitle={(title) => {
@@ -207,10 +237,17 @@ export default function BuilderGamePage() {
         className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto"
         style={{}}
       >
+        {page.contents.length === 0 && (
+          <div className="flex absolute bottom-[120px]  w-full  justify-center items-center ">
+            <div className="text-body-md text-gray-800">
+              아래 블럭을 추가해 이야기를 만들어 보세요.
+            </div>
+          </div>
+        )}
         {backgroundImage && (
           // <div className="relative flex w-full h-full">
           <div className="fixed  justify-center items-center top-[120px]  w-full min-w-[280px] max-w-[600px] h-full z-0 ">
-            <div className="relative bg-red-500 flex w-full h-full">
+            <div className="relative  flex w-full h-full">
               <Image
                 src={URL.createObjectURL(backgroundImage)}
                 alt="background"

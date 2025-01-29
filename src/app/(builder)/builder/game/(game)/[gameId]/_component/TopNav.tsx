@@ -24,7 +24,8 @@ export default function BuilderGameTopNav({
         </Link>
       </div>
       <div className="title2-sb text-black headline-md">{gameTitle}</div>
-      <div className="absolute right-[20px]">
+
+      <div className="absolute flex flex-row right-[20px] ">
         <div className="flex flex-row text-green-500" onClick={handleComplete}>
           완료
         </div>

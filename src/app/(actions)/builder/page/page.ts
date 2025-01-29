@@ -1,7 +1,11 @@
 "use server";
 
-import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
+import {
+  $delete,
+  getPage,
+} from "@choosetale/nestia-type/lib/functional/game/page/index";
 import { update } from "@choosetale/nestia-type/lib/functional/game/page/index";
+
 import { fetchIncetance } from "../../fetch";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import { create } from "@choosetale/nestia-type/lib/functional/game/page";
@@ -71,4 +75,13 @@ export const getAllGameCall = async (
   );
 
   return await res.json();
+};
+
+export const deletePageCall = async (gameId: number, pageId: number) => {
+  await fetchIncetance(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}${$delete.path(gameId, pageId)}`,
+    {
+      method: $delete.METADATA.method,
+    }
+  );
 };

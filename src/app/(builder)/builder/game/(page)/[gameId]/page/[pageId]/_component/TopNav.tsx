@@ -4,9 +4,13 @@ import { useParams } from "next/navigation";
 import React from "react";
 
 export default function BuilderGamePageTopNav({
+  gameTitle,
   handleComplete,
+  handleDelete,
 }: {
+  gameTitle: string;
   handleComplete: () => void;
+  handleDelete: () => void;
 }) {
   const { gameId } = useParams();
   return (
@@ -22,7 +26,10 @@ export default function BuilderGamePageTopNav({
         </Link>
       </div>
       <div className="title2-sb text-black headline-md">새 페이지</div>
-      <div className="absolute right-0">
+      <div className="absolute flex flex-row right-0 gap-3">
+        <div className="flex flex-row text-gray-400" onClick={handleDelete}>
+          삭제
+        </div>
         <div className="flex flex-row text-green-500" onClick={handleComplete}>
           완료
         </div>
