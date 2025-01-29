@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@choosetale/nestia-type':
-    specifier: ^1.1.17
-    version: 1.1.17(typescript@5.6.3)
+    specifier: latest
+    version: 1.1.19(typescript@5.6.3)
   '@dagrejs/dagre':
     specifier: ^1.1.4
     version: 1.1.4
@@ -1253,8 +1253,8 @@ packages:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  /@choosetale/nestia-type@1.1.17(typescript@5.6.3):
-    resolution: {integrity: sha512-80ovLCwOdCISCbMyXw9hcwB/c0YagqlK3tk1MbMyf4JkhMksQ4WnrDXm5G47aES+LI2FXuz1MzMBPNonxtvFCg==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.17/3f1be8302ef877ab9063045fc5d4b4ea48761543}
+  /@choosetale/nestia-type@1.1.19(typescript@5.6.3):
+    resolution: {integrity: sha512-YGHtQLluI3d7cij+Ut8yH/DX2tmUWecRVXkgm2GSYlPBqPdtTLUPskHtu+Q7MA52e43ug8LARmaAxGF/cbrG4w==, tarball: https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.19/06f7ece2013357788e63f148eb57ab1b51deeedc}
     dependencies:
       '@nestia/fetcher': 3.19.1(typescript@5.6.3)
       typia: 6.12.0(typescript@5.6.3)

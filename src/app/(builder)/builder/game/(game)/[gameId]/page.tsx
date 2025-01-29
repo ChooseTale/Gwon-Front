@@ -22,6 +22,9 @@ import { useParams, useRouter } from "next/navigation";
 import BuilderGameTopNav from "./_component/TopNav";
 import NewPageButton from "./_component/NewPageButton";
 import { createPageCall } from "@/app/(actions)/builder/page/page";
+import PlayGame from "@/app/(play)/play/_component/PlayGame";
+import TestTopNav from "./_component/TestTopNav";
+import PlayTopNav from "@/app/(play)/play/_component/TopNav";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -77,6 +80,7 @@ export default function GameBuilder() {
     source: string;
     target: string;
   }>([]);
+  const [testPageId, setTestPageId] = useState<number | null>(null);
   const router = useRouter();
 
   const onConnect = useCallback(
@@ -144,11 +148,49 @@ export default function GameBuilder() {
     getVerticalNodes();
   }, [setEdges, setNodes]);
 
+  if (testPageId && game) {
+    const page = game.pages.find((page) => page.id === testPageId);
+
+    if (!page) {
+      setTestPageId(null);
+      return;
+    }
+
+    return (
+      <>
+        <PlayTopNav
+          gameTitle={game?.title ?? ""}
+          handleBack={() => {
+            setTestPageId(null);
+          }}
+        />
+        <PlayGame
+          game={game}
+          page={{
+            id: page.id,
+            title: page.title,
+            backgroundImage: {
+              url: page.backgroundImage.url,
+            },
+            isEnding: page.isEnding,
+            contents: page.contents,
+            choices: page.choices,
+          }}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="relative w-full h-full overflow-hidden bg-red-500">
       <BuilderGameTopNav
         gameTitle={game?.title ?? ""}
         handleComplete={() => {}}
+        handleTest={() => {
+          setTestPageId(
+            game?.pages.filter((page) => page.isStarting)[0].id ?? null
+          );
+        }}
       />
       <ReactFlow
         nodes={nodes}

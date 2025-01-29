@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@choosetale/nestia-type": "^1.1.17",
+    "@choosetale/nestia-type": "latest",
     "@dagrejs/dagre": "^1.1.4",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@xyflow/react": "^12.3.6",

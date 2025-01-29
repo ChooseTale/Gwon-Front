@@ -6,9 +6,11 @@ import React from "react";
 export default function BuilderGameTopNav({
   gameTitle,
   handleComplete,
+  handleTest,
 }: {
   gameTitle: string;
   handleComplete: () => void;
+  handleTest: () => void;
 }) {
   const { gameId } = useParams();
   return (
@@ -25,7 +27,10 @@ export default function BuilderGameTopNav({
       </div>
       <div className="title2-sb text-black headline-md">{gameTitle}</div>
 
-      <div className="absolute flex flex-row right-[20px] ">
+      <div className="absolute flex flex-row right-[20px] gap-2">
+        <div className="flex flex-row text-green-500" onClick={handleTest}>
+          테스트
+        </div>
         <div className="flex flex-row text-green-500" onClick={handleComplete}>
           완료
         </div>
