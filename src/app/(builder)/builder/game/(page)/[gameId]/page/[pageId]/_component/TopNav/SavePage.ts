@@ -32,6 +32,9 @@ class PageValidator {
     if (page.title.length === 0) {
       throw new Error("제목이 필요합니다.");
     }
+    // if (page.title.length > 30) {
+    //   throw new Error("제목은 30자 이하로 작성해야 합니다.");
+    // }
     if (page.contents.length === 0) {
       throw new Error("페이지에 블럭은 하나 이상 있어야 합니다.");
     }
@@ -65,7 +68,7 @@ export default async function SavePage({
         });
       }
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw error;
   }
 }

@@ -18,6 +18,7 @@ import SavePage from "./_component/TopNav/SavePage";
 import LinkPageBottomSheet from "./_component/LinkPageBottomSheet";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
+import ToastMessage from "@/common/ToastMessage";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
@@ -39,6 +40,10 @@ export default function BuilderGamePage() {
     linkedPageId: number | null;
   } | null>(null);
 
+  const [toast, setToast] = useState<{
+    text: string;
+    type: "success" | "error" | "warn";
+  } | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const isActiveBlock = useCallback(
@@ -154,22 +159,36 @@ export default function BuilderGamePage() {
     }
   };
 
-  const handleComplete = () => {
-    SavePage({
-      gameId: Number(gameId),
-      page: {
-        id: page.id,
-        title: page.title,
-        backgroundImage: backgroundImage,
-        contents: page.contents,
-        isEnding: page.isEnding,
-      },
-      choices: page.choices.map((choice) => ({
-        id: choice.id,
-        text: choice.text,
-        nextPageId: choice.nextPageId,
-      })),
-    });
+  const handleComplete = async () => {
+    try {
+      await SavePage({
+        gameId: Number(gameId),
+        page: {
+          id: page.id,
+          title: page.title,
+          backgroundImage: backgroundImage,
+          contents: page.contents,
+          isEnding: page.isEnding,
+        },
+        choices: page.choices.map((choice) => ({
+          id: choice.id,
+          text: choice.text,
+          nextPageId: choice.nextPageId,
+        })),
+      });
+      setToast({
+        text: "페이지가 저장되었습니다.",
+        type: "success",
+      });
+      setTimeout(() => {
+        router.push(`/builder/game/${gameId}`);
+      }, 1000);
+    } catch (error: any) {
+      setToast({
+        text: error.message,
+        type: "error",
+      });
+    }
   };
 
   const handleDeleteConfirm = async () => {
@@ -411,6 +430,7 @@ export default function BuilderGamePage() {
           ]}
         />
       </div>
+      <ToastMessage toast={toast} setToast={setToast} />
     </div>
   );
 }

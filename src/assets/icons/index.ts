@@ -38,6 +38,10 @@ import xIcon from "./x.svg";
 
 import taleGradientIcon from "./gradient/tale.svg";
 
+import successIcon from "./toast/success.svg";
+import failIcon from "./toast/fail.svg";
+import warnIcon from "./toast/warn.svg";
+
 export {
   arrowDownRightIcon,
   arrowRightIcon,
@@ -75,4 +79,7 @@ export {
   xCircleIcon,
   xGrayscaleIcon,
   xIcon,
+  successIcon,
+  failIcon,
+  warnIcon,
 };
