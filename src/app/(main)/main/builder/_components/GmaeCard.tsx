@@ -66,7 +66,7 @@ export default function GmaeCard(game: GameCardProps) {
         </div>
         {/* 제목, 설명, 카운트 */}
         <div className="flex flex-col flex-1 ">
-          <div className=" headline-sb h-[44px] text-white text-ellipsis line-clamp-2">
+          <div className=" headline-sb  text-white text-ellipsis line-clamp-2">
             {game.title}
           </div>
           <div className="mt-1 body-rg text-gray-600 text-ellipsis line-clamp-2">
@@ -78,11 +78,11 @@ export default function GmaeCard(game: GameCardProps) {
             </div>
             <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
             <div className="flex  caption-rg text-green-500">
-              선택지 {game.counts.pages}개
+              선택지 {game.counts.choices}개
             </div>
             <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
             <div className="flex  caption-rg text-green-500">
-              페이지 {game.counts.choices}개
+              페이지 {game.counts.pages}개
             </div>
           </div>
         </div>

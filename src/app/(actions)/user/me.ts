@@ -23,6 +23,7 @@ export const updateUserCall = async (formData: FormData) => {
     process.env.NEXT_PUBLIC_BACKEND_API + updateUser.METADATA.path,
     {
       method: updateUser.METADATA.method,
+
       body: formData,
     }
   );

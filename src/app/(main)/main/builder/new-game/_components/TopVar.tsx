@@ -5,13 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-export default function TopVar() {
-  const router = useRouter();
+interface TopVarProps {
+  handleCreateGame: () => void;
+}
 
-  const handleCreateGame = () => {
-    router.push("/builder/game");
-  };
-
+export default function TopVar({ handleCreateGame }: TopVarProps) {
   return (
     <div className="flex relative h-[48px] justify-center items-center">
       <div className="absolute left-0">

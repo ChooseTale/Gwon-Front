@@ -11,6 +11,7 @@ import {
   Panel,
   addEdge,
   NodeProps,
+  MiniMap,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { builder } from "@/app/(actions)/builder/builder";
@@ -136,12 +137,40 @@ export default function GameBuilder() {
             });
           });
 
+          let style: {
+            backgroundColor: string;
+            border: string;
+          } = {
+            backgroundColor: "",
+            border: "",
+          };
+          if (page.isStarting) {
+            style = {
+              backgroundColor: "#F7E7FF",
+              border: "0.5px solid #D073FF",
+            };
+          }
+          if (page.isEnding) {
+            style = {
+              backgroundColor: "#D7FFE5",
+              border: "0.5px solid #22C55E",
+            };
+          }
+          if (!page.isStarting && !page.isEnding) {
+            style = {
+              backgroundColor: "#FFFFFF",
+              border: "0.5px solid #000000",
+            };
+          }
+
           return {
             id: page.id.toString(),
             position: { x: idx * 100, y: page.depth * 100 },
             data: { label: page.title },
+            style: style,
           };
         });
+
         setNodes(newNodes);
       }
     };
