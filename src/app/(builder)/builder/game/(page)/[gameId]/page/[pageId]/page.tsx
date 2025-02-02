@@ -279,8 +279,26 @@ export default function BuilderGamePage() {
         <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
           <div className="flex flex-col mt-4 gap-2">
             <div>
-              <div className="flex "></div>
-              엔딩 페이지
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="checkbox"
+                  className="mr-2 w-[18px] h-[18px] opacity-80"
+                  checked={page.isEnding}
+                  onChange={(e) => {
+                    setPage({
+                      ...page,
+                      isEnding: e.target.checked,
+                    });
+                  }}
+                />
+                <label
+                  htmlFor="checkbox"
+                  className="text-body-md text-gray-800"
+                >
+                  엔딩 페이지
+                </label>
+              </div>
             </div>
             {page?.contents.map((content, idx) => (
               <div
