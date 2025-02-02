@@ -4,7 +4,7 @@ import Svg from "@/common/Svg";
 import React, { useEffect, useState } from "react";
 import ContinuedGamesCard from "./ContinuedGames/Card";
 import { getContinuedGameList } from "@choosetale/nestia-type/lib/functional/my_page/continued_game";
-import { getMyContinuedGameListCall } from "@/app/(actions)/main/my-game";
+import { getMyContinuedGameListCall } from "@/(actions)/main/my-game";
 import Link from "next/link";
 
 export default function ContinuedGames() {

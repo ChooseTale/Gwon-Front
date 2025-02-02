@@ -10,11 +10,9 @@ import {
   ConnectionLineType,
   Panel,
   addEdge,
-  NodeProps,
-  MiniMap,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { builder } from "@/app/(actions)/builder/builder";
+import { builder } from "@/(actions)/builder/builder";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import dagre from "@dagrejs/dagre";
 
@@ -22,9 +20,9 @@ import "@xyflow/react/dist/style.css";
 import { useParams, useRouter } from "next/navigation";
 import BuilderGameTopNav from "./_component/TopNav";
 import NewPageButton from "./_component/NewPageButton";
-import { createPageCall } from "@/app/(actions)/builder/page/page";
+import { createPageCall } from "@/(actions)/builder/page/page";
 import PlayGame from "@/app/(play)/play/_component/PlayGame";
-import TestTopNav from "./_component/TestTopNav";
+
 import PlayTopNav from "@/app/(play)/play/_component/TopNav";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
@@ -32,21 +30,21 @@ const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 const nodeWidth = 172;
 const nodeHeight = 50;
 
-const getLayoutedElements = (nodes, edges, direction = "TB") => {
+const getLayoutedElements = (nodes: any, edges: any, direction = "TB") => {
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
 
-  nodes.forEach((node) => {
+  nodes.forEach((node: any) => {
     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
   });
 
-  edges.forEach((edge) => {
+  edges.forEach((edge: any) => {
     dagreGraph.setEdge(edge.source, edge.target);
   });
 
   dagre.layout(dagreGraph);
 
-  const newNodes = nodes.map((node) => {
+  const newNodes = nodes.map((node: any) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     const newNode = {
       ...node,
@@ -85,8 +83,8 @@ export default function GameBuilder() {
   const router = useRouter();
 
   const onConnect = useCallback(
-    (params) =>
-      setEdges((eds) =>
+    (params: any) =>
+      setEdges((eds: any) =>
         addEdge(
           { ...params, type: ConnectionLineType.SmoothStep, animated: true },
           eds
@@ -178,7 +176,7 @@ export default function GameBuilder() {
   }, [setEdges, setNodes]);
 
   if (testPageId && game) {
-    const page = game.pages.find((page) => page.id === testPageId);
+    const page = game.pages.find((page: any) => page.id === testPageId);
 
     if (!page) {
       setTestPageId(null);
@@ -200,7 +198,7 @@ export default function GameBuilder() {
             id: page.id,
             title: page.title,
             backgroundImage: {
-              url: page.backgroundImage.url,
+              url: page.backgroundImage?.url ?? "",
             },
             isEnding: page.isEnding,
             endingOnClick: () => {

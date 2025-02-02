@@ -1,7 +1,6 @@
 "use client";
 
 import Svg from "@/common/Svg";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 interface NewPageButtonProps {
@@ -9,7 +8,6 @@ interface NewPageButtonProps {
 }
 
 export default function NewPageButton({ onClick }: NewPageButtonProps) {
-  const router = useRouter();
   return (
     <div
       className="fixed bottom-[32px] ml-[20px] mr-[20px] flex min-w-[280px] max-w-[560px] w-[calc(100%-40px)] h-[52px] items-center justify-center

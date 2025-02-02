@@ -3,8 +3,8 @@
 import {
   createChoiceCall,
   updateChoiceCall,
-} from "@/app/(actions)/builder/choice/choice";
-import { updatePageCall } from "@/app/(actions)/builder/page/page";
+} from "@/(actions)/builder/choice/choice";
+import { updatePageCall } from "@/(actions)/builder/page/page";
 
 interface SavePageProps {
   gameId: number;
@@ -26,8 +26,8 @@ interface SavePageProps {
 
 class PageValidator {
   static validate(
-    page: SavePageProps["page"],
-    choices: SavePageProps["choices"]
+    page: SavePageProps["page"]
+    // choices: SavePageProps["choices"]
   ) {
     if (page.title.length === 0) {
       throw new Error("제목이 필요합니다.");
@@ -47,7 +47,7 @@ export default async function SavePage({
   choices,
 }: SavePageProps) {
   try {
-    PageValidator.validate(page, choices);
+    PageValidator.validate(page);
 
     await updatePageCall(gameId, page.id, page, page.backgroundImage);
 
@@ -64,7 +64,6 @@ export default async function SavePage({
           parentPageId: page.id,
           childPageId: choice.nextPageId || undefined,
           title: choice.text,
-          description: "",
         });
       }
     }

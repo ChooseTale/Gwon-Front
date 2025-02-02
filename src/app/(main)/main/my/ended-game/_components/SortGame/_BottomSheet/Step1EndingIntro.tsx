@@ -22,7 +22,7 @@ interface Step1EndingIntroProps {
   endings: {
     playId: number;
     endingNumber: number;
-    abridgement: string;
+    title: string;
     reachedEndingAt: string;
   }[];
   handleClose: () => void;
@@ -140,7 +140,7 @@ export default function Step1EndingIntro({
                                 createdAt: new Date(
                                   endings[index].reachedEndingAt
                                 ),
-                                content: endings[index].abridgement,
+                                content: endings[index].title,
                               }
                             : null
                         }

@@ -1,6 +1,6 @@
 "use client";
 
-import { getGameListCall } from "@/app/(actions)/main/game";
+import { getGameListCall } from "@/(actions)/main/game";
 import React, { useEffect, useState } from "react";
 import CardList from "../_components/CardList";
 import { GameListEntity } from "../../../_domain/game-list.entity";

@@ -11,9 +11,9 @@ import {
   createGameCall,
   updateGameCall,
   uploadThumbnailCall,
-} from "@/app/(actions)/builder/game/game";
+} from "@/(actions)/builder/game/game";
 import { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
-import { createPageCall } from "@/app/(actions)/builder/page/page";
+import { createPageCall } from "@/(actions)/builder/page/page";
 
 export default function NewGameBuilder() {
   const router = useRouter();

@@ -7,7 +7,7 @@ import ProfileInput from "./_components/Input";
 import ProfileTopNav from "./_components/TopNav";
 import Button from "@/common/Button";
 import { useMeStore } from "@/store/User/Me/Me.store";
-import { updateUserCall } from "@/app/(actions)/user/me";
+import { updateUserCall } from "@/(actions)/user/me";
 
 export default function ProfilePage() {
   const me = useMeStore((state) => state.me);

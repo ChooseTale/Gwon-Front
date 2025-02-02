@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Modal from "./Modal";
-import { logoutCall, signOutCall } from "@/app/(actions)/user/auth";
+import { logoutCall, signOutCall } from "@/(actions)/user/auth";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next";
 

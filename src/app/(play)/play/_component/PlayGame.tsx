@@ -23,7 +23,7 @@ interface PlayGameProps {
   };
 }
 
-export default function PlayGame({ game, page }: PlayGameProps) {
+export default function PlayGame({ page }: PlayGameProps) {
   const [currentContentIdx, setCurrentContentIdx] = useState<number>(0);
   const [animateText, setAnimateText] = useState<string>("");
 
@@ -58,7 +58,7 @@ export default function PlayGame({ game, page }: PlayGameProps) {
       }
     };
     updateCurrentContentIdx();
-  }, [animateText]);
+  }, [animateText, currentContentIdx, page.contents]);
 
   return (
     <div className="relative w-full h-full overflow-hidden">

@@ -9,7 +9,7 @@ import { useBuilderGameFilterStore } from "@/store/Game/builder/building/Buildin
 import { useBuilderGameOrderStore } from "@/store/Game/builder/building/BuildingGameOrder.store";
 import { getMyBuildedGames } from "@choosetale/nestia-type/lib/functional/my_page/game_builder/index";
 import { GenresKorean } from "@/common/Game/Genre";
-import { getBuildingGamesCall } from "@/app/(actions)/main/builder/game";
+import { getBuildingGamesCall } from "@/(actions)/main/builder/game";
 import PublishedGameCard from "./_components/PublishedGameCard";
 
 export default function BuilderPage() {

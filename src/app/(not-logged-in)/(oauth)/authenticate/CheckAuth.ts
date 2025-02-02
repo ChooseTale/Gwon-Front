@@ -1,6 +1,6 @@
 "use client";
 
-import { getMeCall } from "@/app/(actions)/user/me";
+import { getMeCall } from "@/(actions)/user/me";
 import { useMeStore } from "@/store/User/Me/Me.store";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useSession } from "next-auth/react";

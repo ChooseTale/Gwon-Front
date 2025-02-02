@@ -1,7 +1,7 @@
 "use server";
 import React from "react";
 
-import { getStaticGameListCall } from "@/app/(actions)/main/game";
+import { getStaticGameListCall } from "@/(actions)/main/game";
 import { GenresKorean } from "./Genre";
 import RowCardList from "./RowCardList/RowCardList";
 

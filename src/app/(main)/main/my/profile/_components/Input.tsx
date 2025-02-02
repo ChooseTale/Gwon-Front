@@ -23,7 +23,7 @@ export default function ProfileInput({
       value={userData.nickname}
       regExp={/^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]{2,30}$/}
       maxLength={30}
-      onChange={(e) => handleInputChange("nickname", e)}
+      onChange={(e: any) => handleInputChange("nickname", e)}
     />
   );
 }

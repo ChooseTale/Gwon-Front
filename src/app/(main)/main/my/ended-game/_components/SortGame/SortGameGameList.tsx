@@ -1,6 +1,6 @@
 "use client";
 
-import { getMyEndedGameGroupListCall } from "@/app/(actions)/main/my-game";
+import { getMyEndedGameGroupListCall } from "@/(actions)/main/my-game";
 import Card from "./Card";
 import { useEndedGameFilterStore } from "@/store/Game/ended/EndedGameFilter.store";
 import { getEndedGroupGameList } from "@choosetale/nestia-type/lib/functional/my_page/ended_game/group_game/index";

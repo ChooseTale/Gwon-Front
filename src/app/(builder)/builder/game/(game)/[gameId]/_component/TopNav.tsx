@@ -1,6 +1,5 @@
 import Svg from "@/common/Svg";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import React from "react";
 
 export default function BuilderGameTopNav({
@@ -12,7 +11,6 @@ export default function BuilderGameTopNav({
   handleComplete: () => void;
   handleTest: () => void;
 }) {
-  const { gameId } = useParams();
   return (
     <div className="flex w-full bg-white relative h-[48px] justify-center items-center">
       <div className="absolute left-[20px]">

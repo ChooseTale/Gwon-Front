@@ -10,7 +10,7 @@ import {
   deletePageCall,
   getAllGameCall,
   getPageCall,
-} from "@/app/(actions)/builder/page/page";
+} from "@/(actions)/builder/page/page";
 import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
 import Image from "next/image";
@@ -146,7 +146,7 @@ export default function BuilderGamePage() {
         file.type = "file";
         file.accept = ".jpg, .png, .gif, .jpeg";
 
-        file.onchange = (e) => {
+        file.onchange = (e: any) => {
           if (e.target) {
             const file = e.target.files[0];
             setBackgroundImage(file);

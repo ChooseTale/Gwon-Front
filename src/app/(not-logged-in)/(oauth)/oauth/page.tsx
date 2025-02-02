@@ -1,7 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Svg from "@/common/Svg";
-import { testUserLoginCall } from "@/app/(actions)/user/auth";
+import { testUserLoginCall } from "@/(actions)/user/auth";
 import { useRouter } from "next/navigation";
 
 export default function OAuthPage() {

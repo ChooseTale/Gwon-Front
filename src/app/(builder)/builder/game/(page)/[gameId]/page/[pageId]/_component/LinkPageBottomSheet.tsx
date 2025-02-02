@@ -1,8 +1,6 @@
 "use client";
-
-import DropDown from "@/common/DropDown";
 import Dropdown_dark from "@/common/Dropdown_dark";
-import Svg from "@/common/Svg";
+
 import { useCommonStore } from "@/store/common.store";
 import React, { useEffect, useState } from "react";
 

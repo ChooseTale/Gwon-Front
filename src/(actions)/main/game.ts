@@ -1,6 +1,6 @@
 "use server";
 
-import { fetchIncetance } from "@/app/(actions)/fetch";
+import { fetchIncetance } from "@/(actions)/fetch";
 import { GenresKorean } from "@/common/Game/Genre";
 import { getList } from "@choosetale/nestia-type/lib/functional/game_play/list/index";
 

@@ -6,7 +6,7 @@ import Svg from "@/common/Svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { GenresKorean } from "../Genre";
-import { getIntroScreenCall } from "@/app/(actions)/main/play-game/intro";
+import { getIntroScreenCall } from "@/(actions)/main/play-game/intro";
 import { useCommonStore } from "@/store/common.store";
 import goldBadge from "@/assets/png/gold.png";
 import silverBadge from "@/assets/png/silver.png";
