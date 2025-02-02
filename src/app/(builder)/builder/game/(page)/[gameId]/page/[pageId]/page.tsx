@@ -278,6 +278,7 @@ export default function BuilderGamePage() {
         )}
         <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
           <div className="flex flex-col mt-4 gap-2">
+            엔딩 페이지
             {page?.contents.map((content, idx) => (
               <div
                 key={idx}

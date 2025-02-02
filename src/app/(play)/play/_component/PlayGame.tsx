@@ -64,16 +64,18 @@ export default function PlayGame({ game, page }: PlayGameProps) {
     <div className="relative w-full h-full overflow-hidden">
       {/* backgroundImage부분 */}
       {page.backgroundImage.url ? (
-        <div className="absolute top-0 left-0 w-full h-full z-0">
+        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black opacity-25">
           <Image
             src={page.backgroundImage.url}
             alt={page.title}
             fill
-            className=" object-cover"
+            className="object-cover"
           />
         </div>
       ) : (
-        <div className="absolute top-0 left-0 w-full h-full z-0 bg-gray-200"></div>
+        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black opacity-25">
+          <div className="absolute top-0 left-0 w-full h-full z-0 bg-white"></div>
+        </div>
       )}
       <div
         className="flex flex-col   h-full z-10 ml-[20px] mr-[20px]"

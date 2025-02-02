@@ -47,6 +47,16 @@ export default function NewGameBuilder() {
           key,
           value,
         }))}
+        titleData={{
+          title: "장르",
+          required: true,
+          textColor: "white",
+        }}
+        bottomSheetData={{
+          textColor: "white",
+          bgColor: "gray-800",
+          borderColor: "gray-600",
+        }}
         currentValue={GenresKorean[newGame.genre as keyof typeof GenresKorean]}
         onChange={(value: string) => {
           setNewGame({

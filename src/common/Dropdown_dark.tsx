@@ -43,7 +43,7 @@ export default function Dropdown_dark({
       <div
         className="w-full mt-3 h-[50px] border rounded-[6px] "
         style={{
-          borderColor: bottomSheetData.borderColor,
+          borderColor: colors[bottomSheetData.borderColor ?? "white"],
         }}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -68,8 +68,8 @@ export default function Dropdown_dark({
           border-[1px]
           "
           style={{
-            backgroundColor: bottomSheetData.bgColor,
-            borderColor: bottomSheetData.borderColor,
+            backgroundColor: colors[bottomSheetData.bgColor ?? "white"],
+            borderColor: colors[bottomSheetData.borderColor ?? "white"],
           }}
         >
           <div className="flex flex-col mt-[10px]">
@@ -93,7 +93,9 @@ export default function Dropdown_dark({
                 </div>
                 <div
                   className="border-b "
-                  style={{ borderColor: bottomSheetData.borderColor }}
+                  style={{
+                    borderColor: colors[bottomSheetData.borderColor ?? "white"],
+                  }}
                 ></div>
               </div>
             ))}

@@ -1,3 +1,5 @@
+"use client";
+
 import Svg from "@/common/Svg";
 import React from "react";
 
