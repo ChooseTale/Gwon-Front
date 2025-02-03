@@ -45,7 +45,8 @@ jobs:
           git fetch --all
           git pull origin ${{ env.BRANCH }}
 
-          docker build -t gwon-front .
+          docker build --no-cache -t gwon-front .
+
           docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d -p 3000:3000 gwon-front
 
           sleep 5
