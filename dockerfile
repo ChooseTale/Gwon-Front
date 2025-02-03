@@ -1,7 +1,7 @@
 # 1. Build Stage
 FROM node:20.15.1 AS builder
 
-RUN npm install -g yarn
+# RUN npm install -g yarn
 
 
 # 작업 디렉토리 설정
