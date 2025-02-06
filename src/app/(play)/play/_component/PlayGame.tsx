@@ -99,27 +99,33 @@ export default function PlayGame({ page }: PlayGameProps) {
         </div>
 
         {/* choice부분 */}
-        {page.isEnding ? (
-          <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-            <div
-              className="flex w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
-              onClick={page.endingOnClick}
-            >
-              게임 종료
-            </div>
-          </div>
-        ) : (
-          <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-            {page.choices.map((choice, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
-                onClick={choice.onClick}
-              >
-                {choice.title}
+        {currentContentIdx === page.contents.length - 1 && (
+          <>
+            {page.isEnding ? (
+              <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
+                <div
+                  className="flex w-full h-[48px] bg-gray-900 rounded-[6px]
+                  justify-center items-center
+                  text-headline-md text-gray-100 border border-black"
+                  onClick={page.endingOnClick}
+                >
+                  게임 종료
+                </div>
               </div>
-            ))}
-          </div>
+            ) : (
+              <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
+                {page.choices.map((choice, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
+                    onClick={choice.onClick}
+                  >
+                    {choice.title}
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

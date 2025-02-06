@@ -49,24 +49,21 @@ export default async function SavePage({
   try {
     PageValidator.validate(page);
 
-    await updatePageCall(gameId, page.id, page, page.backgroundImage);
-
-    for (const choice of choices) {
-      if (choice.id !== -1) {
-        await updateChoiceCall(gameId, choice.id, {
-          parentPageId: page.id,
+    await updatePageCall(
+      gameId,
+      page.id,
+      {
+        title: page.title,
+        contents: page.contents,
+        isEnding: page.isEnding,
+        choices: choices.map((choice) => ({
+          id: choice.id,
+          title: choice.text,
           childPageId: choice.nextPageId,
-          title: choice.text,
-          description: "",
-        });
-      } else {
-        await createChoiceCall(gameId, {
-          parentPageId: page.id,
-          childPageId: choice.nextPageId || undefined,
-          title: choice.text,
-        });
-      }
-    }
+        })),
+      },
+      page.backgroundImage
+    );
   } catch (error: any) {
     throw error;
   }

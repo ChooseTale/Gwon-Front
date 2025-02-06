@@ -410,6 +410,15 @@ export default function BuilderGamePage() {
                         isHighlight: true,
                       });
                     }}
+                    handleDelete={() => {
+                      const newChoices = page.choices.filter((_, idx) => {
+                        if (idx === activeBlock?.idx) {
+                          return false;
+                        }
+                        return true;
+                      });
+                      setPage({ ...page, choices: newChoices });
+                    }}
                     handleCancel={() => {
                       setActiveBlock(null);
                     }}

@@ -1,8 +1,19 @@
+"use server";
+
 import {
   create,
   update,
+  $delete,
 } from "@choosetale/nestia-type/lib/functional/game/choice";
 import { fetchIncetance } from "../../fetch";
+import { publish } from "@choosetale/nestia-type/lib/functional/game";
+
+export const publishGameCall = async (gameId: number) => {
+  await fetchIncetance(
+    `${process.env.NEXT_PUBLIC_BACKEND_API}${publish.path(gameId)}`,
+    { method: publish.METADATA.method }
+  );
+};
 
 export const createChoiceCall = async (gameId: number, body: create.Input) => {
   await fetchIncetance(
@@ -20,12 +31,24 @@ export const updateChoiceCall = async (
   choiceId: number,
   body: update.Input
 ) => {
+  try {
+    await fetchIncetance(
+      `${process.env.NEXT_PUBLIC_BACKEND_API}${update.path(gameId, choiceId)}`,
+      {
+        method: update.METADATA.method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deleteChoiceCall = async (gameId: number, choiceId: number) => {
   await fetchIncetance(
-    `${process.env.NEXT_PUBLIC_BACKEND_API}${update.path(gameId, choiceId)}`,
-    {
-      method: update.METADATA.method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }
+    `${process.env.NEXT_PUBLIC_BACKEND_API}${$delete.path(gameId, choiceId)}`,
+    { method: $delete.METADATA.method }
   );
 };

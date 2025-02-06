@@ -49,6 +49,7 @@ export const updatePageCall = async (
   formData.append("title", body.title);
   formData.append("contents", JSON.stringify(body.contents));
   formData.append("isEnding", body.isEnding.toString());
+  formData.append("choices", JSON.stringify(body.choices));
   if (backgroundImage) {
     formData.append("image", backgroundImage);
   }

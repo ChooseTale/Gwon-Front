@@ -7,13 +7,13 @@ import Dropdown_dark from "@/common/Dropdown_dark";
 import { GenresKorean } from "@/common/Game/Genre";
 import TopVar from "./_components/TopVar";
 import { useRouter } from "next/navigation";
-import {
-  createGameCall,
-  updateGameCall,
-  uploadThumbnailCall,
-} from "@/(actions)/builder/game/game";
+import { createGameCall } from "@/(actions)/builder/game/game";
 import { Genres } from "@choosetale/nestia-type/lib/structures/Genres";
-import { createPageCall } from "@/(actions)/builder/page/page";
+import {
+  descriptionValidate,
+  thumbnailValidate,
+  titleValidate,
+} from "./_validate/create-game";
 
 export default function NewGameBuilder() {
   const router = useRouter();
@@ -22,43 +22,35 @@ export default function NewGameBuilder() {
     title: string;
     genre: string;
     description: string;
-    thumbnail: File[];
+    thumbnails: File[];
     isThumbnailIdx: number;
   }>({
     title: "",
     genre: Object.keys(GenresKorean)[0],
     description: "",
-    thumbnail: [],
+    thumbnails: [],
     isThumbnailIdx: 0,
   });
-  console.log(newGame);
+
   const handleCreateGame = async () => {
-    const res = await createGameCall({
-      title: newGame.title,
-      genre: newGame.genre as Genres,
-      description: newGame.description,
-    });
+    try {
+      titleValidate(newGame.title);
+      descriptionValidate(newGame.description);
+      thumbnailValidate(newGame.thumbnails);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
 
-    const thumbnailRes = await uploadThumbnailCall({
-      gameId: res.id,
-      images: newGame.thumbnail.map((thumbnail, index) => ({
-        file: thumbnail,
-        isThumbnail: index === newGame.isThumbnailIdx,
-      })),
-    });
-    console.log(thumbnailRes);
-    const thumnailImageId = thumbnailRes[newGame.isThumbnailIdx].id;
-
-    // 게임을 생성 후 첫 페이지 생성
-    await createPageCall(res.id, {});
-
-    await updateGameCall(res.id, {
-      title: newGame.title,
-      description: newGame.description,
-      genre: newGame.genre as Genres,
-      thumbnailImageId: thumnailImageId,
-      isPrivate: true,
-    });
+    const res = await createGameCall(
+      {
+        title: newGame.title,
+        genre: newGame.genre as Genres,
+        description: newGame.description,
+        thumbnailFileIdx: newGame.isThumbnailIdx,
+      },
+      newGame.thumbnails
+    );
 
     router.push(`/builder/game/${res.id}`);
   };
@@ -128,7 +120,7 @@ export default function NewGameBuilder() {
             setNewGame({ ...newGame, isThumbnailIdx: index });
           }}
           onChange={(images) => {
-            setNewGame({ ...newGame, thumbnail: images });
+            setNewGame({ ...newGame, thumbnails: images });
           }}
           images={[]}
         />

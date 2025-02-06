@@ -4,6 +4,8 @@ import ContextMenu from "@/common/ContextMenu";
 import React, { useCallback, useEffect, useState } from "react";
 import { colors } from "../../../../../../../../../../tailwind.config";
 import Svg from "@/common/Svg";
+import { deleteChoiceCall } from "@/(actions)/builder/choice/choice";
+import { useParams } from "next/navigation";
 
 interface ChoiceBlockProps {
   choiceId: number;
@@ -17,6 +19,7 @@ interface ChoiceBlockProps {
   clickBlock: () => void;
   longPress: () => void;
   handleLinkPage: (choiceId: number) => void;
+  handleDelete: () => void;
 }
 
 export default function ChoiceBlock({
@@ -31,6 +34,7 @@ export default function ChoiceBlock({
   clickBlock,
   longPress,
   handleLinkPage,
+  handleDelete,
 }: ChoiceBlockProps) {
   const [editedText, setEditedText] = useState(originalText);
   const [pressTimeout, setPressTimeout] = useState<number>(0);
@@ -107,7 +111,9 @@ export default function ChoiceBlock({
             options={{ size: { width: 24, height: 24 }, color: "system-red" }}
           />
         ),
-        onClick: () => {},
+        onClick: () => {
+          handleDelete();
+        },
       },
     ];
     const bottom = (childrens.length * 44 + 4) * -1;

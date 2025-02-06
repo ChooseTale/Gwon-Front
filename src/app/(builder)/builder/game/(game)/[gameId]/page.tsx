@@ -24,6 +24,7 @@ import { createPageCall } from "@/(actions)/builder/page/page";
 import PlayGame from "@/app/(play)/play/_component/PlayGame";
 
 import PlayTopNav from "@/app/(play)/play/_component/TopNav";
+import { publishGameCall } from "@/(actions)/builder/choice/choice";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -222,7 +223,14 @@ export default function GameBuilder() {
     <div className="relative w-full h-full overflow-hidden bg-red-500">
       <BuilderGameTopNav
         gameTitle={game?.title ?? ""}
-        handleComplete={() => {}}
+        handleComplete={async () => {
+          try {
+            await publishGameCall(Number(gameId));
+            router.push(`/main/builder`);
+          } catch (err) {
+            console.error(err);
+          }
+        }}
         handleTest={() => {
           setTestPageId(
             game?.pages.filter((page) => page.isStarting)[0].id ?? null

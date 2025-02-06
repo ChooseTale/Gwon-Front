@@ -15,10 +15,11 @@ export const fetchIncetance = async (url: string, options: RequestInit) => {
   });
   if (!response.ok) {
     const error: {
-      message: string[];
+      message: string;
       statusCode: number;
     } = (await response.json()).message;
-    throw new Error(error.message[0]);
+
+    throw new Error(error.message);
   }
 
   return response;
