@@ -24,7 +24,7 @@ interface PlayGameProps {
 }
 
 export default function PlayGame({ page }: PlayGameProps) {
-  const [currentContentIdx, setCurrentContentIdx] = useState<number>(0);
+  const [currentContentIdx, setCurrentContentIdx] = useState<number>(-1);
   const [animateText, setAnimateText] = useState<string>("");
 
   const contentRef = useRef<HTMLDivElement>(null);
@@ -60,6 +60,11 @@ export default function PlayGame({ page }: PlayGameProps) {
     updateCurrentContentIdx();
   }, [animateText, currentContentIdx, page.contents]);
 
+  useEffect(() => {
+    setCurrentContentIdx(-1);
+    setAnimateText("");
+  }, [page]);
+
   return (
     <div className="relative w-full h-full overflow-hidden">
       {/* backgroundImage부분 */}
@@ -69,7 +74,7 @@ export default function PlayGame({ page }: PlayGameProps) {
             src={page.backgroundImage.url}
             alt={page.title}
             fill
-            className="object-cover"
+            className="object-cover w-full"
           />
         </div>
       ) : (

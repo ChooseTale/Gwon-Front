@@ -6,10 +6,14 @@ import Svg from "@/common/Svg";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { GenresKorean } from "../Genre";
-import { getIntroScreenCall } from "@/(actions)/main/play-game/intro";
+import {
+  firstStartGameCall,
+  getIntroScreenCall,
+} from "@/(actions)/main/play-game/intro";
 import { useCommonStore } from "@/store/common.store";
 import goldBadge from "@/assets/png/gold.png";
 import silverBadge from "@/assets/png/silver.png";
+import { useRouter } from "next/navigation";
 
 type GameBottomSheetProps = {
   gameId: number;
@@ -22,7 +26,7 @@ export default function GameBottomSheet({
 }: GameBottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [game, setGame] = useState<getIntroScreen.Output>();
-
+  const router = useRouter();
   useEffect(() => {
     const getGame = async () => {
       const res = await getIntroScreenCall({ gameId });
@@ -38,6 +42,16 @@ export default function GameBottomSheet({
       setIsOpen(true);
     });
   }, []);
+
+  const handleFirstStartGame = async () => {
+    try {
+      const res = await firstStartGameCall({ gameId });
+
+      router.push(`/play/${res.playId}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (!game) return null;
   return (
@@ -160,7 +174,7 @@ export default function GameBottomSheet({
               <div className="flex flex-col gap-y-2 mt-8">
                 <Button
                   value="새로하기"
-                  onClick={() => {}}
+                  onClick={handleFirstStartGame}
                   bgColor="bg-gray-700"
                   textColor="text-gray-100"
                 />
