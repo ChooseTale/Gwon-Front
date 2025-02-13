@@ -19,6 +19,7 @@ import gitCommitIcon from "./git-commit.svg";
 import generateBIcon from "./generateB.svg";
 import link2Icon from "./link-2.svg";
 import linkIcon from "./link.svg";
+import lineIcon from "./line.svg";
 import imageIcon from "./image.svg";
 import plusIcon from "./plus.svg";
 import robotSolidIcon from "./robot-solid.svg";
@@ -65,6 +66,7 @@ export {
   generateBIcon,
   link2Icon,
   linkIcon,
+  lineIcon,
   imageIcon,
   plusIcon,
   robotSolidIcon,

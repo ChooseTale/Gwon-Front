@@ -48,7 +48,7 @@ export default function GamePlayPage() {
           isEnding: playData.page.isEnding,
           endingOnClick: () => {
             endGameCall(Number(playId), playData.page.id);
-            router.push("/main/game");
+            router.push(`/main/game/${playId}/ending`);
           },
           contents: playData.page.contents as any,
           choices: playData.page.choices.map((choice) => {

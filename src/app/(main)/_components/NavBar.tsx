@@ -7,8 +7,8 @@ const notShowNavBarPath = ["/main/my/profile", "/main/builder/new-game"];
 
 export default function NavBar() {
   const pathname = usePathname();
-
-  if (notShowNavBarPath.includes(pathname)) return null;
+  const isEndingPage = pathname.includes("/ending");
+  if (notShowNavBarPath.includes(pathname) || isEndingPage) return null;
 
   return (
     <div className="fixed left-0 bottom-[-1px] w-full h-[4rem] shrink-0 bg-background-dark border-t border-gray-900">

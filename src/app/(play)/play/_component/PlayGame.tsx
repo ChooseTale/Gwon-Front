@@ -1,3 +1,4 @@
+import Svg from "@/common/Svg";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -108,13 +109,22 @@ export default function PlayGame({ page }: PlayGameProps) {
           <>
             {page.isEnding ? (
               <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-                <div
-                  className="flex w-full h-[48px] bg-gray-900 rounded-[6px]
+                <div className="flex flex-row w-full gap-2">
+                  <div
+                    className="flex w-full h-[48px] bg-green-500 rounded-[6px]
                   justify-center items-center
-                  text-headline-md text-gray-100 border border-black"
-                  onClick={page.endingOnClick}
-                >
-                  게임 종료
+                  text-headline-md text-black  "
+                    onClick={page.endingOnClick}
+                  >
+                    엔딩 보러가기
+                    <Svg
+                      icon="chevronRightIcon"
+                      options={{
+                        size: { width: 24, height: 24 },
+                        color: "black",
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (

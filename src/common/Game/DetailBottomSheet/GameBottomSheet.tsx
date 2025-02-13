@@ -172,19 +172,29 @@ export default function GameBottomSheet({
               </div>
               {/* 버튼들 */}
               <div className="flex flex-col gap-y-2 mt-8">
-                <Button
-                  value="새로하기"
-                  onClick={handleFirstStartGame}
-                  bgColor="bg-gray-700"
-                  textColor="text-gray-100"
-                />
-                {game.play && (
+                {!game.play && (
                   <Button
-                    value={"이어하기:" + game.play.page?.title}
-                    onClick={() => {}}
+                    value="새로하기"
+                    onClick={handleFirstStartGame}
                     bgColor="bg-green-500"
-                    textColor="text-black"
+                    textColor="black"
                   />
+                )}
+                {game.play && (
+                  <>
+                    <Button
+                      value="새로하기"
+                      onClick={handleFirstStartGame}
+                      bgColor="bg-gray-700"
+                      textColor="text-gray-100"
+                    />
+                    <Button
+                      value={"이어하기:" + game.play.page?.title}
+                      onClick={() => {}}
+                      bgColor="bg-green-500"
+                      textColor="text-black"
+                    />
+                  </>
                 )}
               </div>
 

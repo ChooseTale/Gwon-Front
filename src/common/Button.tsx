@@ -23,6 +23,9 @@ export default function Button({
         textColor ? textColor : "text-black"
       }`}
       onClick={onClick}
+      style={{
+        color: textColor,
+      }}
     >
       {value}
     </div>

@@ -877,9 +877,9 @@
     "@babel/helper-validator-identifier" "^7.25.9"
 
 "@choosetale/nestia-type@latest":
-  version "1.1.28"
-  resolved "https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.28/36dcd7a9ac48a14989e0eb357197e0b83b722d9c#36dcd7a9ac48a14989e0eb357197e0b83b722d9c"
-  integrity sha512-apF9AgQwOdrJ15SRFT0on3s+tz7XRCZZ9lVVW/242zaaeLm1y6pC5Wex/tvNg+J4xRTDobqPsA1OVorSKLLFyQ==
+  version "1.1.30"
+  resolved "https://npm.pkg.github.com/download/@ChooseTale/nestia-type/1.1.30/00286f9fa4717a641136aaf90e92b67a17cb82e1#00286f9fa4717a641136aaf90e92b67a17cb82e1"
+  integrity sha512-2y2GhFQBHjsqf4nCrjsJOXevsKC1yO3YCNmHOSK45JSt2NGVhIOzpTzJX+2Uve/UJ3+Ka0UfmpXGQi9AI5007w==
   dependencies:
     "@nestia/fetcher" "^3.2.1"
     typia "^6.3.1"
