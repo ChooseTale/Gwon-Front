@@ -27,7 +27,7 @@ export const chooseChoiceCall = async (playId: number, choiceId: number) => {
 };
 
 export const endGameCall = async (playId: number, pageId: number) => {
-  const res = await fetchIncetance(
+  await fetchIncetance(
     `${process.env.NEXT_PUBLIC_BACKEND_API}${endPlay.path(playId, pageId)}`,
     {
       method: endPlay.METADATA.method,

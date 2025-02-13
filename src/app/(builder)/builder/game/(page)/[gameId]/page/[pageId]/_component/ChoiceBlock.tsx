@@ -4,8 +4,6 @@ import ContextMenu from "@/common/ContextMenu";
 import React, { useCallback, useEffect, useState } from "react";
 import { colors } from "../../../../../../../../../../tailwind.config";
 import Svg from "@/common/Svg";
-import { deleteChoiceCall } from "@/(actions)/builder/choice/choice";
-import { useParams } from "next/navigation";
 
 interface ChoiceBlockProps {
   choiceId: number;
