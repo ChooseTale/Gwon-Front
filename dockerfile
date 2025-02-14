@@ -5,7 +5,7 @@ FROM node:20.15.1 AS builder
 
 
 # 작업 디렉토리 설정
-WORKDIR ./
+WORKDIR /app
 
 # package.json과 package-lock.json 복사
 COPY package*.json ./
@@ -13,7 +13,7 @@ COPY yarn.lock ./
 
 COPY .npmrc ./
 
-RUN ls
+RUN ls -a
 # 의존성 설치
 ENV NODE_ENV=production
 
