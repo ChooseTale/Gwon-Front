@@ -12,8 +12,6 @@ COPY package*.json ./
 COPY yarn.lock ./
 
 COPY .npmrc ./
-
-RUN echo "npmrc: $(cat .npmrc)"
 # 의존성 설치
 ENV NODE_ENV=production
 

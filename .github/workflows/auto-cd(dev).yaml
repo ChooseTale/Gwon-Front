@@ -44,8 +44,8 @@ jobs:
 
       - name: aws ecr build
         run: |
-          echo ${{ env.DEV_FRONT_CONFIG }} > .env.production
-          echo ${{ env.NPMRC }} > .npmrc
+          echo ${{ secrets.DEV_FRONT_CONFIG }} > .env.production
+          echo ${{ secrets.NPMRC }} > .npmrc
           docker build  -t ${{ secrets.AWS_ECR_URI }}/choosetale:frontend .
 
       - name: aws ecr push
