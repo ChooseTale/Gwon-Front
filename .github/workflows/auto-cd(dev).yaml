@@ -31,11 +31,11 @@ jobs:
 
       - name: create npmrc
         run: |
-          echo ${{ secrets.NPMRC }} > .npmrc
+          echo "${{ secrets.NPMRC }}" > .npmrc
 
       - name: create env
         run: |
-          echo ${{ secrets.DEV_FRONT_CONFIG }} > .env.production
+          echo "${{ secrets.DEV_FRONT_CONFIG }}" > .env.production
 
       - name: aws login
         uses: aws-actions/configure-aws-credentials@v2
