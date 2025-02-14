@@ -29,6 +29,14 @@ jobs:
           echo ${{ env.DEPLOY_PATH }}
           echo ${{ env.BRANCH }}
 
+      - name: create npmrc
+        run: |
+          echo ${{ secrets.NPMRC }} > .npmrc
+
+      - name: create env
+        run: |
+          echo ${{ secrets.DEV_FRONT_CONFIG }} > .env.production
+
       - name: aws login
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -39,13 +47,11 @@ jobs:
       - name: aws ecr get-login-password
         id: login-password
         run: |
-
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URI }}
 
       - name: aws ecr build
         run: |
-          echo ${{ secrets.DEV_FRONT_CONFIG }} > .env.production
-          echo ${{ secrets.NPMRC }} > .npmrc
+
           docker build  -t ${{ secrets.AWS_ECR_URI }}/choosetale:frontend .
 
       - name: aws ecr push

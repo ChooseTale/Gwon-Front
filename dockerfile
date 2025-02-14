@@ -15,7 +15,7 @@ COPY .npmrc ./
 # 의존성 설치
 ENV NODE_ENV=production
 
-RUN yarn install --production=true
+RUN yarn install
 
 
 # 소스 코드 복사
