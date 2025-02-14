@@ -29,6 +29,10 @@ jobs:
           echo ${{ env.DEPLOY_PATH }}
           echo ${{ env.BRANCH }}
 
+      - name: create npmrc
+        run: |
+          echo ${{ env.NPMRC }} > .npmrc
+
       - name: create env
         run: |
           echo ${{ env.DEV_CONFIG }} > .env.production
