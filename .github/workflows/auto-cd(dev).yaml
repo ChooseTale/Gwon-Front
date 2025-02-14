@@ -47,7 +47,7 @@ jobs:
       - name: aws ecr get-login-password
         id: login-password
         run: |
-          ls
+          ls -a
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URI }}
 
       - name: aws ecr build
