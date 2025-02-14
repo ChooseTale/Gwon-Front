@@ -33,6 +33,10 @@ jobs:
         run: |
           echo "${{ secrets.NPMRC }}" > .npmrc
 
+      - name: create next-env.d.ts
+        run: |
+          echo "${{ secrets.NEXT_ENV_D }}" > next-env.d.ts
+
       - name: create env
         run: |
           echo "${{ secrets.DEV_FRONT_CONFIG }}" > .env.production
