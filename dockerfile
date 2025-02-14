@@ -9,6 +9,7 @@ WORKDIR /app
 
 # package.json과 package-lock.json 복사
 COPY package*.json ./
+COPY yarn.lock ./
 
 COPY .npmrc ./
 
