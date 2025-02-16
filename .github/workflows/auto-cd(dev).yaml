@@ -70,10 +70,14 @@ jobs:
 
       - name: 원격 서버에 배포
         run: |
+        ssh -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'EOF'
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URI }}
+          docker ps -q --filter "name=choosetale-frontend" | grep -q . && docker rm -f choosetale-frontend || echo "컨테이너가 없습니다."
+          docker images ${{ secrets.AWS_ECR_URI }}/choosetale:frontend && docker rmi ${{ secrets.AWS_ECR_URI }}/choosetale:frontend || echo "이미지가 없습니다."
           docker pull ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
 
-          docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d -p 3000:3000 ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
+          docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d --net choosetale-network --name choosetale-frontend -p 3000:3000 ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
+        EOF
 
       - name: 슬랙 메시지 전송
         env:
