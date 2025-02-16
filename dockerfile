@@ -13,9 +13,7 @@ COPY yarn.lock ./
 
 COPY .npmrc ./
 # 의존성 설치
-ENV NODE_ENV=production
-
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 
 # 소스 코드 복사
