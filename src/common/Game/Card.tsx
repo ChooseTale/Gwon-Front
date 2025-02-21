@@ -64,7 +64,7 @@ export default function Card({
         {cards.title}
       </span>
       <div className="flex flex-row mt-2">
-        <div className="flex flex-row w-[2rem] -space-x-2">
+        <div className="flex flex-row  -space-x-2">
           {users.reduce((prev, curr, idx) => {
             if (idx > 2) {
               return prev;
@@ -72,8 +72,8 @@ export default function Card({
             return [...prev, <UserImage key={curr.id} src={curr.imageUrl} />];
           }, [] as React.ReactNode[])}
         </div>
-        <span className="ml-[4px] caption-rg text-white">
-          {enrich.players}명이 플레이 했어요
+        <span className="ml-[4px] caption-rg text-gray-100">
+          {enrich.players}명이 플레이
         </span>
       </div>
     </div>
