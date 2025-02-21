@@ -17,10 +17,10 @@ export default function RowCardList({
   return (
     <div className="flex flex-col">
       <span className="title2-sb text-white">{title}</span>
-      <div className="flex overflow-x-auto gap-2 flex-nowrap  h-[266px] mt-4">
+      <div className="flex overflow-x-auto gap-2 flex-nowrap  h-[263px] mt-4">
         {gameListEntity.gameList.map((card) => {
           return (
-            <div className="flex w-[171px]" key={card.game.id}>
+            <div className="flex w-[171px] " key={card.game.id}>
               <Card
                 cardData={{
                   id: card.game.id,

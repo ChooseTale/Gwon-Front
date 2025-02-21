@@ -57,11 +57,13 @@ export default function Card({
           fill
         />
       </div>
-      <span className="text-white headline-md mt-[8px]">{cards.title}</span>
-      <span className="caption-rg text-gray-200">
+      <span className="caption-rg h-[17px] text-gray-200 mt-2">
         {GenresKorean[cards.category as keyof typeof GenresKorean]}
       </span>
-      <div className="flex flex-row ">
+      <span className="text-white headline-md  line-clamp-2 h-[calc(2*32px)]">
+        {cards.title}
+      </span>
+      <div className="flex flex-row mt-2">
         <div className="flex flex-row w-[2rem] -space-x-2">
           {users.reduce((prev, curr, idx) => {
             if (idx > 2) {
