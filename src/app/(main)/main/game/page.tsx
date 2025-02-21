@@ -15,7 +15,7 @@ export default async function GamePage() {
         title="이번주 Top 10 👑"
         gameFilterOptions={{ genres: [] }}
       />
-      <div className="flex w-[100vw] h-[12px] bg-gray-900  mt-[40px] mb-[40px] ml-[-20px]" />
+      <div className="min-h-[12px]  h-[12px] bg-gray-900  mt-[40px] mb-[40px] " />
       <TopNavBar />
 
       <GameList />
