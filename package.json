@@ -11,15 +11,21 @@
   },
   "dependencies": {
     "@dagrejs/dagre": "^1.1.4",
+    "@radix-ui/react-dialog": "^1.1.6",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@xyflow/react": "^12.3.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "cookies-next": "^5.0.2",
+    "lucide-react": "^0.475.0",
     "next": "15.0.3",
     "next-auth": "^4.24.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "react-zoom-pan-pinch": "^3.6.1",
     "swiper": "^11.2.2",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
