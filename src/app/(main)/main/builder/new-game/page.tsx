@@ -110,6 +110,7 @@ export default function NewGameBuilder() {
           value={newGame.description || ""}
           regExp={/^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]{1,200}$/}
           maxLength={200}
+          boxHeight={168}
           onChange={(e) => {
             setNewGame({ ...newGame, description: e.target.value });
           }}

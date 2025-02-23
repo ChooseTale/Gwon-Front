@@ -1,5 +1,6 @@
 "use client";
 import Dropdown_dark from "@/common/Dropdown_dark";
+import Svg from "@/common/Svg";
 
 import { useCommonStore } from "@/store/common.store";
 import React, { useEffect, useState } from "react";
@@ -109,6 +110,13 @@ export default function LinkPageBottomSheet({
           <div className="flex justify-center items-center">
             <div className=""></div>
           </div>
+          <Svg
+            icon="arrowIcon"
+            options={{
+              size: { width: 16, height: 29 },
+              color: "gray-600",
+            }}
+          />
           {/* 연결될 페이지 */}
           <div className="ml-[12px] mr-[12px] z-10">
             <Dropdown_dark
@@ -117,7 +125,7 @@ export default function LinkPageBottomSheet({
                 required: false,
               }}
               bottomSheetData={{
-                textColor: "black",
+                textColor: "gray-50",
                 bgColor: "white",
                 borderColor: "gray-100",
               }}
@@ -136,6 +144,7 @@ export default function LinkPageBottomSheet({
               }}
             />
           </div>
+
           {/* 완료 버튼 */}
           <div
             className="flex absolute bottom-[32px] left-[12px] right-[12px] w-full min-w-[296px] max-w-[376px]

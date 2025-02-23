@@ -6,14 +6,9 @@ interface InputProps {
   value: string;
   regExp: RegExp;
   maxLength: number;
+  boxHeight?: number;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-
-const getBoxHeight = (maxLength: number) => {
-  if (maxLength < 50) return { height: 48, paddingTop: 0 };
-  if (maxLength < 100) return { height: 48 * 2, paddingTop: 40 };
-  return { height: 189, paddingTop: 100 };
-};
 
 export default function Input({
   title,
@@ -21,12 +16,12 @@ export default function Input({
   value,
   regExp,
   maxLength,
+  boxHeight,
   onChange,
 }: InputProps) {
   const [inputValue, setInputValue] = useState(value);
   const [isError, setIsError] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const boxHeight = getBoxHeight(maxLength);
 
   useEffect(() => {
     setInputValue(value);
@@ -62,23 +57,27 @@ export default function Input({
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="flex flex-row items-center">
         <div className="headline-sb text-white">{title}</div>
         <span className="text-red-500 ml-[2px]">*</span>
       </div>
+
       <textarea
-        className={`w-full h-[${boxHeight.height}px] mt-[12px] bg-transparent
+        className={`w-full  mt-[12px] bg-transparent
         border rounded-[6px]
 
         ${isError ? "border-red-500" : "border-gray-600"}
         outline-none text-white
-        p-[10px]
-        pb-[${boxHeight.paddingTop}px]
+
         placeholder:text-body-md
 
         ${isActive ? "placeholder:text-body-2" : "placeholder:text-gray-600"}
         `}
+        style={{
+          padding: "10px",
+          height: `${boxHeight ? boxHeight : 48}px`,
+        }}
         placeholder={placeholder}
         value={inputValue}
         onChange={handleChange}

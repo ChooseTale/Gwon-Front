@@ -67,11 +67,11 @@ export default function Thumbnail({
             icon="generateBIcon"
             options={{
               size: { width: 24, height: 24 },
-              color: "white",
-              fillColor: "white",
+              color: "gray-600",
+              fillColor: "gray-600",
             }}
           />
-          <div className="body-md text-white mt-[2px]">AI 생성</div>
+          <div className="body-md text-gray-600 mt-[2px]">AI 생성</div>
         </div>
       </div>
       <Swiper

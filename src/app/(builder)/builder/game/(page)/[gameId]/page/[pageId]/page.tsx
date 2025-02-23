@@ -455,7 +455,10 @@ export default function BuilderGamePage() {
           handleOpen={(isOpen: boolean) => setIsBottomSheetOpen(isOpen)}
           activeType={[
             { key: "block", isActive: activeBlock?.type !== "choice" },
-            { key: "choice", isActive: page.choices.length < 4 },
+            {
+              key: "choice",
+              isActive: page.choices.length < 4 && !page.isEnding,
+            },
             { key: "aiChoice", isActive: page.choices.length < 4 },
             { key: "background", isActive: activeBlock === null },
           ]}

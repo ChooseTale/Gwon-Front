@@ -1,5 +1,6 @@
 import arrowDownRightIcon from "./arrow-down-right.svg";
 import arrowRightIcon from "./arrow-right.svg";
+import arrowIcon from "./arrow.svg";
 import bookOpenIcon from "./book-open.svg";
 import cameraIcon from "./camera.svg";
 import cameraFillIcon from "./camera_fill.svg";
@@ -47,6 +48,7 @@ import warnIcon from "./toast/warn.svg";
 export {
   arrowDownRightIcon,
   arrowRightIcon,
+  arrowIcon,
   bookOpenIcon,
   cameraIcon,
   cameraFillIcon,
