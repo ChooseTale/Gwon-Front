@@ -80,7 +80,7 @@ export default function GenreTopBar() {
             />
           </div>
           {isSortBottomSheetOpen && (
-            <div className="flex  relative top-[15px] right-[116px] z-30">
+            <div className="flex  relative top-[15px]  right-[116px] z-30">
               <DropDown
                 values={[
                   {

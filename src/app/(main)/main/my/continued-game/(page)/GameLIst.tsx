@@ -34,7 +34,7 @@ export default function ContinuedGamesList() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-row  flex-wrap gap-2     mt-[12px]">
+      <div className="flex flex-row  flex-wrap gap-2     ">
         {continuedGameList.map((game) => (
           <div
             className="flex  w-[calc(50%-4px)]

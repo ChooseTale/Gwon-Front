@@ -63,7 +63,8 @@ export default function TopNavBar() {
         </div>
         <div
           onClick={handleSortBottomSheet}
-          className="flex flex-row justify-center items-center "
+          id="sort-bottom-sheet"
+          className="flex flex-row justify-center items-center gap-[2px]"
         >
           <span className="body-rg text-white">
             {useGameOrderStore.getState().selectedOrderValue}

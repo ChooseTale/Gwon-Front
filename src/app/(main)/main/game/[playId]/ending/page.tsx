@@ -31,16 +31,16 @@ export default function EndingPage() {
         <div className="flex justify-center items-center h-[48px] text-white headline-md">
           엔딩
         </div>
-        <div className="flex flex-col ml-[20px] mr-[20px]">
+        <div className="flex flex-col ">
           <div className="flex mt-[48px] text-white title-sb   text-[24px]">
             {/* 엔딩 페이지 제목 */}
             {endingData.endingPage.title}
           </div>
           <div className="flex justify-start mt-4">
-            <div className="text-gray-100">
+            <div className="text-gray-100 text-caption">
               플레이 횟수 {endingData.enrich.totalEndingCount}
             </div>
-            <div className="flex ml-[13px] text-gray-100">
+            <div className="flex ml-[13px] text-gray-100 text-caption">
               엔딩 {endingData.enrich.reachEndingCount}/
               {endingData.enrich.totalEndingCount}
             </div>

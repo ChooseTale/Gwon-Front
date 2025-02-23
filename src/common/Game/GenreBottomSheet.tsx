@@ -42,7 +42,7 @@ export default function GenreBottomSheet({
         <div
           className={`flex flex-col absolute max-w-[400px] h-[65%] bottom-0
         z-20
-         bg-gray-900 p-4 rounded-t-[20px] shadow-lg
+         bg-gray-900 p-[20px] rounded-t-[20px] shadow-lg
   ${isOpen ? "translate-y-0" : "translate-y-full"} duration-300
         `}
           onClick={(e) => e.stopPropagation()}

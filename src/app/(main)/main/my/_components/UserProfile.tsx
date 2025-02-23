@@ -45,7 +45,7 @@ export default function UserProfile() {
         </div>
 
         <div className="flex flex-row w-full items-center justify-center mt-[4px]">
-          <span className="body1-sb text-gray-500 ">{me.email}</span>
+          <span className="body1-rg text-gray-500 ">{me.email}</span>
         </div>
       </div>
     </div>

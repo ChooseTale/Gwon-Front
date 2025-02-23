@@ -23,11 +23,11 @@ export default function ContinuedGamesCard({
     setIsOpen(false);
   };
   return (
-    <div className="w-full  h-full   flex flex-col">
+    <div className="w-full  h-full   flex flex-col" onClick={handleClick}>
       {isOpen && (
         <GameBottomSheet gameId={game.game.id} handleClose={handleClose} />
       )}
-      <div onClick={handleClick}>
+      <div>
         <Image
           className="w-full  aspect-square object-cover rounded-[8px]"
           src={game.game.thumbnail.url ?? ""}

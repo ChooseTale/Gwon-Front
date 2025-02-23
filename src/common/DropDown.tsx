@@ -14,7 +14,9 @@ export default function DropDown({ values, onChange }: DropDownProps) {
       className="
       border-[1px] border-gray-700
       w-[116px] rounded-[6px] bg-gray-800
-    flex absolute  justify-center items-center flex-col"
+    flex absolute  justify-center items-center flex-col
+    py-1
+    "
     >
       {values.map((value) => (
         <div
