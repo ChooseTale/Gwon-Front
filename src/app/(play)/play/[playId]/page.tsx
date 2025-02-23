@@ -30,7 +30,6 @@ export default function GamePlayPage() {
   const handleChoiceClick = async (choiceId: number) => {
     await chooseChoiceCall(Number(playId), choiceId);
     const updatedPage = await getPlayData(Number(playId));
-    console.log(updatedPage);
     setPlayData(updatedPage);
   };
 

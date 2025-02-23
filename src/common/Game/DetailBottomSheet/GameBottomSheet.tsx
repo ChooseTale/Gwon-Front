@@ -183,7 +183,9 @@ export default function GameBottomSheet({
                     />
                     <Button
                       value={"이어하기:" + game.play.page?.title}
-                      onClick={() => {}}
+                      onClick={() => {
+                        router.push(`/play/${game.play?.id ?? 0}`);
+                      }}
                       bgColor="bg-green-500"
                       textColor="text-black"
                     />
