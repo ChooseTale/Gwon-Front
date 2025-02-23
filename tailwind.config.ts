@@ -36,100 +36,96 @@ export const colors = {
 export const boxShadows = {};
 
 const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
-    darkMode: ["class"],
-    content: ["./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{ts,tsx}"],
   // presets: [sharedConfig],
   // plugins: [require("tailwindcss-animate")],
   theme: {
-  	extend: {
-  		keyframes: {
-  			slideUp: {
-  				'0%': {
-  					transform: 'translateY(100%)',
-  					opacity: '0'
-  				},
-  				'100%': {
-  					transform: 'translateY(0)',
-  					opacity: '1'
-  				}
-  			}
-  		},
-  		animation: {
-  			slideUp: 'slideUp 0.3s ease-out'
-  		},
-  		screens: {
-  			xs: '320px',
-  			cardScreen1: '458px',
-  			cardScreen2: '596px'
-  		},
-  		fontFamily: {
-  			pretendard: [
-  				'Pretendard',
-  				'sans-serif'
-  			]
-  		},
-  		colors: {
-                ...colors,
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
-  		boxShadow: {
-                ...boxShadows
-  		},
-  		fontSize: {
-  			title1: '1.25rem',
-  			title2: '1.125rem',
-  			headline: '1rem',
-  			body: '0.875rem',
-  			caption: '0.75rem'
-  		},
-  		lineHeight: {
-  			'140': '1.4'
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    extend: {
+      keyframes: {
+        slideUp: {
+          "0%": {
+            transform: "translateY(100%)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        slideUp: "slideUp 0.3s ease-out",
+      },
+      screens: {
+        xs: "320px",
+        cardScreen1: "458px",
+        cardScreen2: "596px",
+      },
+      fontFamily: {
+        pretendard: ["Pretendard", "sans-serif"],
+      },
+      colors: {
+        ...colors,
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
+        },
+      },
+      boxShadow: {
+        ...boxShadows,
+      },
+      fontSize: {
+        title1: "1.25rem",
+        title2: "1.125rem",
+        headline: "1rem",
+        body: "0.875rem",
+        caption: "0.75rem",
+      },
+      lineHeight: {
+        "140": "1.4",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+    },
   },
   plugins: [
     ({ addComponents }: { addComponents: any }) => {
@@ -236,8 +232,8 @@ const config: Pick<Config, "content" | "presets" | "plugins" | "theme"> = {
         },
       });
     },
-      require("tailwindcss-animate")
-],
+    require("tailwindcss-animate"),
+  ],
 };
 
 export default config;
