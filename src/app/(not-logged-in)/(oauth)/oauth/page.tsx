@@ -11,7 +11,7 @@ export default function OAuthPage() {
   };
 
   return (
-    <div className="w-full h-full  flex flex-col justify-end items-center mb-[145px]">
+    <div className="w-full h-full  flex flex-col justify-center items-center mb-[145px]">
       <div
         className="flex
       shadow-[0px_1.25px_40px_rgba(34,197,94,0.49)]
