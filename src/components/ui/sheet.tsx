@@ -63,6 +63,7 @@ const SheetContent = React.forwardRef<
     <SheetPrimitive.Content
       ref={ref}
       className={cn(sheetVariants({ side }), className)}
+      title="bottom-sheet"
       {...props}
     >
       <SheetPrimitive.Close></SheetPrimitive.Close>

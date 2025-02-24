@@ -48,6 +48,17 @@ export default function BuilderPage() {
         <div className="mt-[20px]" />
         {/* 장르 탑바 */}
         <GenreTopBar />
+        {games.games.length === 0 && (
+          <div className="flex flex-col   items-center justify-center h-full">
+            <div className="text-headline-md text-gray-400">
+              현재 {gameStatus === "BUILDING" ? "제작한 " : "게시한 "}게임이
+              없어요. <br />
+              {gameStatus === "BUILDING"
+                ? "게임을 제작해볼까요?"
+                : "게임을 게시해보세요!"}
+            </div>
+          </div>
+        )}
         <div className="flex flex-col gap-3 mb-[88px]">
           {games.games.map((game: getMyBuildedGames.Output["games"][0]) => {
             if (gameStatus === "BUILDING") {

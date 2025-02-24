@@ -68,11 +68,11 @@ export default function PublishedGameCard(game: GameCardProps) {
             </div>
             <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
             <div className="flex  caption-rg text-green-500">
-              선택지 {game.counts.pages}개
+              선택지 {game.counts.choices}개
             </div>
             <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
             <div className="flex  caption-rg text-green-500">
-              페이지 {game.counts.choices}개
+              페이지 {game.counts.pages}개
             </div>
           </div>
         </div>
