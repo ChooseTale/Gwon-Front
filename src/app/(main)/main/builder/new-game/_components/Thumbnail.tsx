@@ -2,7 +2,7 @@
 
 import Svg from "@/common/Svg";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -27,7 +27,14 @@ export default function Thumbnail({
 }: ThumbnailProps) {
   const [currentThumbnails, setCurrentThumbnails] = useState<File[]>(images);
 
+  const isMaxThumbnail = useCallback(() => {
+    return currentThumbnails.length >= 5;
+  }, [currentThumbnails]);
+
   const handleAddThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isMaxThumbnail()) {
+      return;
+    }
     const file = e.target.files?.[0];
 
     if (file) {
@@ -35,13 +42,20 @@ export default function Thumbnail({
       onChange([...currentThumbnails, file]);
     }
   };
+  const handleDeleteThumbnail = (index: number) => {
+    const newThumbnails = currentThumbnails.filter((_, i) => i !== index);
+    setCurrentThumbnails(newThumbnails);
+    onChange(newThumbnails);
+  };
 
   // const me = useMeStore((state) => state.me);
 
   return (
     <div>
       <div className="flex flex-row items-center">
-        <div className="headline-sb text-white">썸네일</div>
+        <div className="headline-sb text-white">
+          썸네일 (5장 중 {currentThumbnails.length}장 선택)
+        </div>
       </div>
       <div className="flex mt-[12px] h-[75px] border border-gray-600 rounded-[8px]">
         <div className="flex flex-1 flex-col justify-center items-center">
@@ -51,6 +65,7 @@ export default function Thumbnail({
             accept="image/*"
             className="hidden"
             onChange={handleAddThumbnail}
+            disabled={isMaxThumbnail()}
           />
           <label
             htmlFor="thumbnail"
@@ -62,10 +77,16 @@ export default function Thumbnail({
               options={{
                 size: { width: 24, height: 24 },
 
-                color: "white",
+                color: isMaxThumbnail() ? "gray-600" : "white",
               }}
             />
-            <div className="body-md text-white mt-[2px]">사진추가</div>
+            <div
+              className={`body-md ${
+                isMaxThumbnail() ? "text-gray-600" : "text-white"
+              } mt-[2px]`}
+            >
+              사진추가
+            </div>
           </label>
         </div>
         <div className="bg-gray-600 w-[1px]"></div>
@@ -98,7 +119,10 @@ export default function Thumbnail({
                 className=" object-cover rounded-[8px]"
                 fill
               />
-              <div className="absolute top-3 right-3 w-[24px] h-[24px] bg-gray-800 rounded-full flex items-center justify-center">
+              <div
+                className="absolute top-3 right-3 w-[24px] h-[24px] bg-gray-800 rounded-full flex items-center justify-center"
+                onClick={() => handleDeleteThumbnail(index)}
+              >
                 <Svg
                   icon="xIcon"
                   options={{

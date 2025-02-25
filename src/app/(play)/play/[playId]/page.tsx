@@ -10,6 +10,7 @@ import { useParams, useRouter } from "next/navigation";
 // import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import PlayGame from "../_component/PlayGame";
+import PlayTopNav from "../_component/TopNav";
 
 export default function GamePlayPage() {
   const { playId } = useParams();
@@ -34,7 +35,13 @@ export default function GamePlayPage() {
   };
 
   return (
-    <div className="flex w-full h-full">
+    <div className="flex w-full h-full flex-col">
+      <PlayTopNav
+        gameTitle={playData.gameIntroData.game.title}
+        handleBack={() => {
+          router.back();
+        }}
+      />
       <PlayGame
         game={{
           id: playData.gameIntroData.game.id,

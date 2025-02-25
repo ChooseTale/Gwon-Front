@@ -63,7 +63,9 @@ export default function NewGameBuilder() {
           title="제목"
           placeholder="제목을 입력해주세요."
           value={newGame.title || ""}
-          regExp={/^[a-zA-Z0-9ㄱ-ㅎ가-힣]{1,30}$/}
+          regExp={
+            /^[a-zA-Z0-9ㄱ-ㅎ가-힣\s!@#$%^&*()_+|~=`{}\[\]:";'<>?,.\/]{1,30}$/
+          }
           maxLength={30}
           onChange={(value) => {
             setNewGame({ ...newGame, title: value.target.value });
@@ -108,7 +110,9 @@ export default function NewGameBuilder() {
           title="간단한 내용"
           placeholder="간단한 내용을 입력해주세요."
           value={newGame.description || ""}
-          regExp={/^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]{1,200}$/}
+          regExp={
+            /^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s!@#$%^&*()_+|~=`{}\[\]:";'<>?,.\/]{1,200}$/
+          }
           maxLength={200}
           boxHeight={168}
           onChange={(e) => {
