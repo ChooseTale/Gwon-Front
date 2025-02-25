@@ -14,7 +14,7 @@ import { useCommonStore } from "@/store/common.store";
 import goldBadge from "@/assets/png/gold.png";
 import silverBadge from "@/assets/png/silver.png";
 import { useRouter } from "next/navigation";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
 type GameBottomSheetProps = {
   gameId: number;
@@ -67,6 +67,7 @@ export default function GameBottomSheet({
           handleClose();
         }}
       >
+        <SheetTitle />
         <div className="flex w-full h-[48px] min-h-[48px]  justify-center items-center  ">
           {/* 닫기 버튼 */}
           <div

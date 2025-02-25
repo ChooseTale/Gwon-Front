@@ -25,6 +25,7 @@ import PlayGame from "@/app/(play)/play/_component/PlayGame";
 
 import PlayTopNav from "@/app/(play)/play/_component/TopNav";
 import { publishGameCall } from "@/(actions)/builder/choice/choice";
+import CompleteBottomSheet from "./_component/CompleteBottomSheet";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -81,6 +82,9 @@ export default function GameBuilder() {
     target: string;
   }>([]);
   const [testPageId, setTestPageId] = useState<number | null>(null);
+  const [isClickCompleteButton, setIsClickCompleteButton] =
+    useState<boolean>(false);
+
   const router = useRouter();
 
   const onConnect = useCallback(
@@ -221,15 +225,22 @@ export default function GameBuilder() {
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-red-500">
+      {isClickCompleteButton && (
+        <CompleteBottomSheet
+          isClickCompleteButton={isClickCompleteButton}
+          setIsClickCompleteButton={setIsClickCompleteButton}
+          handleComplete={() => {
+            publishGameCall(Number(gameId));
+          }}
+          handleSave={() => {
+            router.push(`/main/builder`);
+          }}
+        />
+      )}
       <BuilderGameTopNav
         gameTitle={game?.title ?? ""}
         handleComplete={async () => {
-          try {
-            await publishGameCall(Number(gameId));
-            router.push(`/main/builder`);
-          } catch (err) {
-            console.error(err);
-          }
+          setIsClickCompleteButton(true);
         }}
         handleTest={() => {
           setTestPageId(
