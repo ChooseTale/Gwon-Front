@@ -20,6 +20,14 @@ import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
 import ToastMessage from "@/common/ToastMessage";
 
+import { recommendChoices } from "@/(actions)/builder/choice/chat-gpt/recommend";
+import { useMeStore } from "@/store/User/Me/Me.store";
+import {
+  connectSocket,
+  disconnectSocket,
+} from "@/(actions)/socket/connect-socket";
+import { NAMESPACES } from "@/(actions)/socket/socket-type";
+
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
   const router = useRouter();
@@ -45,6 +53,8 @@ export default function BuilderGamePage() {
     type: "success" | "error" | "warn";
   } | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
+  const me = useMeStore((state) => state.me);
 
   const isActiveBlock = useCallback(
     (idx: number) => {
@@ -139,6 +149,24 @@ export default function BuilderGamePage() {
         });
         break;
       case "aiChoice":
+        recommendChoices(Number(gameId), Number(pageId));
+        const socket = connectSocket(me.userId);
+
+        // 메시지 수신
+        socket.on(
+          NAMESPACES.RECOMMEND_CHOICES,
+          (data: { message: { title: string; description: string }[] }) => {
+            setPage({
+              ...page,
+              choices: data.message.map((message) => ({
+                id: -1,
+                text: message.title,
+                nextPageId: null,
+              })),
+            });
+            disconnectSocket(socket);
+          }
+        );
         break;
       case "background":
         // input type="file" 사용자에게 이미지를 받음

@@ -123,6 +123,11 @@ export default function NewGameBuilder() {
           onChange={(images) => {
             setNewGame({ ...newGame, thumbnails: images });
           }}
+          recommendThumbnailData={{
+            title: newGame.title,
+            description: newGame.description,
+            genre: newGame.genre,
+          }}
           images={[]}
         />
       </div>

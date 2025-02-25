@@ -12,6 +12,11 @@ interface ThumbnailProps {
   isThumbnailIdx: number;
   onChange: (images: File[]) => void;
   handleThumbnailClick: (index: number) => void;
+  recommendThumbnailData: {
+    title: string;
+    description: string;
+    genre: string;
+  };
 }
 
 export default function Thumbnail({
@@ -30,6 +35,8 @@ export default function Thumbnail({
       onChange([...currentThumbnails, file]);
     }
   };
+
+  // const me = useMeStore((state) => state.me);
 
   return (
     <div>
