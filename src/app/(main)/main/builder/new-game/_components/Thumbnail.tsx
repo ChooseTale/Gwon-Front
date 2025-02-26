@@ -53,9 +53,7 @@ export default function Thumbnail({
   return (
     <div>
       <div className="flex flex-row items-center">
-        <div className="headline-sb text-white">
-          썸네일 (5장 중 {currentThumbnails.length}장 선택)
-        </div>
+        <div className="headline-sb text-white">썸네일 (5장 중 1장 선택)</div>
       </div>
       <div className="flex mt-[12px] h-[75px] border border-gray-600 rounded-[8px]">
         <div className="flex flex-1 flex-col justify-center items-center">

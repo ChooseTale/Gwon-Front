@@ -32,10 +32,13 @@ export default function Dropdown_dark({
   onChange,
 }: Dropdown_darkProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const textColor = colors[titleData.textColor ?? "white"];
+  const bottomSheetTextColor = colors[bottomSheetData.textColor ?? "white"];
+
   return (
     <div className="relative h-[105px]">
       <div className="flex flex-row items-center">
-        <div className="headline-sb " style={{ color: titleData.textColor }}>
+        <div className="headline-sb " style={{ color: textColor }}>
           {titleData.title}
         </div>
         {titleData.required && <span className="text-red-500 ml-[2px]">*</span>}
@@ -49,7 +52,7 @@ export default function Dropdown_dark({
       >
         <div
           className="flex items-center justify-between  ml-[10px] headline-md h-[48px]  "
-          style={{ color: titleData.textColor }}
+          style={{ color: bottomSheetTextColor }}
         >
           <p className="line-clamp-1">{currentValue}</p>
 

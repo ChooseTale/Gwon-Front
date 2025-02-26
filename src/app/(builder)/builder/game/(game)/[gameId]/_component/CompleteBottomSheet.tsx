@@ -24,7 +24,7 @@ export default function CompleteBottomSheet({
           <div className="flex justify-center title1-sb">
             게임을 게시하시겠어요?
           </div>
-          <div className="flex flex-col  bg-gray-10 ml-[20px] mr-[20px] gap-[20px] rounded-[6px] p-4">
+          <div className="flex flex-col  bg-gray-10 ml-[20px] mr-[20px] gap-[30px] rounded-[6px] p-4">
             <div className="flex flex-col  ">
               <span className="flex   headline-sb text-green-600">
                 저장하기
@@ -47,7 +47,7 @@ export default function CompleteBottomSheet({
           <div className="flex flex-row gap-2 ml-[20px] mr-[20px]">
             <button
               onClick={handleComplete}
-              className="flex flex-row w-full h-[48px] rounded-[4px] border border-green-500"
+              className="flex flex-row w-full h-[48px] rounded-[8px] border border-green-500"
             >
               <span className="flex w-full title2-md justify-center items-center text-green-500">
                 게시하기

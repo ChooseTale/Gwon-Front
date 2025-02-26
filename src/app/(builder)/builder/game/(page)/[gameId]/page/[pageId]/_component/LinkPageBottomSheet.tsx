@@ -118,14 +118,15 @@ export default function LinkPageBottomSheet({
             }}
           />
           {/* 연결될 페이지 */}
-          <div className="ml-[12px] mr-[12px] z-10">
+          <div className="ml-[20px] mr-[20px] z-10">
             <Dropdown_dark
               titleData={{
                 title: "연결될 페이지",
                 required: false,
+                textColor: "black",
               }}
               bottomSheetData={{
-                textColor: "gray-50",
+                textColor: "black",
                 bgColor: "white",
                 borderColor: "gray-100",
               }}

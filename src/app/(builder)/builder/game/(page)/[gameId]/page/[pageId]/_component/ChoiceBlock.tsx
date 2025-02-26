@@ -60,19 +60,23 @@ export default function ChoiceBlock({
     setPressTimeout(0);
   };
 
-  const handleMouseDown = () => {
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
     startPress();
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: React.MouseEvent) => {
+    e.stopPropagation();
     endPress();
   };
 
-  const handleTouchStart = () => {
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.stopPropagation();
     startPress();
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    e.stopPropagation();
     endPress();
   };
 

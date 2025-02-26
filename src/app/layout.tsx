@@ -4,6 +4,7 @@ import "./global.css";
 
 import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -31,6 +32,7 @@ export default function RootLayout({
           <CheckAuth />
 
           {children}
+          <Toaster />
         </SessionProvider>
       </body>
     </html>

@@ -18,7 +18,7 @@ import SavePage from "./_component/TopNav/SavePage";
 import LinkPageBottomSheet from "./_component/LinkPageBottomSheet";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
-import ToastMessage from "@/common/ToastMessage";
+import { toast } from "sonner";
 
 import { recommendChoices } from "@/(actions)/builder/choice/chat-gpt/recommend";
 import { useMeStore } from "@/store/User/Me/Me.store";
@@ -48,10 +48,10 @@ export default function BuilderGamePage() {
     linkedPageId: number | null;
   } | null>(null);
 
-  const [toast, setToast] = useState<{
-    text: string;
-    type: "success" | "error" | "warn";
-  } | null>(null);
+  // const [toast, setToast] = useState<{
+  //   text: string;
+  //   type: "success" | "error" | "warn";
+  // } | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const me = useMeStore((state) => state.me);
@@ -204,18 +204,12 @@ export default function BuilderGamePage() {
           nextPageId: choice.nextPageId,
         })),
       });
-      setToast({
-        text: "페이지가 저장되었습니다.",
-        type: "success",
-      });
+      toast.success("페이지가 저장되었습니다.", {});
       setTimeout(() => {
         router.push(`/builder/game/${gameId}`);
       }, 1000);
     } catch (error: any) {
-      setToast({
-        text: error.message,
-        type: "error",
-      });
+      toast.error(error.message, {});
     }
   };
 
@@ -283,6 +277,24 @@ export default function BuilderGamePage() {
         id="page-content"
         className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto"
         style={{}}
+        onClick={(e) => {
+          if (e.target !== e.currentTarget) return;
+
+          setActiveBlock(null);
+        }}
+        onTouchStart={(e) => {
+          const touchStartTime = Date.now();
+          const touchEndHandler = () => {
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            if (touchDuration < 200) {
+              // 짧게 터치했을 때 이벤트 처리
+              setActiveBlock(null);
+            }
+            e.target.removeEventListener("touchend", touchEndHandler);
+          };
+          e.target.addEventListener("touchend", touchEndHandler);
+        }}
       >
         {page.contents.length === 0 && (
           <div className="flex absolute bottom-[120px]  w-full  justify-center items-center ">
@@ -485,14 +497,24 @@ export default function BuilderGamePage() {
             { key: "block", isActive: activeBlock?.type !== "choice" },
             {
               key: "choice",
-              isActive: page.choices.length < 4 && !page.isEnding,
+              isActive:
+                page.choices.length < 4 &&
+                !page.isEnding &&
+                activeBlock === null,
             },
-            { key: "aiChoice", isActive: page.choices.length < 4 },
+            {
+              key: "aiChoice",
+              isActive:
+                page.choices.length < 4 &&
+                !page.isEnding &&
+                activeBlock === null,
+            },
             { key: "background", isActive: activeBlock === null },
           ]}
         />
       </div>
-      <ToastMessage toast={toast} setToast={setToast} />
+
+      {/* <ToastMessage toast={toast} setToast={setToast} /> */}
     </div>
   );
 }

@@ -14,6 +14,7 @@ import {
   thumbnailValidate,
   titleValidate,
 } from "./_validate/create-game";
+import { toast } from "sonner";
 
 export default function NewGameBuilder() {
   const router = useRouter();
@@ -37,7 +38,8 @@ export default function NewGameBuilder() {
       titleValidate(newGame.title);
       descriptionValidate(newGame.description);
       thumbnailValidate(newGame.thumbnails);
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error.message, {});
       console.error(error);
       return;
     }
