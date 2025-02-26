@@ -6,6 +6,7 @@ import Svg from "@/common/Svg";
 
 import Image from "next/image";
 import React from "react";
+import { toast } from "sonner";
 
 interface GameCardProps {
   genre: keyof typeof GenresKorean;
@@ -81,14 +82,17 @@ export default function PublishedGameCard(game: GameCardProps) {
       <div
         className="flex flex-row bg-gray-900
       flex-1  rounded-b-[8px] justify-end items-center mt-4"
+        onClick={() => {
+          toast.error("준비중입니다.", {});
+        }}
       >
-        <div className="body-md text-white mr-2">유저 결과 보기</div>
+        <div className="body-md text-gray-200 mr-2">유저 결과 보기</div>
         <div className="mr-4">
           <Svg
             icon="chevronRightIcon"
             options={{
               size: { width: 20, height: 20 },
-              color: "white",
+              color: "gray-200",
             }}
           />
         </div>

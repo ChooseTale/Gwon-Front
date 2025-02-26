@@ -22,6 +22,12 @@ const Toaster = ({ ...props }: ToasterProps) => {
             options={{ size: { width: 20, height: 20 }, viewBox: "0 0 20 20" }}
           />
         ),
+        success: (
+          <Svg
+            icon="successIcon"
+            options={{ size: { width: 20, height: 20 }, viewBox: "0 0 20 20" }}
+          />
+        ),
       }}
       toastOptions={{
         classNames: {

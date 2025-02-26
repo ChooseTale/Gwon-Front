@@ -95,6 +95,7 @@ export default function BottomSheet({
     >
       <div
         className={`relative  flex w-full h-full items-center justify-center flex-col`}
+        onClick={() => handleOpen(!isOpen)}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

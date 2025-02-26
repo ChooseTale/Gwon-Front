@@ -47,11 +47,11 @@ export default function Card({
         />
       )}
       <div
-        className="w-full h-full aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
+        className="w-full  aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative"
         onClick={handleClickCard}
       >
         <Image
-          className="object-cover w-full h-full"
+          className="object-cover  w-full h-full"
           src={cards.image}
           alt="game"
           fill
@@ -60,7 +60,7 @@ export default function Card({
       <span className="caption-rg h-[17px] text-gray-200 mt-2">
         {GenresKorean[cards.category as keyof typeof GenresKorean]}
       </span>
-      <span className="text-white headline-md  line-clamp-2 h-[calc(2*32px)]">
+      <span className="text-white headline-md  line-clamp-2 h-[calc(2*16px)]">
         {cards.title}
       </span>
       <div className="flex flex-row mt-2">

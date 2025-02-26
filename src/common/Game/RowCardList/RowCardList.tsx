@@ -15,12 +15,12 @@ export default function RowCardList({
   const gameListEntity = new GameListEntity(cards);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       <span className="title2-sb text-white">{title}</span>
-      <div className="flex overflow-x-auto gap-2 flex-nowrap  h-[263px] mt-4">
+      <div className="flex w-full overflow-x-auto gap-2 flex-nowrap   mt-4">
         {gameListEntity.gameList.map((card) => {
           return (
-            <div className="flex w-[171px] " key={card.game.id}>
+            <div className="flex min-w-[171px] w-[171px] " key={card.game.id}>
               <Card
                 cardData={{
                   id: card.game.id,

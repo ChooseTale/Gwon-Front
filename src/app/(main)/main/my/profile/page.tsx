@@ -8,11 +8,14 @@ import ProfileTopNav from "./_components/TopNav";
 import Button from "@/common/Button";
 import { useMeStore } from "@/store/User/Me/Me.store";
 import { updateUserCall } from "@/(actions)/user/me";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const me = useMeStore((state) => state.me);
   const [userData, setUserData] = useState(me);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setUserData(me);
@@ -57,6 +60,8 @@ export default function ProfilePage() {
             if (formData.entries().next().done === false) {
               useMeStore.getState().deleteMe();
             }
+            toast.success("프로필 수정이 완료되었습니다.", {});
+            router.push("/main/my");
           }}
         />
       </div>
