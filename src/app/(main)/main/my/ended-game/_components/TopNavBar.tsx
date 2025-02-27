@@ -47,7 +47,7 @@ export default function TopNavBar() {
         />
       )}
 
-      <div className="flex  w-full mb-[20px] justify-between items-center">
+      <div className="flex  w-full  justify-between items-center">
         <div
           onClick={handleGenreBottomSheetOpen}
           className="flex flex-row justify-center items-center w-[92px] h-[38px] border border-gray-700 rounded-[8px]"

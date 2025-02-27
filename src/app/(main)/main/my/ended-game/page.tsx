@@ -11,6 +11,7 @@ export default function EndedGamePage() {
     <div>
       <EndedGameTopNav />
       <TopNavBar />
+      <div className="mt-[24px]" />
       <SortGameGameList />
     </div>
   );

@@ -30,18 +30,21 @@ export default function UserProfile() {
           />
         </div>
 
-        <div className="flex relative flex-row w-full items-center justify-center mt-[16px]">
-          <span className="flex title1-sb  justify-center text-white ">
+        <div className="flex flex-row w-full items-center justify-center mt-[16px]">
+          <div className="flex relative title1-sb  justify-center text-white ">
             {me.nickname}
-          </span>
-          <Link href="/main/my/profile">
-            <div className="absolute right-0 top-[2px]">
-              <Svg
-                icon="chevronRightIcon"
-                options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
-              />
-            </div>
-          </Link>
+            <Link href="/main/my/profile">
+              <div className="absolute  top-[2px]">
+                <Svg
+                  icon="chevronRightIcon"
+                  options={{
+                    size: { width: 24, height: 24 },
+                    color: "gray-500",
+                  }}
+                />
+              </div>
+            </Link>
+          </div>
         </div>
 
         <div className="flex flex-row w-full items-center justify-center mt-[4px]">

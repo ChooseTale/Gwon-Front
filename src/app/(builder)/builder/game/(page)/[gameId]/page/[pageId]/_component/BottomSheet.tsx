@@ -95,12 +95,18 @@ export default function BottomSheet({
     >
       <div
         className={`relative  flex w-full h-full items-center justify-center flex-col`}
-        onClick={() => handleOpen(!isOpen)}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="flex w-[100px] h-[16px] bg-white justify-center items-center drop-shadow rounded-t-[20px] z-20">
+        <div
+          className="flex w-[100px] h-[16px] bg-white justify-center items-center drop-shadow rounded-t-[20px] z-20"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleOpen(!isOpen);
+            }
+          }}
+        >
           {/* 터치 영역 */}
           <div className="flex w-[48px] h-[4px] rounded-[40px] bg-gray-100"></div>
         </div>

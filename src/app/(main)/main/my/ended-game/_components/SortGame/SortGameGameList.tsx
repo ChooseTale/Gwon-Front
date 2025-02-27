@@ -46,7 +46,7 @@ export default function SortGameGameList() {
   }, [selectedGenres, selectedOrderKey]);
 
   return (
-    <div className="flex flex-row  flex-wrap gap-[8px]">
+    <div className="flex flex-row  flex-wrap gap-x-[8px] gap-y-[24px]">
       {gameList.map((game) => (
         <div
           key={game.game.id}
@@ -63,7 +63,7 @@ export default function SortGameGameList() {
                 genre: game.game.genre,
                 thumbnail: { url: game.game.thumbnail.url ?? "" },
                 producer: {
-                  name: "여기 작업해야함",
+                  name: game.game.author.name,
                 },
               }}
               totalEndingCount={game.game.totalEndingCount}
@@ -93,8 +93,10 @@ export default function SortGameGameList() {
                 image: game.game.thumbnail.url ?? "",
                 title: game.game.title,
                 category: game.game.genre,
+                reachedEndingCount: game.game.endings.length,
+                totalEndingCount: game.game.totalEndingCount,
               }}
-              enrich={{ players: 1 }}
+              // enrich={{ players: 1 }}
               users={[]}
             />
           </div>

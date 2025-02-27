@@ -25,7 +25,7 @@ interface GameCardProps {
 
 export default function PublishedGameCard(game: GameCardProps) {
   return (
-    <div className="flex flex-col w-full h-[209px] rounded-[8px] border border-gray-700">
+    <div className="flex flex-col w-full h-[217px] rounded-[8px] border border-gray-700">
       {/* 장르, 수정 날짜 */}
       <div className="flex flex-row  justify-between items-center ml-4 mr-4 mt-4">
         <div className="caption-rg text-white">{GenresKorean[game.genre]}</div>
@@ -34,7 +34,7 @@ export default function PublishedGameCard(game: GameCardProps) {
         </div>
       </div>
       {/* 본문 */}
-      <div className="ml-4 mr-4 mt-[7px] flex flex-row h-[113px] ">
+      <div className="ml-4 mr-4 mt-[7px] flex flex-row h-[97px] ">
         {/* 썸네일 */}
         <div
           className="flex w-[120px] aspect-square
@@ -42,7 +42,7 @@ export default function PublishedGameCard(game: GameCardProps) {
           overflow-hidden
         "
         >
-          <div className="relative  w-[97px] h-[97px]">
+          <div className="relative min-w-[97px] w-[97px] h-[97px]">
             <Image
               className="object-cover rounded-[5px] "
               src={
@@ -57,36 +57,36 @@ export default function PublishedGameCard(game: GameCardProps) {
         </div>
         {/* 제목, 설명, 카운트 */}
         <div className="flex flex-col flex-1 ">
-          <div className=" headline-sb h-[44px] text-white text-ellipsis line-clamp-2">
+          <div className=" headline-sb  text-white text-ellipsis line-clamp-2">
             {game.title}
           </div>
           <div className="mt-1 body-rg h-[40px] text-gray-600 text-ellipsis line-clamp-2">
             {game.description}
           </div>
-          <div className="flex flex-row h-[17px] items-center mt-2">
-            <div className="flex caption-rg text-end text-green-500">
-              엔딩 {game.counts.ending}개
-            </div>
-            <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
-            <div className="flex  caption-rg text-green-500">
-              선택지 {game.counts.choices}개
-            </div>
-            <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
-            <div className="flex  caption-rg text-green-500">
-              페이지 {game.counts.pages}개
-            </div>
-          </div>
+        </div>
+      </div>
+      <div className="flex flex-row w-full justify-end h-[17px] items-center mt-2  ">
+        <div className="flex caption-rg text-end text-green-500">
+          엔딩 {game.counts.ending}개
+        </div>
+        <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
+        <div className="flex  caption-rg text-green-500">
+          선택지 {game.counts.choices}개
+        </div>
+        <div className="ml-1 mr-1 w-[1px] h-[10px] bg-gray-600 "></div>
+        <div className="flex  caption-rg text-green-500 mr-4">
+          페이지 {game.counts.pages}개
         </div>
       </div>
       {/* 유저 결과 보기 */}
       <div
         className="flex flex-row bg-gray-900
-      flex-1  rounded-b-[8px] justify-end items-center mt-4"
+      flex-1  rounded-b-[8px] justify-end items-center mt-4 h-[40px]"
         onClick={() => {
           toast.error("준비중입니다.", {});
         }}
       >
-        <div className="body-md text-gray-200 mr-2">유저 결과 보기</div>
+        <div className="body-md  text-gray-200 mr-2">유저 결과 보기</div>
         <div className="mr-4">
           <Svg
             icon="chevronRightIcon"

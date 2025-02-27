@@ -11,10 +11,12 @@ type CardProps = {
     image: string;
     title: string;
     category: string;
+    reachedEndingCount: number;
+    totalEndingCount: number;
   };
-  enrich: {
-    players: number;
-  };
+  // enrich: {
+  //   players: number;
+  // };
   users: {
     id: number;
     imageUrl: string;
@@ -68,7 +70,7 @@ export default function Card({ cardData: cards }: CardProps) {
             items-center justify-center
           "
           >
-            엔딩 2/4
+            엔딩 {cards.reachedEndingCount}/{cards.totalEndingCount}
           </div>
         </div>
       </div>

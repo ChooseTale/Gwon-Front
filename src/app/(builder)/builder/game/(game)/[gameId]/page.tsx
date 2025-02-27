@@ -26,6 +26,7 @@ import PlayGame from "@/app/(play)/play/_component/PlayGame";
 import PlayTopNav from "@/app/(play)/play/_component/TopNav";
 import { publishGameCall } from "@/(actions)/builder/choice/choice";
 import CompleteBottomSheet from "./_component/CompleteBottomSheet";
+import { toast } from "sonner";
 
 const dagreGraph = new dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
@@ -229,8 +230,14 @@ export default function GameBuilder() {
         <CompleteBottomSheet
           isClickCompleteButton={isClickCompleteButton}
           setIsClickCompleteButton={setIsClickCompleteButton}
-          handleComplete={() => {
-            publishGameCall(Number(gameId));
+          handleComplete={async () => {
+            try {
+              await publishGameCall(Number(gameId));
+              toast.success("게임 게시에 성공했습니다.", {});
+              router.push(`/main/builder`);
+            } catch (err: any) {
+              toast.error(err.message, {});
+            }
           }}
           handleSave={() => {
             router.push(`/main/builder`);

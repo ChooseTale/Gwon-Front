@@ -60,7 +60,7 @@ export default function Card({
       <span className="caption-rg h-[17px] text-gray-200 mt-2">
         {GenresKorean[cards.category as keyof typeof GenresKorean]}
       </span>
-      <span className="text-white headline-md  line-clamp-2 h-[calc(2*16px)]">
+      <span className="text-white headline-md  line-clamp-2 h-[44px]">
         {cards.title}
       </span>
       <div className="flex flex-row mt-2">

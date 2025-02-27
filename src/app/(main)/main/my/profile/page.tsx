@@ -60,7 +60,7 @@ export default function ProfilePage() {
             if (formData.entries().next().done === false) {
               useMeStore.getState().deleteMe();
             }
-            toast.success("프로필 수정이 완료되었습니다.", {});
+            toast.success("프로필 수정이 완료되었습니다.");
             router.push("/main/my");
           }}
         />
