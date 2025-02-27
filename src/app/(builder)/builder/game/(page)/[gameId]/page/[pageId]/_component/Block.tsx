@@ -31,11 +31,10 @@ export default function Block({
   const [editedText, setEditedText] = useState(originalText);
   const [pressTimeout, setPressTimeout] = useState<number>(0);
   const blockRef = useRef<HTMLDivElement>(null);
+  const textArea = useRef<HTMLTextAreaElement>(null);
   const boxHeight = useCallback(() => {
-    const lines = editedText.split("\n");
-
-    return lines.length * 20;
-  }, [editedText]);
+    return textArea.current?.scrollHeight;
+  }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEditedText(e.target.value);
@@ -179,6 +178,7 @@ export default function Block({
   }
 
   if (isActive) {
+    console.log(boxHeight());
     return (
       <div
         id="block-container"
@@ -193,6 +193,7 @@ export default function Block({
           className="flex w-full  body-md overflow-hidden"
           value={editedText}
           onChange={handleTextChange}
+          ref={textArea}
           style={{ height: `${boxHeight()}px` }}
         />
         <div className="flex w-full justify-end gap-3 z-10">
