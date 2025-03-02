@@ -25,7 +25,7 @@ type CardProps = {
 
 export default function Card({ cardData: cards }: CardProps) {
   return (
-    <div className="flex flex-col justify-between w-full ">
+    <div className="flex flex-col  justify-between w-full ">
       {/* 이미지 */}
       <div className="w-full  aspect-square bg-gray-900 rounded-[8px] overflow-hidden relative">
         <Image

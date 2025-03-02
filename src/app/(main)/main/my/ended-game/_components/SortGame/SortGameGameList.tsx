@@ -77,14 +77,18 @@ export default function SortGameGameList() {
   }, [selectedGenres, selectedOrderKey, page]);
 
   return (
-    <div className="flex flex-row  flex-wrap gap-x-[8px] gap-y-[24px]">
+    <div className="flex flex-row w-full  flex-1  flex-wrap gap-x-[8px] gap-y-[24px]">
       {gameList.map((game) => (
         <div
           key={game.id}
-          className="flex  w-[calc(50%-4px)]
-            cardScreen1:w-[calc(33.33%-4px)]
+          className="flex
+          w-[calc(50%-4px)]
+            cardScreen1:w-[calc(33.33%-8px)]
             cardScreen2:w-[180px]
-              max-w-[180px]"
+              max-w-[180px]
+
+              "
+          onClick={() => handleBottomSheet("step1", game.id)}
         >
           {isOpenBottomSheet === "step1" && selectedGameId === game.id && (
             <Step1EndingIntro
@@ -112,25 +116,20 @@ export default function SortGameGameList() {
               handleClose={() => handleBottomSheet(null, null)}
             />
           )}
-          <div
+
+          <Card
             key={game.id}
-            onClick={() => handleBottomSheet("step1", game.id)}
-            className="flex w-full "
-          >
-            <Card
-              key={game.id}
-              cardData={{
-                id: game.id,
-                image: game.thumbnail.url ?? "",
-                title: game.title,
-                category: game.genre,
-                reachedEndingCount: game.endings.length,
-                totalEndingCount: game.totalEndingCount,
-              }}
-              // enrich={{ players: 1 }}
-              users={[]}
-            />
-          </div>
+            cardData={{
+              id: game.id,
+              image: game.thumbnail.url ?? "",
+              title: game.title,
+              category: game.genre,
+              reachedEndingCount: game.endings.length,
+              totalEndingCount: game.totalEndingCount,
+            }}
+            // enrich={{ players: 1 }}
+            users={[]}
+          />
         </div>
       ))}
       {!isLoading && <div id="load" ref={ref} className="h-[1px]" />}
