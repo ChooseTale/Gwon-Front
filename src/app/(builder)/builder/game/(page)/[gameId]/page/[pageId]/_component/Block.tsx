@@ -140,7 +140,7 @@ export default function Block({
 
     return (
       <div
-        className={` flex w-full h-full flex-col gap-0.5 ${
+        className={`  flex w-full h-full flex-col gap-0.5 ${
           isOpacity50 ? "" : "opacity-50"
         } `}
         id="block-container"
@@ -153,9 +153,15 @@ export default function Block({
             overflowWrap: "break-word",
           }}
         >
-          {editedText}
+          <textarea
+            className="flex w-full  body-md overflow-hidden"
+            value={editedText}
+            onChange={handleTextChange}
+            ref={textArea}
+            style={{ height: `${boxHeight()}px` }}
+          />
         </div>
-        <div className={`absolute right-0  z-20 `}>
+        <div className={`absolute right-0 bottom-[-48px]  z-20 `}>
           <ContextMenu childrens={childrens} />
         </div>
         {/* <터치> */}

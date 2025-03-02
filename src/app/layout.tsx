@@ -6,10 +6,10 @@ import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = localFont({
-  src: "../assets/fonts/PretendardVariable.woff2",
-  style: "normal",
+const pretendard = localFont({
+  src: "../../public/fonts/PretendardVariable.woff2",
   variable: "--font-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko" className={pretendard.variable}>
       <body
-        className={`${geistSans.variable} flex justify-center  w-full h-[100vh] bg-background-dark  `}
+        className={`font-pretendard flex justify-center w-full h-[100vh] bg-background-dark`}
       >
         <SessionProvider>
           <CheckAuth />

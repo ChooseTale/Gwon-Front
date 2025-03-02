@@ -93,7 +93,7 @@ export default function Step1EndingIntro({
               </button>
             </div>
 
-            <div className="flex w-full ml-[20px] flex-col mr-[20px] h-full ">
+            <div className="flex w-full  flex-col  h-full ">
               {/* 제목, 이미지, 내용 */}
               <div className="flex w-full h-[100px] flex-row  mt-[68px] gap-x-3">
                 <div className="flex w-[90px] h-[90px] aspect-square">

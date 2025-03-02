@@ -4,7 +4,7 @@ import { getMyEndedGameGroupListCall } from "@/(actions)/main/my-game";
 import Card from "./Card";
 import { useEndedGameFilterStore } from "@/store/Game/ended/EndedGameFilter.store";
 import { getEndedGroupGameList } from "@choosetale/nestia-type/lib/functional/my_page/ended_game/group_game/index";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useEndedGameOrderStore } from "@/store/Game/ended/EndedGameOrder";
 import Step1EndingIntro from "./_BottomSheet/Step1EndingIntro";
 import GameBottomSheet from "@/common/Game/DetailBottomSheet/GameBottomSheet";
@@ -24,7 +24,6 @@ export default function SortGameGameList() {
   const [gameList, setGameList] = useState<
     getEndedGroupGameList.Output["list"]["game"]
   >([]);
-  const isInitialMount = useRef(true);
 
   const selectedGenres = useEndedGameFilterStore(
     (state) => state.selectedGenres

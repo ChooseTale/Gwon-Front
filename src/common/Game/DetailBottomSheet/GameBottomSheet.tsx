@@ -99,9 +99,10 @@ export default function GameBottomSheet({
               className="w-full object-cover "
               src={game.game.thumbnailUrl}
               alt="game"
-              layout="responsive"
-              width={100}
-              height={100}
+              width={800}
+              height={600}
+              quality={100}
+              priority
             />
             {game.enrichData.completedEnding > 0 &&
               game.enrichData.completedEnding < game.enrichData.totalEnding && (
@@ -110,9 +111,10 @@ export default function GameBottomSheet({
                     <Image
                       src={silverBadge}
                       alt="producer"
-                      layout="responsive"
                       width={48}
                       height={48}
+                      quality={100}
+                      priority
                     />
                   </div>
                   <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
@@ -128,9 +130,10 @@ export default function GameBottomSheet({
                   <Image
                     src={goldBadge}
                     alt="producer"
-                    layout="responsive"
                     width={48}
                     height={48}
+                    quality={100}
+                    priority
                   />
                 </div>
                 <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">

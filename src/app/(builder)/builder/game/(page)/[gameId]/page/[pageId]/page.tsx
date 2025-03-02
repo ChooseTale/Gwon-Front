@@ -341,7 +341,7 @@ export default function BuilderGamePage() {
                 key={idx}
                 id="page-content-container"
                 className={`relative flex   flex-1 flex-col
-           rounded-[6px] bg-white  p-3 border ${
+           rounded-[6px] bg-white   p-3 border ${
              isActiveBlock(idx)
                ? "border-green-500 border-[2px] "
                : "border-gray-50"
