@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NewGameButton from "./_components/NewGameButton";
 import BuilderTopNav from "./_components/TopNav";
 import GenreTopBar from "./_components/GenreTopBar";
@@ -11,9 +11,17 @@ import { getMyBuildedGames } from "@choosetale/nestia-type/lib/functional/my_pag
 import { GenresKorean } from "@/common/Game/Genre";
 import { getBuildingGamesCall } from "@/(actions)/main/builder/game";
 import PublishedGameCard from "./_components/PublishedGameCard";
+import { useInView } from "react-intersection-observer";
+import { GAME_LIST_LIMIT } from "@/lib/config";
 
 export default function BuilderPage() {
-  const [games, setGames] = useState<getMyBuildedGames.Output>({ games: [] });
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ref, inView] = useInView();
+  const [totalCount, setTotalCount] = useState(0);
+  const isInitialMount = useRef(true);
+
+  const [games, setGames] = useState<getMyBuildedGames.Output["games"]>([]);
 
   const filter = useBuilderGameFilterStore((state) => state.selectedGenres);
   const order = useBuilderGameOrderStore((state) => state.selectedOrder);
@@ -24,19 +32,48 @@ export default function BuilderPage() {
 
   const handleStatusChange = (status: "BUILDING" | "PUBLISHED") => {
     setGameStatus(status);
+    setPage(1);
+    setGames([]);
   };
 
   useEffect(() => {
+    if (inView && !isLoading && games.length < totalCount) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  }, [inView, isLoading, games.length, totalCount]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    setPage(1);
+    setGames([]);
+  }, [gameStatus, filter, order, gameStatus]);
+
+  useEffect(() => {
+    if (page === 1 && games.length !== 0) {
+      return;
+    }
     const getGames = async () => {
+      setIsLoading(true);
       const games = await getBuildingGamesCall({
         genre: filter,
         order,
         status: gameStatus,
+        page,
+        limit: GAME_LIST_LIMIT,
       });
-      setGames(games);
+      if (page === 1) {
+        setGames(games.games);
+      } else {
+        setGames((prev) => [...prev, ...games.games]);
+      }
+      setTotalCount(games.count);
+      setIsLoading(false);
     };
     getGames();
-  }, [gameStatus, filter, order]);
+  }, [gameStatus, filter, order, page]);
 
   return (
     <>
@@ -48,7 +85,7 @@ export default function BuilderPage() {
         <div className="mt-[20px]" />
         {/* 장르 탑바 */}
         <GenreTopBar />
-        {games.games.length === 0 && (
+        {games.length === 0 && (
           <div className="flex flex-col   items-center justify-center h-full">
             <div className="text-headline-md text-gray-400">
               현재 {gameStatus === "BUILDING" ? "제작한 " : "게시한 "}게임이
@@ -60,7 +97,7 @@ export default function BuilderPage() {
           </div>
         )}
         <div className="flex flex-col gap-3 mb-[88px]">
-          {games.games.map((game: getMyBuildedGames.Output["games"][0]) => {
+          {games.map((game: getMyBuildedGames.Output["games"][0]) => {
             if (gameStatus === "BUILDING") {
               return (
                 <GameCard
@@ -103,6 +140,7 @@ export default function BuilderPage() {
           })}
         </div>
       </div>
+      {!isLoading && <div id="load" ref={ref} className="h-[1px]" />}
       <div className="relative h-full w-full flex flex-col items-center justify-center">
         <NewGameButton />
       </div>

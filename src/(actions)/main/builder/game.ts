@@ -8,16 +8,20 @@ interface GetBuildingGamesProps {
   genre: (keyof typeof GenresKorean)[];
   order: getMyBuildedGames.Query["order"];
   status: getMyBuildedGames.Query["status"];
+  page: number;
+  limit: number;
 }
 
 export const getBuildingGamesCall = async ({
   genre,
   order,
   status,
+  page,
+  limit,
 }: GetBuildingGamesProps): Promise<getMyBuildedGames.Output> => {
   const queryParams = new URLSearchParams({
-    page: "1",
-    limit: "10",
+    page: page.toString(),
+    limit: limit.toString(),
     genre: genre.length > 0 ? genre.join(",") : "ALL",
     order,
     status,
