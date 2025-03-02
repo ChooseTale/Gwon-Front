@@ -40,7 +40,7 @@ export default function BuilderPage() {
     if (inView && !isLoading && games.length < totalCount) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [inView, isLoading, games.length, totalCount]);
+  }, [inView, isLoading, totalCount]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -55,6 +55,11 @@ export default function BuilderPage() {
     if (page === 1 && games.length !== 0) {
       return;
     }
+
+    if (page !== 1 && games.length > (page - 1) * GAME_LIST_LIMIT) {
+      return;
+    }
+
     const getGames = async () => {
       setIsLoading(true);
       const games = await getBuildingGamesCall({
@@ -84,7 +89,7 @@ export default function BuilderPage() {
         />
         <div className="mt-[20px]" />
         {/* 장르 탑바 */}
-        <GenreTopBar />
+        <GenreTopBar isSelected={filter.length > 0} />
         {games.length === 0 && (
           <div className="flex flex-col   items-center justify-center h-full">
             <div className="text-headline-md text-gray-400">

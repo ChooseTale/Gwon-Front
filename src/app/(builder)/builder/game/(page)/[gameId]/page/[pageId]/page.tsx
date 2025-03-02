@@ -48,10 +48,6 @@ export default function BuilderGamePage() {
     linkedPageId: number | null;
   } | null>(null);
 
-  // const [toast, setToast] = useState<{
-  //   text: string;
-  //   type: "success" | "error" | "warn";
-  // } | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const me = useMeStore((state) => state.me);

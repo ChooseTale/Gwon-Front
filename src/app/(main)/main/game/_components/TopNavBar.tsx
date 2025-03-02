@@ -6,11 +6,13 @@ import DropDown from "@/common/DropDown";
 import { useGameOrderStore } from "@/store/Game/GameOrder.store";
 import { useGameFilterStore } from "@/store/Game/GameFilter.store";
 import { GenresKorean } from "@/common/Game/Genre";
+import { colors } from "tailwind.config";
 
 export default function TopNavBar() {
   const [isGenreBottomSheetOpen, setIsGenreBottomSheetOpen] = useState(false);
   const [isSortBottomSheetOpen, setIsSortBottomSheetOpen] = useState(false);
 
+  const isSelected = useGameFilterStore.getState().selectedGenres.length > 0;
   const handleSortBottomSheet = () => {
     setIsSortBottomSheetOpen(!isSortBottomSheetOpen);
   };
@@ -31,7 +33,7 @@ export default function TopNavBar() {
   const handleGenreBottomSheetOpen = () => {
     setIsGenreBottomSheetOpen(true);
   };
-
+  console.log(colors["green-500"]);
   return (
     <div className="">
       {isGenreBottomSheetOpen && (
@@ -49,17 +51,25 @@ export default function TopNavBar() {
       <div className="flex  w-full mb-[20px] justify-between items-center">
         <div
           onClick={handleGenreBottomSheetOpen}
-          className="flex flex-row justify-center items-center w-[92px] h-[38px] border border-gray-700 rounded-[8px]"
+          className={`flex flex-row justify-center items-center w-[92px] h-[38px] border border-gray-700 rounded-[8px] ${
+            isSelected ? "border-green-500" : "border-gray-700"
+          }`}
         >
           <Svg
             icon="slidersIcon"
             options={{
               size: { width: 18, height: 18 },
               viewBox: "0 0 18 18",
-              color: "white",
+              color: isSelected ? "green-500" : "white",
             }}
           />
-          <span className="headline-md text-white ml-[6px]">장르</span>
+          <span
+            className={`headline-md  ml-[6px] ${
+              isSelected ? "text-green-500" : "text-white"
+            }`}
+          >
+            장르
+          </span>
         </div>
         <div
           onClick={handleSortBottomSheet}

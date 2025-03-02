@@ -21,13 +21,13 @@ export default function GameList() {
 
   const selectedGenres = useGameFilterStore((state) => state.selectedGenres);
   const selectedOrder = useGameOrderStore((state) => state.selectedOrder);
-
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     const fetchTotalCount = async () => {
       const count = await getGameListCountCall(selectedGenres);
       setTotalCount(count.count);
+      setGameList(new GameListEntity([]));
     };
 
     fetchTotalCount();
@@ -40,7 +40,6 @@ export default function GameList() {
       gameList.gameList.length > 0 &&
       gameList.gameList.length < totalCount
     ) {
-      console.log("111");
       setPage((prevPage) => prevPage + 1);
     }
   }, [inView, isLoading, totalCount]);
@@ -50,15 +49,12 @@ export default function GameList() {
       isInitialMount.current = false;
       return;
     }
-    console.log("222");
+
     setPage(1);
     setGameList(new GameListEntity([]));
   }, [selectedGenres, selectedOrder]);
 
   useEffect(() => {
-    if (page === 1 && gameList.gameList.length !== 0) {
-      return;
-    }
     // 이미 데이터가 있고 첫 페이지가 아니면 요청하지 않음
     if (page !== 1 && gameList.gameList.length > (page - 1) * GAME_LIST_LIMIT) {
       return;
