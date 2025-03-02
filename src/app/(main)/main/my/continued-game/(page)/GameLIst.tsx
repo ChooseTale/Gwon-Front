@@ -48,10 +48,7 @@ export default function ContinuedGamesList() {
 
   useEffect(() => {
     // 이미 데이터가 있고 첫 페이지가 아니면 요청하지 않음
-    if (
-      page !== 1 &&
-      continuedGameList.length >= (page - 1) * GAME_LIST_LIMIT
-    ) {
+    if (page !== 1 && continuedGameList.length > (page - 1) * GAME_LIST_LIMIT) {
       return;
     }
 
@@ -94,10 +91,8 @@ export default function ContinuedGamesList() {
             <ContinuedGamesCard game={game} />
           </div>
         ))}
-        {continuedGameList.length < totalCount && (
-          <div ref={ref} className="h-[1px]" />
-        )}
       </div>
+      {!isLoading && <div id="load" ref={ref} className="h-[1px]" />}
     </div>
   );
 }
