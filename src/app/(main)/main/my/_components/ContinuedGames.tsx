@@ -48,7 +48,7 @@ export default function ContinuedGames() {
         ) : (
           continuedGameList.map((game) => (
             <div
-              className="flex  w-[170px] h-[173px] "
+              className="flex min-w-[170px]  w-[170px] h-[173px] "
               key={game.game.id.toString()}
             >
               <ContinuedGamesCard game={game} />
