@@ -8,8 +8,9 @@ import { getMyContinuedGameListCall } from "@/(actions)/main/my-game";
 import Link from "next/link";
 
 export default function ContinuedGames() {
-  const [continuedGameList, setContinuedGameList] =
-    useState<getContinuedGameList.Output>([]);
+  const [continuedGameList, setContinuedGameList] = useState<
+    getContinuedGameList.Output["list"]
+  >([]);
 
   useEffect(() => {
     const getMyContinuedGameList = async () => {
@@ -19,7 +20,7 @@ export default function ContinuedGames() {
         order: "LATEST",
         genre: ["ALL"],
       });
-      setContinuedGameList(res);
+      setContinuedGameList(res.list);
     };
 
     getMyContinuedGameList();

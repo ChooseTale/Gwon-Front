@@ -3,15 +3,11 @@
 import { convertDate } from "@/app/(utils)/convert-date";
 import GameBottomSheet from "@/common/Game/DetailBottomSheet/GameBottomSheet";
 import { useCommonStore } from "@/store/common.store";
-import { GetContinuedGameListResDto } from "@choosetale/nestia-type/lib/structures/GetContinuedGameListResDto";
+
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function ContinuedGamesCard({
-  game,
-}: {
-  game: GetContinuedGameListResDto;
-}) {
+export default function ContinuedGamesCard({ game }: { game: any }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {

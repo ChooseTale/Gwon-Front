@@ -1,1 +1,1 @@
-export const GAME_LIST_LIMIT = 12;
+export const GAME_LIST_LIMIT = 4;
