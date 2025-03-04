@@ -51,12 +51,12 @@ export default function SignOut() {
             }}
             handleCancel={() => setModal(null)}
             handleConfirm={() => {
-              signOutCall();
-
-              deleteCookie("connect.sid");
-              deleteCookie("loggedIn");
-              deleteCookie("me");
-              router.push("/oauth");
+              signOutCall().then(() => {
+                deleteCookie("connect.sid");
+                deleteCookie("loggedIn");
+                deleteCookie("me");
+                router.push("/oauth");
+              });
             }}
           />
         );

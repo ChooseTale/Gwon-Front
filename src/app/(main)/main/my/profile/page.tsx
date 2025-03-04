@@ -56,12 +56,13 @@ export default function ProfilePage() {
             const formData = new FormData();
             formData.append("nickname", userData.nickname);
             formData.append("image", profileImageFile as Blob);
-            updateUserCall(formData);
-            if (formData.entries().next().done === false) {
-              useMeStore.getState().deleteMe();
-            }
-            toast.success("프로필 수정이 완료되었습니다.");
-            router.push("/main/my");
+            updateUserCall(formData).then(() => {
+              if (formData.entries().next().done === false) {
+                useMeStore.getState().deleteMe();
+              }
+              toast.success("프로필 수정이 완료되었습니다.");
+              router.push("/main/my");
+            });
           }}
         />
       </div>
