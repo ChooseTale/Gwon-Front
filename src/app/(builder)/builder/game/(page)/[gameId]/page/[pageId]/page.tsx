@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import BuilderGamePageTopNav from "./_component/TopNav";
 import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
@@ -102,6 +102,21 @@ export default function BuilderGamePage() {
     fetchGame();
     fetchPage();
   }, [gameId, pageId]);
+
+  const backgroundImageUrl = useMemo(() => {
+    if (!backgroundImage) return null;
+    const url = URL.createObjectURL(backgroundImage);
+    return url;
+  }, [backgroundImage]);
+
+  // URL 객체 정리
+  useEffect(() => {
+    return () => {
+      if (backgroundImageUrl) {
+        URL.revokeObjectURL(backgroundImageUrl);
+      }
+    };
+  }, [backgroundImageUrl]);
 
   if (!page) return <div>Loading...</div>;
 
@@ -279,8 +294,12 @@ export default function BuilderGamePage() {
 
           setActiveBlock(null);
         }}
-        onTouchStart={(e) => {
-          if (e.target !== e.currentTarget) return;
+        onTouchStart={(e: any) => {
+          if (
+            e.target.id !== "page-content" &&
+            e.target.id !== "background-image"
+          )
+            return;
           const touchStartTime = Date.now();
           const touchEndHandler = () => {
             const touchEndTime = Date.now();
@@ -302,11 +321,11 @@ export default function BuilderGamePage() {
           </div>
         )}
         {backgroundImage && (
-          // <div className="relative flex w-full h-full">
-          <div className="fixed  justify-center items-center top-[120px]  w-full min-w-[280px] max-w-[600px] h-full z-0 ">
-            <div className="relative  flex w-full h-full">
+          <div className="fixed justify-center items-center top-[120px] w-full min-w-[280px] max-w-[600px] h-full z-0 ">
+            <div className="relative flex w-full h-full">
               <Image
-                src={URL.createObjectURL(backgroundImage)}
+                id="background-image"
+                src={backgroundImageUrl ?? ""}
                 alt="background"
                 fill
                 style={{ objectFit: "cover" }}
