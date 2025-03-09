@@ -7,8 +7,8 @@ interface ImageProps {
 
 export default function UserImage({ src }: ImageProps) {
   return (
-    <div className="w-[16px] h-[16px] rounded-full overflow-hidden">
-      <Image src={src} alt="gameImage" width={16} height={16} />
+    <div className="w-[16px] h-[16px] rounded-full overflow-hidden relative">
+      <Image src={src} alt="gameImage" fill style={{ objectFit: "cover" }} />
     </div>
   );
 }

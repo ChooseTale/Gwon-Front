@@ -61,7 +61,7 @@ export default function GameBottomSheet({
       <SheetContent
         side="bottom"
         className="flex flex-col bg-gray-900 w-full min-w-[320px] max-w-[400px] h-[calc(100%-60px)]
-         rounded-t-[20px] shadow-lg  justify-self-center border-none"
+         rounded-t-[20px] shadow-lg  justify-self-center border-none "
         onCloseAutoFocus={() => {
           useCommonStore.getState().setIsModalOrBottomSheetOpen(false);
           handleClose();

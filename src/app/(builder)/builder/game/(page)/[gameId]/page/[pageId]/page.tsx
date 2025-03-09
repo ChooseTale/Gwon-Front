@@ -213,6 +213,7 @@ export default function BuilderGamePage() {
     await deletePageCall(Number(gameId), Number(pageId));
     router.push(`/builder/game/${gameId}`);
   };
+
   return (
     <div className="flex w-full h-full flex-col bg-white ">
       {isDeleteModalOpen && (
@@ -271,7 +272,7 @@ export default function BuilderGamePage() {
 
       <div
         id="page-content"
-        className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto"
+        className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto pb-[200px]"
         style={{}}
         onClick={(e) => {
           if (e.target !== e.currentTarget) return;
@@ -279,6 +280,7 @@ export default function BuilderGamePage() {
           setActiveBlock(null);
         }}
         onTouchStart={(e) => {
+          if (e.target !== e.currentTarget) return;
           const touchStartTime = Date.now();
           const touchEndHandler = () => {
             const touchEndTime = Date.now();
@@ -407,9 +409,8 @@ export default function BuilderGamePage() {
           <div id="choice-container" className="flex flex-col gap-2">
             {page?.choices.map((choice, idx) => {
               const isActive =
-                activeBlock?.idx === idx &&
-                activeBlock?.type === "choice" &&
-                !activeBlock.isHighlight;
+                activeBlock?.idx === idx && activeBlock?.type === "choice";
+
               return (
                 <div
                   className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2

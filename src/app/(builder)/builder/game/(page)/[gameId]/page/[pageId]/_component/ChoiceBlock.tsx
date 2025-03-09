@@ -36,6 +36,7 @@ export default function ChoiceBlock({
 }: ChoiceBlockProps) {
   const [editedText, setEditedText] = useState(originalText);
   const [pressTimeout, setPressTimeout] = useState<number>(0);
+
   const boxHeight = useCallback(() => {
     const lines = editedText.split("\n");
     return lines.length * 20;
@@ -51,6 +52,10 @@ export default function ChoiceBlock({
 
   const endPress = () => {
     const currentTime = Date.now();
+
+    if (currentTime - pressTimeout < 10) {
+      return;
+    }
 
     if (currentTime - pressTimeout > 300) {
       longPress();
@@ -84,7 +89,93 @@ export default function ChoiceBlock({
     setEditedText(originalText);
   }, [originalText]);
 
-  if (isModal) {
+  // if (isModal) {
+  //   const childrens: {
+  //     text: string;
+  //     textColor?: keyof typeof colors;
+  //     Svg: React.ReactNode;
+  //     onClick: () => void;
+  //   }[] = [
+  //     {
+  //       text: "페이지 연결",
+  //       textColor: "black",
+  //       Svg: (
+  //         <Svg
+  //           icon="linkIcon"
+  //           options={{ size: { width: 24, height: 24 }, color: "black" }}
+  //         />
+  //       ),
+  //       onClick: () => {
+  //         handleLinkPage(choiceId);
+  //       },
+  //     },
+  //     {
+  //       text: "삭제",
+  //       textColor: "system-red",
+  //       Svg: (
+  //         <Svg
+  //           icon="trashIcon"
+  //           options={{ size: { width: 24, height: 24 }, color: "system-red" }}
+  //         />
+  //       ),
+  //       onClick: () => {
+  //         handleDelete();
+  //       },
+  //     },
+  //   ];
+  //   const bottom = (childrens.length * 44 + 4) * -1;
+  //   return (
+  //     <>
+  //       <div
+  //         className={`flex w-full h-full flex-col gap-2 ${
+  //           isOpacity50 ? "" : "opacity-50"
+  //         }`}
+  //         onMouseDown={handleMouseDown}
+  //         onMouseUp={handleMouseUp}
+  //         onTouchStart={handleTouchStart}
+  //         onTouchEnd={handleTouchEnd}
+  //       >
+  //         <div className="flex caption-sb text-green-400">선택지{order}</div>
+  //         <div
+  //           className="flex w-full h-full body-md text-white"
+  //           style={{ height: `${boxHeight()}px` }}
+  //         >
+  //           {originalText}
+  //         </div>
+  //       </div>
+  //       <div
+  //         className={`absolute right-0  z-20 `}
+  //         style={{
+  //           bottom: `${bottom}px`,
+  //         }}
+  //       >
+  //         <ContextMenu childrens={childrens} />
+  //       </div>
+  //     </>
+  //   );
+  // }
+  if (!isActive) {
+    return (
+      <div
+        className={`flex w-full h-full flex-col gap-2 ${
+          isOpacity50 ? "" : "opacity-50"
+        }`}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className="flex caption-sb text-green-400">선택지{order}</div>
+        <textarea
+          className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
+          value={editedText}
+          onChange={handleTextChange}
+          style={{ height: `${boxHeight()}px` }}
+        />
+      </div>
+    );
+  }
+  if (isActive) {
     const childrens: {
       text: string;
       textColor?: keyof typeof colors;
@@ -118,88 +209,48 @@ export default function ChoiceBlock({
         },
       },
     ];
-    const bottom = (childrens.length * 44 + 4) * -1;
     return (
       <>
         <div
-          className={`flex w-full h-full flex-col gap-2 ${
-            isOpacity50 ? "" : "opacity-50"
-          }`}
+          className="flex  w-full h-full flex-col gap-2"
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
           <div className="flex caption-sb text-green-400">선택지{order}</div>
-          <div
-            className="flex w-full h-full body-md text-white"
+          <textarea
+            className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
+            value={editedText}
+            onChange={handleTextChange}
             style={{ height: `${boxHeight()}px` }}
-          >
-            {originalText}
+          />
+          <div className="flex w-full justify-end gap-3  z-10">
+            <p
+              className="flex text-gray-400"
+              onClick={() => {
+                setEditedText(originalText);
+                handleCancel();
+              }}
+            >
+              취소
+            </p>
+            <p
+              className="flex text-green-500"
+              onClick={() => {
+                handleComplete(editedText);
+              }}
+            >
+              완료
+            </p>
           </div>
-        </div>
-        <div
-          className={`absolute right-0  z-20 `}
-          style={{
-            bottom: `${bottom}px`,
-          }}
-        >
-          <ContextMenu childrens={childrens} />
+          {isModal && (
+            <div className="absolute top-[110px] right-0 z-20">
+              <ContextMenu childrens={childrens} />
+            </div>
+          )}
         </div>
       </>
-    );
-  }
-  if (!isActive) {
-    return (
-      <div
-        className={`flex w-full h-full flex-col gap-2 ${
-          isOpacity50 ? "" : "opacity-50"
-        }`}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <div className="flex caption-sb text-green-400">선택지{order}</div>
-        <div
-          className="flex w-full h-full body-md text-white"
-          style={{ height: `${boxHeight()}px` }}
-        >
-          {originalText}
-        </div>
-      </div>
-    );
-  }
-  if (isActive) {
-    return (
-      <div className="flex w-full h-full flex-col gap-2">
-        <div className="flex caption-sb text-green-400">선택지{order}</div>
-        <textarea
-          className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
-          value={editedText}
-          onChange={handleTextChange}
-          style={{ height: `${boxHeight()}px` }}
-        />
-        <div className="flex w-full justify-end gap-3">
-          <p
-            className="flex text-gray-400"
-            onClick={() => {
-              setEditedText(originalText);
-              handleCancel();
-            }}
-          >
-            취소
-          </p>
-          <p
-            className="flex text-green-500"
-            onClick={() => {
-              handleComplete(editedText);
-            }}
-          >
-            완료
-          </p>
-        </div>
-      </div>
     );
   }
 }
