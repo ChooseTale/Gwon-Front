@@ -160,24 +160,24 @@ export default function BuilderGamePage() {
         });
         break;
       case "aiChoice":
-        recommendChoices(Number(gameId), Number(pageId));
-        const socket = connectSocket(me.userId);
+        // recommendChoices(Number(gameId), Number(pageId));
+        // const socket = connectSocket(me.userId);
 
-        // 메시지 수신
-        socket.on(
-          NAMESPACES.RECOMMEND_CHOICES,
-          (data: { message: { title: string; description: string }[] }) => {
-            setPage({
-              ...page,
-              choices: data.message.map((message) => ({
-                id: -1,
-                text: message.title,
-                nextPageId: null,
-              })),
-            });
-            disconnectSocket(socket);
-          }
-        );
+        // // 메시지 수신
+        // socket.on(
+        //   NAMESPACES.RECOMMEND_CHOICES,
+        //   (data: { message: { title: string; description: string }[] }) => {
+        //     setPage({
+        //       ...page,
+        //       choices: data.message.map((message) => ({
+        //         id: -1,
+        //         text: message.title,
+        //         nextPageId: null,
+        //       })),
+        //     });
+        //     disconnectSocket(socket);
+        //   }
+        // );
         break;
       case "background":
         // input type="file" 사용자에게 이미지를 받음
@@ -520,10 +520,10 @@ export default function BuilderGamePage() {
             },
             {
               key: "aiChoice",
-              isActive:
-                page.choices.length < 4 &&
-                !page.isEnding &&
-                activeBlock === null,
+              isActive: false, // ai기능이 완성될 때까지 비활성화
+              // page.choices.length < 4 &&
+              // !page.isEnding &&
+              // activeBlock === null,
             },
             { key: "background", isActive: activeBlock === null },
           ]}

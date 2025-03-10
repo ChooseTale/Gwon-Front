@@ -30,15 +30,17 @@ export default function ContinuedGames() {
     <div className="flex flex-col">
       <div className="flex flex-row justify-between items-center">
         <div className="title2-sb text-white">진행중인 게임</div>
-        <Link href="/main/my/continued-game">
-          <div className="flex  flex-row text-gray-500">
-            <span className="body1-sb">전체보기</span>
-            <Svg
-              icon="chevronRightIcon"
-              options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
-            />
-          </div>
-        </Link>
+        {continuedGameList.length !== 0 && (
+          <Link href="/main/my/continued-game">
+            <div className="flex  flex-row text-gray-500">
+              <span className="body1-sb">전체보기</span>
+              <Svg
+                icon="chevronRightIcon"
+                options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
+              />
+            </div>
+          </Link>
+        )}
       </div>
       <div className="flex flex-row  h-[244px] gap-2 flex-nowrap  overflow-x-auto overflow-y-hidden mt-[12px]">
         {continuedGameList.length === 0 ? (

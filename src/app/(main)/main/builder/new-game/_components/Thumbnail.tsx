@@ -53,6 +53,12 @@ export default function Thumbnail({
     const newThumbnails = currentThumbnails.filter((_, i) => i !== index);
     setCurrentThumbnails(newThumbnails);
     onChange(newThumbnails);
+
+    // input 요소의 value를 초기화하여 같은 파일을 다시 선택할 수 있게 함
+    const fileInput = document.getElementById("thumbnail") as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
   };
 
   // const me = useMeStore((state) => state.me);

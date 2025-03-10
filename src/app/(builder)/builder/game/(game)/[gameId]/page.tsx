@@ -10,6 +10,9 @@ import {
   ConnectionLineType,
   Panel,
   addEdge,
+  Handle,
+  Handle,
+  Position,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { builder } from "@/(actions)/builder/builder";
@@ -53,6 +56,7 @@ const getLayoutedElements = (nodes: any, edges: any, direction = "TB") => {
       ...node,
       targetPosition: isHorizontal ? "left" : "top",
       sourcePosition: isHorizontal ? "right" : "bottom",
+
       // We are shifting the dagre node position (anchor=center center) to the top left
       // so it matches the React Flow node anchor point (top left).
       position: {
@@ -96,6 +100,7 @@ export default function GameBuilder() {
           eds
         )
       ),
+
     []
   );
   const onLayout = useCallback(
@@ -175,7 +180,11 @@ export default function GameBuilder() {
           };
         });
 
-        setNodes(newNodes);
+        // 노드를 바로 가로 정렬된 상태로 설정
+        const { nodes: layoutedNodes, edges: layoutedEdges } =
+          getLayoutedElements(newNodes, edges, "LR");
+        setNodes(layoutedNodes);
+        setEdges(layoutedEdges);
       }
     };
     getVerticalNodes();
@@ -259,6 +268,7 @@ export default function GameBuilder() {
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
+        nodeTypes={{}}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         connectionLineType={ConnectionLineType.SmoothStep}
@@ -271,6 +281,7 @@ export default function GameBuilder() {
             className="flex flex-row  w-[114px] h-[36px]
           rounded-[8px] items-center justify-center bg-white
           flex-1"
+            style={{ boxShadow: "0px 0px 16px 0px #40404026" }}
           >
             <div className="flex w-full h-full justify-center border-r border-gray-50">
               <button
@@ -291,9 +302,9 @@ export default function GameBuilder() {
           </div>
         </Panel>
         <Background />
-        <div className="absolute bottom-[125px] left-[5px]">
+        {/* <div className="absolute bottom-[125px] left-[5px]">
           <Controls />
-        </div>
+        </div> */}
       </ReactFlow>
       <NewPageButton onClick={handleNewPageButtonClick} />
     </div>
