@@ -11,8 +11,8 @@ import {
   getIntroScreenCall,
 } from "@/(actions)/main/play-game/intro";
 import { useCommonStore } from "@/store/common.store";
-import goldBadge from "@/assets/png/gold.png";
-import silverBadge from "@/assets/png/silver.png";
+import goldBadge from "@/assets/png/GoldBadge.png";
+import silverBadge from "@/assets/png/SilverBadge.png";
 import { useRouter } from "next/navigation";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 

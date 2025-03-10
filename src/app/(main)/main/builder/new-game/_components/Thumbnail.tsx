@@ -6,6 +6,8 @@ import React, { useCallback, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
+import { toast } from "sonner";
+import { validateFileSize } from "@/lib/validation";
 
 interface ThumbnailProps {
   images: File[];
@@ -33,6 +35,11 @@ export default function Thumbnail({
 
   const handleAddThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isMaxThumbnail()) {
+      return;
+    }
+
+    if (validateFileSize(e)) {
+      toast.error("파일 크기가 너무 큽니다.");
       return;
     }
     const file = e.target.files?.[0];

@@ -87,11 +87,15 @@ export default function SortGameGameList() {
               max-w-[180px]
 
               "
-          onClick={() => handleBottomSheet("step1", game.id)}
+          onClick={(e: any) => {
+            if (isOpenBottomSheet === null) handleBottomSheet("step1", game.id);
+          }}
         >
           {isOpenBottomSheet === "step1" && selectedGameId === game.id && (
             <Step1EndingIntro
-              handleClose={() => handleBottomSheet(null, null)}
+              handleClose={() => {
+                handleBottomSheet(null, null);
+              }}
               game={{
                 title: game.title,
                 genre: game.genre,
@@ -105,6 +109,7 @@ export default function SortGameGameList() {
               handleStep={(step: string) => {
                 if (step !== "step1" && step !== "step2" && step !== null)
                   return;
+
                 handleBottomSheet(step, game.id);
               }}
             />

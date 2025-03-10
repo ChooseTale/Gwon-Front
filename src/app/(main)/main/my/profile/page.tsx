@@ -56,13 +56,21 @@ export default function ProfilePage() {
             const formData = new FormData();
             formData.append("nickname", userData.nickname);
             formData.append("image", profileImageFile as Blob);
-            updateUserCall(formData).then(() => {
-              if (formData.entries().next().done === false) {
-                useMeStore.getState().deleteMe();
-              }
-              toast.success("프로필 수정이 완료되었습니다.");
-              router.push("/main/my");
-            });
+            updateUserCall(formData)
+              .then(() => {
+                if (formData.entries().next().done === false) {
+                  useMeStore.getState().deleteMe();
+                }
+                toast.success("프로필 수정이 완료되었습니다.");
+                router.push("/main/my");
+              })
+              .catch((error) => {
+                if (error.message == "File too large") {
+                  toast.error("파일 크기가 너무 큽니다.");
+                } else {
+                  toast.error("프로필 수정에 실패했습니다.");
+                }
+              });
           }}
         />
       </div>

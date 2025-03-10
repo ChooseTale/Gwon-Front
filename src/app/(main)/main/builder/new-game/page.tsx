@@ -40,21 +40,28 @@ export default function NewGameBuilder() {
       thumbnailValidate(newGame.thumbnails);
     } catch (error: any) {
       toast.error(error.message, {});
-      console.error(error);
+
       return;
     }
 
-    const res = await createGameCall(
-      {
-        title: newGame.title,
-        genre: newGame.genre as Genres,
-        description: newGame.description,
-        thumbnailFileIdx: newGame.isThumbnailIdx,
-      },
-      newGame.thumbnails
-    );
-
-    router.push(`/builder/game/${res.id}`);
+    try {
+      const res = await createGameCall(
+        {
+          title: newGame.title,
+          genre: newGame.genre as Genres,
+          description: newGame.description,
+          thumbnailFileIdx: newGame.isThumbnailIdx,
+        },
+        newGame.thumbnails
+      );
+      router.push(`/builder/game/${res.id}`);
+    } catch (error: any) {
+      if (error.message == "File too large") {
+        toast.error("파일 크기가 너무 큽니다.", {});
+      } else {
+        toast.error("게임 생성에 실패했습니다.", {});
+      }
+    }
   };
 
   return (
