@@ -36,7 +36,8 @@ export default function ChoiceBlock({
 }: ChoiceBlockProps) {
   const [editedText, setEditedText] = useState(originalText);
   const [pressTimeout, setPressTimeout] = useState<number>(0);
-  const [pressTime, setPressTime] = useState(0);
+  const [, setPressTime] = useState(0);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const boxHeight = useCallback(() => {
