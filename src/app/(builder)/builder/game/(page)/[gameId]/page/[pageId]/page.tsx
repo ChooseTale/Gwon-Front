@@ -20,13 +20,13 @@ import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
 import { toast } from "sonner";
 
-import { recommendChoices } from "@/(actions)/builder/choice/chat-gpt/recommend";
-import { useMeStore } from "@/store/User/Me/Me.store";
-import {
-  connectSocket,
-  disconnectSocket,
-} from "@/(actions)/socket/connect-socket";
-import { NAMESPACES } from "@/(actions)/socket/socket-type";
+// import { recommendChoices } from "@/(actions)/builder/choice/chat-gpt/recommend";
+// import { useMeStore } from "@/store/User/Me/Me.store";
+// import {
+//   connectSocket,
+//   disconnectSocket,
+// } from "@/(actions)/socket/connect-socket";
+// import { NAMESPACES } from "@/(actions)/socket/socket-type";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
@@ -50,7 +50,7 @@ export default function BuilderGamePage() {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
-  const me = useMeStore((state) => state.me);
+  // const me = useMeStore((state) => state.me);
 
   const isActiveBlock = useCallback(
     (idx: number) => {

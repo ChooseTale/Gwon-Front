@@ -87,7 +87,7 @@ export default function SortGameGameList() {
               max-w-[180px]
 
               "
-          onClick={(e: any) => {
+          onClick={() => {
             if (isOpenBottomSheet === null) handleBottomSheet("step1", game.id);
           }}
         >
