@@ -32,8 +32,21 @@ export default function Block({
   const [pressTimeout, setPressTimeout] = useState<number>(0);
   const blockRef = useRef<HTMLDivElement>(null);
   const textArea = useRef<HTMLTextAreaElement>(null);
+
   const boxHeight = useCallback(() => {
-    return textArea.current?.scrollHeight;
+    if (!textArea.current) return "auto";
+    // 텍스트가 없을 때 최소 높이 설정 (예: 38px)
+    return textArea.current.scrollHeight
+      ? `${textArea.current.scrollHeight}px`
+      : "38px";
+  }, []);
+
+  const adjustTextareaHeight = useCallback(() => {
+    if (textArea.current) {
+      // 높이를 초기화하여 스크롤 높이를 정확하게 계산
+      textArea.current.style.height = "auto";
+      textArea.current.style.height = `${textArea.current.scrollHeight}px`;
+    }
   }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -79,6 +92,11 @@ export default function Block({
     setEditedText(originalText);
   }, [originalText]);
 
+  // 텍스트가 변경될 때마다 높이 조정
+  useEffect(() => {
+    adjustTextareaHeight();
+  }, [editedText, adjustTextareaHeight]);
+
   if (!isActive) {
     return (
       <div
@@ -104,7 +122,7 @@ export default function Block({
             className="flex w-full  body-md overflow-hidden"
             value={editedText}
             onChange={handleTextChange}
-            style={{ height: `${boxHeight()}px` }}
+            style={{ height: boxHeight() }}
             ref={textArea}
             readOnly
           />
@@ -147,7 +165,7 @@ export default function Block({
         <div
           className={`flex w-full  body-md `}
           style={{
-            height: `${boxHeight()}px`,
+            height: boxHeight(),
             whiteSpace: "pre-wrap", // 줄바꿈과 공백을 유지
             overflowWrap: "break-word",
           }}
@@ -157,7 +175,7 @@ export default function Block({
             value={editedText}
             onChange={handleTextChange}
             ref={textArea}
-            style={{ height: `${boxHeight()}px` }}
+            style={{ height: boxHeight() }}
           />
         </div>
         <div className={`absolute right-0 bottom-[-48px]  z-20 `}>
@@ -184,7 +202,7 @@ export default function Block({
           value={editedText}
           onChange={handleTextChange}
           ref={textArea}
-          style={{ height: `${boxHeight()}px` }}
+          style={{ height: boxHeight() }}
         />
         <div className="flex w-full justify-end gap-3 z-10">
           <p
