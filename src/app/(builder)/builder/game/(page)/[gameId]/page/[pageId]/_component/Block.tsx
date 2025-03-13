@@ -96,7 +96,6 @@ export default function Block({
         <div
           className={`flex w-full  body-md `}
           style={{
-            height: `${boxHeight()}px`,
             whiteSpace: "pre-wrap", // 줄바꿈과 공백을 유지
             overflowWrap: "break-word",
           }}
@@ -105,8 +104,8 @@ export default function Block({
             className="flex w-full  body-md overflow-hidden"
             value={editedText}
             onChange={handleTextChange}
-            ref={textArea}
             style={{ height: `${boxHeight()}px` }}
+            ref={textArea}
             readOnly
           />
         </div>

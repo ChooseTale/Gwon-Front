@@ -33,7 +33,7 @@ export default function TopNavBar() {
   const handleGenreBottomSheetOpen = () => {
     setIsGenreBottomSheetOpen(true);
   };
-  console.log(colors["green-500"]);
+
   return (
     <div className="">
       {isGenreBottomSheetOpen && (

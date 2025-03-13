@@ -11,6 +11,7 @@ interface ChoiceBlockProps {
   originalText: string;
   isActive: boolean;
   isModal: boolean;
+  nextPageId: number | null;
   handleCancel: () => void;
   handleComplete: (text: string) => void;
   isOpacity50: boolean;
@@ -27,6 +28,7 @@ export default function ChoiceBlock({
   isOpacity50,
   isActive,
   isModal,
+  nextPageId,
   handleCancel,
   handleComplete,
   clickBlock,
@@ -133,7 +135,19 @@ export default function ChoiceBlock({
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div className="flex caption-sb text-green-400">선택지{order}</div>
+        <div className="flex caption-sb text-green-400">
+          선택지{order}
+          {nextPageId && (
+            <Svg
+              icon="linkIcon"
+              options={{
+                size: { width: 18, height: 18 },
+                color: "green-500",
+              }}
+            />
+          )}
+        </div>
+
         <textarea
           className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
           value={editedText}
@@ -187,7 +201,18 @@ export default function ChoiceBlock({
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="flex caption-sb text-green-400">선택지{order}</div>
+          <div className="flex caption-sb text-green-400">
+            선택지{order}
+            {nextPageId && (
+              <Svg
+                icon="linkIcon"
+                options={{
+                  size: { width: 18, height: 18 },
+                  color: "green-500",
+                }}
+              />
+            )}
+          </div>
           <textarea
             className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
             value={editedText}

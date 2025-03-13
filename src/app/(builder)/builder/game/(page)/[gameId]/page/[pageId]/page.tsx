@@ -452,6 +452,7 @@ export default function BuilderGamePage() {
                         : idx === activeBlock?.idx
                     }
                     isActive={isActive}
+                    nextPageId={choice.nextPageId}
                     clickBlock={() => {
                       setActiveBlock({
                         idx,
