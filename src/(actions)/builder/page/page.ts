@@ -33,6 +33,9 @@ export const createPageCall = async (
     {
       method: create.METADATA.method,
       body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
 

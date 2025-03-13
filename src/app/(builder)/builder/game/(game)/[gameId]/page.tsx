@@ -124,21 +124,20 @@ export default function GameBuilder() {
       const game = await builder(Number(gameId));
       setGame(game);
       if (game) {
+        const newEdges: any[] = [];
         const newNodes = game.pages.map((page, idx) => {
           page.choices.forEach((choice) => {
-            setEdges((prev) => {
-              const newEdgeId = `${choice.fromPageId}-${choice.toPageId}`;
-              if (prev.some((edge) => edge.id === newEdgeId)) {
-                return prev; // 중복 방지
-              }
-              return [
-                ...prev,
-                {
-                  id: newEdgeId,
-                  source: choice.fromPageId.toString(),
-                  target: choice?.toPageId?.toString() ?? "",
-                },
-              ];
+            if (
+              newEdges.some(
+                (edge) => edge.id === `${choice.fromPageId}-${choice.toPageId}`
+              )
+            ) {
+              return; // 중복 방지
+            }
+            newEdges.push({
+              id: `${choice.fromPageId}-${choice.toPageId}`,
+              source: choice.fromPageId.toString(),
+              target: choice?.toPageId?.toString() ?? "",
             });
           });
 
@@ -178,7 +177,7 @@ export default function GameBuilder() {
 
         // 노드를 바로 가로 정렬된 상태로 설정
         const { nodes: layoutedNodes, edges: layoutedEdges } =
-          getLayoutedElements(newNodes, edges, "LR");
+          getLayoutedElements(newNodes, newEdges, "LR");
         setNodes(layoutedNodes);
         setEdges(layoutedEdges);
       }
