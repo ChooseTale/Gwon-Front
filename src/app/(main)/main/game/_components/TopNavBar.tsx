@@ -6,7 +6,6 @@ import DropDown from "@/common/DropDown";
 import { useGameOrderStore } from "@/store/Game/GameOrder.store";
 import { useGameFilterStore } from "@/store/Game/GameFilter.store";
 import { GenresKorean } from "@/common/Game/Genre";
-import { colors } from "tailwind.config";
 
 export default function TopNavBar() {
   const [isGenreBottomSheetOpen, setIsGenreBottomSheetOpen] = useState(false);

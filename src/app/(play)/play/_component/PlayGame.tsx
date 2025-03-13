@@ -95,11 +95,14 @@ export default function PlayGame({ page }: PlayGameProps) {
           {page.contents
             .slice(0, currentContentIdx + 1)
             .map((content, index) => (
-              <div key={index} className="flex p-3 text-headline-md text-white">
+              <div
+                key={index}
+                className="flex p-3 text-headline-md text-white whitespace-pre-wrap"
+              >
                 {content.content}
               </div>
             ))}
-          <div className="flex p-3 text-headline-md text-white">
+          <div className="flex p-3 text-headline-md text-white whitespace-pre-wrap">
             {animateText}
           </div>
         </div>
