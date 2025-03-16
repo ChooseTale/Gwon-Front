@@ -52,9 +52,9 @@ export default function BuilderPage() {
   }, [gameStatus, filter, order, gameStatus]);
 
   useEffect(() => {
-    if (page === 1 && games.length !== 0) {
-      return;
-    }
+    // if (page === 1 && games.length !== 0) {
+    //   return;
+    // }
 
     if (page !== 1 && games.length > (page - 1) * GAME_LIST_LIMIT) {
       return;
@@ -92,7 +92,7 @@ export default function BuilderPage() {
         <GenreTopBar isSelected={filter.length > 0} />
         {games.length === 0 && (
           <div className="flex flex-col   items-center justify-center h-full">
-            <div className="text-headline-md text-gray-400">
+            <div className="text-headline-md text-gray-400 text-center">
               현재 {gameStatus === "BUILDING" ? "제작한 " : "게시한 "}게임이
               없어요. <br />
               {gameStatus === "BUILDING"

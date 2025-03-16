@@ -96,14 +96,12 @@ export default function GameBuilder() {
           eds
         )
       ),
-
     []
   );
   const onLayout = useCallback(
     (direction: "TB" | "LR") => {
       const { nodes: layoutedNodes, edges: layoutedEdges } =
         getLayoutedElements(nodes, edges, direction);
-
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -135,9 +133,11 @@ export default function GameBuilder() {
               return; // 중복 방지
             }
             newEdges.push({
-              id: `${choice.fromPageId}-${choice.toPageId}`,
+              id: choice.toPageId
+                ? `${choice.fromPageId}-${choice.toPageId}`
+                : `${choice.fromPageId}-choice`,
               source: choice.fromPageId.toString(),
-              target: choice?.toPageId?.toString() ?? "",
+              target: choice?.toPageId?.toString() ?? null,
             });
           });
 
