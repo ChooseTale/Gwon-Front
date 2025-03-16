@@ -1,5 +1,5 @@
 # 1. Build Stage
-FROM node:20.15.1 AS builder
+FROM node:20.15.1-alpine AS builder
 
 # RUN npm install -g yarn
 
@@ -24,5 +24,19 @@ COPY . .
 RUN ls -al
 RUN yarn build
 
+# 2. Production Stage
+FROM node:20.15.1-alpine AS runner
+
+WORKDIR /app
+
+# 환경 변수 설정
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+# standalone 모드의 결과물만 복사
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
+
 # Next.js 애플리케이션 실행
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
