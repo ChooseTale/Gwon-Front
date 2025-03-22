@@ -238,7 +238,7 @@ export default function GameBuilder() {
             try {
               await publishGameCall(Number(gameId));
               toast.success("게임 게시에 성공했습니다.", {});
-              router.push(`/main/builder`);
+              router.replace(`/main/builder`);
             } catch (err: any) {
               toast.error(err.message, {});
             }

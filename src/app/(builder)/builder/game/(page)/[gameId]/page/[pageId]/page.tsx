@@ -1,7 +1,13 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
+} from "react";
 import BuilderGamePageTopNav from "./_component/TopNav";
 import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
@@ -49,6 +55,9 @@ export default function BuilderGamePage() {
   } | null>(null);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
+  // 페이지 컨텐츠의 ref 추가
+  const pageContentRef = useRef<HTMLDivElement>(null);
 
   // const me = useMeStore((state) => state.me);
 
@@ -118,6 +127,38 @@ export default function BuilderGamePage() {
     };
   }, [backgroundImageUrl]);
 
+  const scrollToBlock = useCallback((idx: number, type: "block" | "choice") => {
+    if (!pageContentRef.current) return;
+
+    setTimeout(() => {
+      const element =
+        type === "block"
+          ? (document.querySelectorAll("#page-content-container")[
+              idx
+            ] as HTMLElement)
+          : (document.querySelectorAll("#choice-container > div")[
+              idx
+            ] as HTMLElement);
+
+      if (element && pageContentRef.current) {
+        const containerRect = pageContentRef.current.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+
+        // 요소의 상단 위치 + 요소 높이의 절반 - 컨테이너 높이의 절반
+        const scrollPosition =
+          element.offsetTop -
+          (pageContentRef.current?.offsetTop || 0) -
+          containerRect.height / 2 +
+          elementRect.height / 2;
+
+        pageContentRef.current.scrollTo({
+          top: scrollPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 100); // 약간의 지연 시간을 두어 DOM이 업데이트된 후 스크롤이 적용되도록 함
+  }, []);
+
   if (!page) return <div>Loading...</div>;
 
   const handleBottomSheetClick = (
@@ -126,21 +167,35 @@ export default function BuilderGamePage() {
     switch (key) {
       case "block":
         const block = page.contents;
+        let newBlockIdx = 0;
+
         // activeBlockIdx가 있다면 해당 블럭의 바로 뒤에 생성
         if (activeBlock !== null) {
           block.splice(activeBlock.idx + 1, 0, {
             content: "",
           });
+          newBlockIdx = activeBlock.idx + 1;
         } else if (activeBlock === null) {
           // 마지막 블럭 뒤에 생성
           block.push({
             content: "",
           });
+          newBlockIdx = block.length - 1;
         }
 
         setPage({
           ...page,
           contents: block,
+        });
+
+        // 새로 생성된 블럭으로 스크롤
+        scrollToBlock(newBlockIdx, "block");
+
+        // 새로 생성된 블럭 활성화
+        setActiveBlock({
+          idx: newBlockIdx,
+          type: "block",
+          isHighlight: false,
         });
         break;
       case "choice":
@@ -149,14 +204,27 @@ export default function BuilderGamePage() {
           alert("선택지는 최대 4개까지 생성할 수 있습니다.");
           return;
         }
+
         choice.push({
           id: -1,
           text: "",
           nextPageId: null,
         });
+
         setPage({
           ...page,
           choices: choice,
+        });
+
+        // 새로 생성된 선택지로 스크롤
+        const newChoiceIdx = choice.length - 1;
+        scrollToBlock(newChoiceIdx, "choice");
+
+        // 새로 생성된 선택지 활성화
+        setActiveBlock({
+          idx: newChoiceIdx,
+          type: "choice",
+          isHighlight: false,
         });
         break;
       case "aiChoice":
@@ -287,6 +355,7 @@ export default function BuilderGamePage() {
 
       <div
         id="page-content"
+        ref={pageContentRef}
         className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto pb-[200px]"
         style={{}}
         onClick={(e) => {
@@ -412,6 +481,7 @@ export default function BuilderGamePage() {
                       type: "block",
                       isHighlight: false,
                     });
+                    scrollToBlock(idx, "block");
                   }}
                   longPress={() => {
                     setActiveBlock({
@@ -459,6 +529,7 @@ export default function BuilderGamePage() {
                         type: "choice",
                         isHighlight: false,
                       });
+                      scrollToBlock(idx, "choice");
                     }}
                     longPress={() => {
                       setActiveBlock({
