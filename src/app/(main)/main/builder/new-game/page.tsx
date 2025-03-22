@@ -15,10 +15,11 @@ import {
   titleValidate,
 } from "./_validate/create-game";
 import { toast } from "sonner";
+import { useLoading } from "@/components/LoadingProvider";
 
 export default function NewGameBuilder() {
   const router = useRouter();
-
+  const { setIsLoading } = useLoading();
   const [newGame, setNewGame] = useState<{
     title: string;
     genre: string;
@@ -45,6 +46,7 @@ export default function NewGameBuilder() {
     }
 
     try {
+      setIsLoading(true);
       const res = await createGameCall(
         {
           title: newGame.title,
@@ -54,13 +56,15 @@ export default function NewGameBuilder() {
         },
         newGame.thumbnails
       );
-      router.push(`/builder/game/${res.id}`);
+      router.replace(`/builder/game/${res.id}`);
     } catch (error: any) {
       if (error.message == "File too large") {
         toast.error("파일 크기가 너무 큽니다.", {});
       } else {
         toast.error("게임 생성에 실패했습니다.", {});
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 

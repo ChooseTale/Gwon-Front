@@ -5,6 +5,7 @@ import "./global.css";
 import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { LoadingProvider } from "@/components/LoadingProvider";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -42,10 +43,11 @@ export default function RootLayout({
         className={`font-pretendard flex justify-center w-full h-[100vh] bg-background-dark`}
       >
         <SessionProvider>
-          <CheckAuth />
-
-          {children}
-          <Toaster />
+          <LoadingProvider>
+            <CheckAuth />
+            {children}
+            <Toaster />
+          </LoadingProvider>
         </SessionProvider>
       </body>
     </html>

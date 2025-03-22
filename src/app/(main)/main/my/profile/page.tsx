@@ -11,11 +11,15 @@ import { updateUserCall } from "@/(actions)/user/me";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+import { useLoading } from "@/components/LoadingProvider";
+
 export default function ProfilePage() {
   const me = useMeStore((state) => state.me);
   const [userData, setUserData] = useState(me);
   const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
   const router = useRouter();
+
+  const { setIsLoading } = useLoading();
 
   useEffect(() => {
     setUserData(me);
@@ -53,6 +57,7 @@ export default function ProfilePage() {
         <Button
           value="저장하기"
           onClick={() => {
+            setIsLoading(true);
             const formData = new FormData();
             formData.append("nickname", userData.nickname);
             formData.append("image", profileImageFile as Blob);
@@ -62,7 +67,7 @@ export default function ProfilePage() {
                   useMeStore.getState().deleteMe();
                 }
                 toast.success("프로필 수정이 완료되었습니다.");
-                router.push("/main/my");
+                router.replace("/main/my");
               })
               .catch((error) => {
                 if (error.message == "File too large") {
@@ -70,6 +75,9 @@ export default function ProfilePage() {
                 } else {
                   toast.error("프로필 수정에 실패했습니다.");
                 }
+              })
+              .finally(() => {
+                setIsLoading(false);
               });
           }}
         />
