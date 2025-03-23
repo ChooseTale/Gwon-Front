@@ -1,6 +1,7 @@
 import Svg from "@/common/Svg";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import Choice from "./PlayGame/Choice";
 
 interface PlayGameProps {
   game: {
@@ -29,6 +30,17 @@ export default function PlayGame({ page }: PlayGameProps) {
   const [animateText, setAnimateText] = useState<string>("");
 
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const [activeChoiceId, setActiveChoiceId] = useState<number | null>(null);
+
+  const handleChoiceClick = (id: number) => {
+    if (activeChoiceId === id) {
+      setActiveChoiceId(null);
+      page.choices.find((choice) => choice.id === id)?.onClick();
+    } else {
+      setActiveChoiceId(id);
+    }
+  };
 
   const handleContentClick = async () => {
     if (
@@ -79,12 +91,10 @@ export default function PlayGame({ page }: PlayGameProps) {
           />
         </div>
       ) : (
-        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black opacity-25">
-          <div className="absolute top-0 left-0 w-full h-full z-0 bg-white"></div>
-        </div>
+        <div className="absolute top-0 left-0 w-full h-full z-0 bg-black "></div>
       )}
       <div
-        className="flex flex-col   h-full z-10 ml-[20px] mr-[20px]"
+        className="flex flex-col   h-full z-10 ml-[20px] mr-[20px] mt-[20px]"
         onClick={handleContentClick}
       >
         {/* content부분 */}
@@ -97,53 +107,25 @@ export default function PlayGame({ page }: PlayGameProps) {
             .map((content, index) => (
               <div
                 key={index}
-                className="flex p-3 text-headline-md text-white whitespace-pre-wrap"
+                className="flex p-3 text-headline-md text-gray-100 leading-[150%] whitespace-pre-wrap"
               >
                 {content.content}
               </div>
             ))}
-          <div className="flex p-3 text-headline-md text-white whitespace-pre-wrap">
+          <div className="flex p-3 text-headline-md text-gray-100 whitespace-pre-wrap">
             {animateText}
           </div>
         </div>
 
         {/* choice부분 */}
         {currentContentIdx === page.contents.length - 1 && (
-          <>
-            {page.isEnding ? (
-              <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-                <div className="flex flex-row w-full gap-2">
-                  <div
-                    className="flex w-full h-[48px] bg-green-500 rounded-[6px]
-                  justify-center items-center
-                  text-headline-md text-black  "
-                    onClick={page.endingOnClick}
-                  >
-                    엔딩 보러가기
-                    <Svg
-                      icon="chevronRightIcon"
-                      options={{
-                        size: { width: 24, height: 24 },
-                        color: "black",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex w-full  flex-col items-center justify-center h-fit mb-[40px] z-10 gap-3">
-                {page.choices.map((choice, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center w-full h-[48px] bg-gray-900 rounded-[6px] text-headline-md text-gray-100 border border-black"
-                    onClick={choice.onClick}
-                  >
-                    {choice.title}
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
+          <Choice
+            isEndingPage={page.isEnding}
+            endingOnClick={page.endingOnClick}
+            choices={page.choices}
+            activeChoiceId={activeChoiceId}
+            handleChoiceClick={handleChoiceClick}
+          />
         )}
       </div>
     </div>

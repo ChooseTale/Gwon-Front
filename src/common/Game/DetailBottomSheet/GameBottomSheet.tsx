@@ -94,15 +94,22 @@ export default function GameBottomSheet({
         </div>
         {/* 이미지 */}
         <div className="flex  relative overflow-y-auto h-full ">
-          <div className="flex w-[calc(100%+32px)] h-[308px] min-h-[308px]   ">
+          <div className="flex w-[calc(100%+32px)] h-[308px] min-h-[308px] relative">
             <Image
-              className="w-full object-cover "
+              className="w-full object-cover"
               src={game.game.thumbnailUrl}
               alt="game"
               width={800}
               height={600}
               quality={100}
               priority
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(40, 40, 40, 0) 0%, #282828 100%)",
+              }}
             />
             {game.enrichData.completedEnding > 0 &&
               game.enrichData.completedEnding < game.enrichData.totalEnding && (
@@ -117,7 +124,7 @@ export default function GameBottomSheet({
                       priority
                     />
                   </div>
-                  <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
+                  <span className="flex body-sb text-transparent bg-clip-text ending-gradiant-90">
                     {game.enrichData.completedEnding}개의 엔딩을 봤어요
                   </span>
                 </div>
@@ -136,14 +143,14 @@ export default function GameBottomSheet({
                     priority
                   />
                 </div>
-                <span className="flex headline-sb text-transparent bg-clip-text ending-gradiant-90">
+                <span className="flex body-sb text-transparent bg-clip-text ending-gradiant-90">
                   모든 엔딩을 봤어요
                 </span>
               </div>
             )}
           </div>
           {/* 박스 쉐도우 */}
-          <div className="absolute w-full h-[62px] bottom-sheet left-0 top-[256px]  "></div>
+          {/* <div className="absolute w-full h-[62px] bottom-sheet left-0 top-[256px]  "></div> */}
           {/* 컨텐츠 내용들 */}
           <div
             className="absolute top-[275px] flex flex-col w-[calc(100%-32px)]  mx-[20px]
@@ -154,15 +161,15 @@ export default function GameBottomSheet({
 
               <div className="flex flex-row justify-center items-center "></div>
 
-              <div className="flex flex-col gap-y-4">
+              <div className="flex flex-col gap-y-2">
                 <span className="flex body-rg text-gray-100">
                   {GenresKorean[game.game.genre as keyof typeof GenresKorean]}
                 </span>
                 <span className="flex title1-sb text-white">
                   {game.game.title}
                 </span>
-                <div className="flex h-[28px] bg-gray-800 items-center rounded-[4px] w-fit px-2">
-                  <span className="flex body-rg text-white">
+                <div className="flex h-[25px] bg-gray-800 items-center rounded-[4px] w-fit px-2">
+                  <span className="flex caption-rg text-white">
                     @{game.game.producer.nickname}
                   </span>
                 </div>
@@ -185,14 +192,23 @@ export default function GameBottomSheet({
                       bgColor="bg-gray-700"
                       textColor="text-gray-100"
                     />
-                    <Button
+                    <div className="flex flex-col w-full h-[52px] justify-center items-center bg-green-500 rounded-[4px] ">
+                      <div className="flex headline-sb text-black">
+                        이어하기
+                      </div>
+
+                      <div className="flex body-rg text-black overflow-hidden line-clamp-1">
+                        {game.play.page?.title}
+                      </div>
+                    </div>
+                    {/* <Button
                       value={"이어하기:" + game.play.page?.title}
                       onClick={() => {
                         router.push(`/play/${game.play?.id ?? 0}`);
                       }}
                       bgColor="bg-green-500"
                       textColor="text-black"
-                    />
+                    /> */}
                   </>
                 )}
               </div>
@@ -207,22 +223,22 @@ export default function GameBottomSheet({
                 "
                 >
                   <div className="flex flex-col w-[90px] gap-1 justify-center items-center">
-                    <span className="flex body-rg text-gray-200">소요시간</span>
+                    <span className="flex body-md text-gray-200">소요시간</span>
                     <span className="flex headline-sb text-white">
                       {game.enrichData.expectPlayTime}분
                     </span>
                   </div>
                   <div className="h-[20px] border-r ml-2 mr-2 border-gray-700" />
                   <div className="flex flex-col w-[90px] gap-1 justify-center items-center">
-                    <span className="flex body-rg text-gray-200">엔딩수</span>
+                    <span className="flex body-md text-gray-200">엔딩수</span>
                     <span className="flex headline-sb text-white">
                       {game.enrichData.totalEnding}개
                     </span>
                   </div>
                   <div className="h-[20px] border-r ml-2 mr-2  border-gray-700" />
                   <div className="flex flex-col w-[90px] gap-1 justify-center items-center">
-                    <span className="flex body-rg text-gray-200">
-                      엔딩을 본 사람
+                    <span className="flex body-md text-gray-200">
+                      플레이어 수
                     </span>
                     <span className="flex headline-sb text-white">
                       {game.enrichData.totalPlayCount}명
