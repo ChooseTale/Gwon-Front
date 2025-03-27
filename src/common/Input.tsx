@@ -67,7 +67,7 @@ export default function Input({
         className={`w-full  mt-[12px] bg-transparent
         border rounded-[6px]
 
-        ${isError ? "border-red-500" : "border-gray-600"}
+        ${isError ? "border-red-500" : "border-gray-800"}
         outline-none text-white
 
         placeholder:text-body-md

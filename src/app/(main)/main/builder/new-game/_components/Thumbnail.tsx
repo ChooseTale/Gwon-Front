@@ -68,7 +68,7 @@ export default function Thumbnail({
       <div className="flex flex-row items-center">
         <div className="headline-sb text-white">썸네일 (5장 중 1장 선택)</div>
       </div>
-      <div className="flex mt-[12px] h-[75px] border border-gray-600 rounded-[8px]">
+      <div className="flex mt-[12px] h-[75px] border border-gray-800 rounded-[8px]">
         <div className="flex flex-1 flex-col justify-center items-center">
           <input
             type="file"
@@ -88,12 +88,12 @@ export default function Thumbnail({
               options={{
                 size: { width: 24, height: 24 },
 
-                color: isMaxThumbnail() ? "gray-600" : "white",
+                color: isMaxThumbnail() ? "gray-600" : "gray-100",
               }}
             />
             <div
               className={`body-md ${
-                isMaxThumbnail() ? "text-gray-600" : "text-white"
+                isMaxThumbnail() ? "text-gray-600" : "text-gray-100"
               } mt-[2px]`}
             >
               사진추가

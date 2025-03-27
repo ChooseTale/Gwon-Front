@@ -12,7 +12,7 @@ export default function DropDown({ values, onChange }: DropDownProps) {
   return (
     <div
       className="
-      border-[1px] border-gray-700
+      border-[1px] border-gray-800
       w-[116px] rounded-[6px] bg-gray-800
     flex absolute  justify-center items-center flex-col
     py-1
