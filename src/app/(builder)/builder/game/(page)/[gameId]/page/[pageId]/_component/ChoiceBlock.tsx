@@ -1,143 +1,63 @@
 "use client";
 
-import ContextMenu from "@/common/ContextMenu";
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import { colors } from "../../../../../../../../../../tailwind.config";
+import React, { useEffect, useState } from "react";
 import Svg from "@/common/Svg";
+import ChoiceEditBottomSheet from "./BottomSheet/ChoiceEditBottomSheet";
 
 interface ChoiceBlockProps {
   choiceId: number;
   order: number;
   originalText: string;
   isActive: boolean;
-  isModal: boolean;
+
   nextPageId: number | null;
   handleCancel: () => void;
-  handleComplete: (text: string) => void;
-  isOpacity50: boolean;
+  handleComplete: (text: string, nextPageId: number) => void;
+
   clickBlock: () => void;
-  longPress: () => void;
-  handleLinkPage: (choiceId: number) => void;
+
   handleDelete: () => void;
+
+  linkPageData: {
+    pageList: {
+      id: number;
+      title: string;
+    }[];
+    linkedPageId: number | null;
+    handleChangePage: (pageId: number) => void;
+  };
 }
 
 export default function ChoiceBlock({
-  choiceId,
   order,
   originalText,
-  isOpacity50,
   isActive,
-  isModal,
   nextPageId,
+  linkPageData,
   handleCancel,
   handleComplete,
   clickBlock,
-  longPress,
-  handleLinkPage,
   handleDelete,
 }: ChoiceBlockProps) {
   const [editedText, setEditedText] = useState(originalText);
-  const [pressTimeout, setPressTimeout] = useState<number>(0);
-  const [, setPressTime] = useState(0);
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const boxHeight = useCallback(() => {
-    const lines = editedText.split("\n");
-    return lines.length * 20;
-  }, [editedText]);
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEditedText(e.target.value);
-  };
-
-  const startPress = () => {
-    setPressTimeout(Date.now());
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    const interval = setInterval(() => {
-      setPressTime((prevTime) => {
-        const newTime = prevTime + 1;
-        if (newTime > 20) {
-          clearInterval(interval);
-          setPressTime(0);
-          return 20;
-        }
-        return newTime;
-      });
-    }, 100);
-
-    intervalRef.current = interval;
-  };
-
-  const endPress = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      setPressTime(0);
-      intervalRef.current = null;
-    }
-
-    const currentTime = Date.now();
-
-    if (currentTime - pressTimeout < 10) {
-      return;
-    }
-
-    if (currentTime - pressTimeout > 300) {
-      longPress();
-    } else {
-      clickBlock();
-    }
-    setPressTimeout(0);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, []);
-
-  const handleMouseDown = (e: any) => {
-    e.stopPropagation();
-    startPress();
-  };
-
-  const handleMouseUp = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    endPress();
-  };
-
-  const handleTouchStart = (e: any) => {
-    e.stopPropagation();
-    startPress();
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    e.stopPropagation();
-    endPress();
-  };
+  const [isEditBottomSheetOpen, setIsEditBottomSheetOpen] = useState(false);
 
   useEffect(() => {
     setEditedText(originalText);
   }, [originalText]);
 
+  const choiceHandleComplete = (text: string, nextPageId: number) => {
+    handleComplete(text, nextPageId);
+    setIsEditBottomSheetOpen(false);
+  };
+
   if (!isActive) {
     return (
-      <div
-        className={`flex w-full h-full flex-col gap-2 ${
-          isOpacity50 ? "" : "opacity-50"
-        }`}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
+      <div className={`flex w-full h-full flex-col gap-2`} onClick={clickBlock}>
         <div className="flex caption-sb text-green-400">
           선택지{order}
-          {nextPageId && (
+          {nextPageId ? (
             <Svg
               icon="linkIcon"
               options={{
@@ -145,65 +65,45 @@ export default function ChoiceBlock({
                 color: "green-500",
               }}
             />
+          ) : (
+            <></>
           )}
         </div>
-
-        <textarea
-          className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
-          value={editedText}
-          onChange={handleTextChange}
-          style={{ height: `${boxHeight()}px` }}
-        />
+        <div
+          className="flex w-full text-white  body-md overflow-hidden min-h-[40px]"
+          style={{
+            whiteSpace: "pre-wrap", // 줄바꿈과 공백을 유지
+            overflowWrap: "break-word",
+          }}
+          onClick={(e) => {
+            // 자기 자신을 클릭한 경우 active상태 변경
+            if (e.target === e.currentTarget) {
+              handleCancel();
+            }
+          }}
+        >
+          {editedText}
+        </div>
       </div>
     );
   }
   if (isActive) {
-    const childrens: {
-      text: string;
-      textColor?: keyof typeof colors;
-      Svg: React.ReactNode;
-      onClick: () => void;
-    }[] = [
-      {
-        text: "페이지 연결",
-        textColor: "black",
-        Svg: (
-          <Svg
-            icon="linkIcon"
-            options={{ size: { width: 24, height: 24 }, color: "black" }}
-          />
-        ),
-        onClick: () => {
-          handleLinkPage(choiceId);
-        },
-      },
-      {
-        text: "삭제",
-        textColor: "system-red",
-        Svg: (
-          <Svg
-            icon="trashIcon"
-            options={{ size: { width: 24, height: 24 }, color: "system-red" }}
-          />
-        ),
-        onClick: () => {
-          handleDelete();
-        },
-      },
-    ];
-
     return (
       <>
-        <div
-          className="flex  w-full h-full flex-col gap-2"
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
+        {isEditBottomSheetOpen && (
+          <ChoiceEditBottomSheet
+            isOpen={isEditBottomSheetOpen}
+            onOpenChange={setIsEditBottomSheetOpen}
+            originalText={editedText}
+            linkedPageId={nextPageId}
+            pageList={linkPageData.pageList}
+            handleComplete={choiceHandleComplete}
+          />
+        )}
+        <div className="flex  w-full h-full flex-col gap-2">
           <div className="flex caption-sb text-green-400">
             선택지{order}
-            {nextPageId && (
+            {nextPageId ? (
               <Svg
                 icon="linkIcon"
                 options={{
@@ -211,39 +111,54 @@ export default function ChoiceBlock({
                   color: "green-500",
                 }}
               />
+            ) : (
+              <></>
             )}
           </div>
-          <textarea
-            className="flex w-full h-full body-md text-white overflow-hidden bg-gray-800"
-            value={editedText}
-            onChange={handleTextChange}
-            style={{ height: `${boxHeight()}px` }}
-          />
-          <div className="flex w-full justify-end gap-3  z-10">
-            <p
-              className="flex text-gray-400"
-              onClick={() => {
-                setEditedText(originalText);
+
+          <div
+            className="flex w-full text-white  body-md overflow-hidden min-h-[40px]"
+            style={{
+              whiteSpace: "pre-wrap", // 줄바꿈과 공백을 유지
+              overflowWrap: "break-word",
+            }}
+            onClick={(e) => {
+              // 자기 자신을 클릭한 경우 active상태 변경
+              if (e.target === e.currentTarget) {
                 handleCancel();
-              }}
-            >
-              취소
-            </p>
-            <p
-              className="flex text-green-500"
+              }
+            }}
+          >
+            {editedText}
+          </div>
+          <div className="flex w-full justify-between gap-3 z-10">
+            <div
+              className="flex flex-row gap-3"
               onClick={() => {
-                handleComplete(editedText);
+                handleDelete();
               }}
             >
-              완료
-            </p>
+              <Svg
+                icon="trashIcon"
+                options={{ size: { width: 24, height: 24 }, color: "gray-500" }}
+              />
+            </div>
+            <div
+              className="flex flex-row gap-3"
+              onClick={() => {
+                setIsEditBottomSheetOpen(true);
+              }}
+            >
+              <Svg
+                icon="edit2Icon"
+                options={{
+                  size: { width: 24, height: 24 },
+                  color: "green-500",
+                }}
+              />
+            </div>
           </div>
         </div>
-        {isModal && (
-          <div id="choice-modal" className="absolute top-[110px]  right-0 z-20">
-            <ContextMenu childrens={childrens} />
-          </div>
-        )}
       </>
     );
   }

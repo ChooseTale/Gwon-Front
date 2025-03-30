@@ -49,10 +49,6 @@ export default function BuilderGamePage() {
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
   const [backgroundImage, setBackgroundImage] = useState<File | null>(null);
-  const [linkPage, setLinkPage] = useState<{
-    choiceId: number;
-    linkedPageId: number | null;
-  } | null>(null);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
@@ -307,31 +303,6 @@ export default function BuilderGamePage() {
           confirmText="삭제하기"
         />
       )}
-      {linkPage && (
-        <LinkPageBottomSheet
-          pageList={
-            game?.pages.map((page) => ({
-              id: page.id,
-              title: page.title,
-            })) || []
-          }
-          page={page}
-          linkedPageId={linkPage?.linkedPageId}
-          handleClose={() => setLinkPage(null)}
-          handleChangePage={(pageId) => {
-            setPage({
-              ...page,
-              choices: page.choices.map((choice) => ({
-                ...choice,
-                nextPageId:
-                  choice.id === linkPage?.choiceId ? pageId : choice.nextPageId,
-              })),
-            });
-
-            setLinkPage(null);
-          }}
-        />
-      )}
 
       <div className="relative flex  bg-white ml-[20px] mr-[20px]    flex-col items-center z-10">
         <BuilderGamePageTopNav
@@ -353,24 +324,6 @@ export default function BuilderGamePage() {
 
           setActiveBlock(null);
         }}
-        // onTouchStart={(e: any) => {
-        //   if (
-        //     e.target.id !== "page-content" &&
-        //     e.target.id !== "background-image"
-        //   )
-        //     return;
-        //   const touchStartTime = Date.now();
-        //   const touchEndHandler = () => {
-        //     const touchEndTime = Date.now();
-        //     const touchDuration = touchEndTime - touchStartTime;
-        //     if (touchDuration < 200) {
-        //       // 짧게 터치했을 때 이벤트 처리
-        //       setActiveBlock(null);
-        //     }
-        //     e.target.removeEventListener("touchend", touchEndHandler);
-        //   };
-        //   e.target.addEventListener("touchend", touchEndHandler);
-        // }}
       >
         {page.contents.length === 0 && (
           <div className="flex absolute bottom-[120px]  w-full  justify-center items-center ">
@@ -431,13 +384,6 @@ export default function BuilderGamePage() {
                   key={idx}
                   originalText={content.content}
                   isActive={isActiveBlock(idx)}
-                  // isOpacity50={
-                  //   !activeBlock?.isBottomSheet
-                  //     ? true
-                  //     : idx === activeBlock?.idx &&
-                  //       activeBlock?.type === "block"
-                  // }
-
                   handleDelete={() => {
                     const newContents = page.contents.filter((_, idx) => {
                       if (idx === activeBlock?.idx) {
@@ -449,6 +395,7 @@ export default function BuilderGamePage() {
                       ...page,
                       contents: newContents,
                     });
+                    toast.error("블럭을 삭제했어요");
                     setActiveBlock(null);
                   }}
                   handleCancel={() => {
@@ -484,18 +431,13 @@ export default function BuilderGamePage() {
 
               return (
                 <div
-                  className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2
-                  ${isActive ? "border-green-500 border-[2px]" : ""}
-                `}
+                  className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2`}
                   key={idx}
                 >
                   <ChoiceBlock
                     choiceId={choice.id}
                     order={idx + 1}
                     originalText={choice.text}
-                    isModal={
-                      activeBlock?.type === "choice" && activeBlock?.idx === idx
-                    }
                     isActive={isActive}
                     nextPageId={choice.nextPageId}
                     clickBlock={() => {
@@ -504,12 +446,6 @@ export default function BuilderGamePage() {
                         type: "choice",
                       });
                       scrollToBlock(idx, "choice");
-                    }}
-                    longPress={() => {
-                      setActiveBlock({
-                        idx,
-                        type: "choice",
-                      });
                     }}
                     handleDelete={() => {
                       const newChoices = page.choices.filter((_, idx) => {
@@ -523,21 +459,39 @@ export default function BuilderGamePage() {
                     handleCancel={() => {
                       setActiveBlock(null);
                     }}
-                    handleComplete={(text: string) => {
+                    handleComplete={(text: string, nextPageId: number) => {
                       setPage({
                         ...page,
                         choices: page.choices.map((choice, idx) => ({
                           ...choice,
                           text: idx === activeBlock?.idx ? text : choice.text,
+                          nextPageId:
+                            idx === activeBlock?.idx
+                              ? nextPageId
+                              : choice.nextPageId,
                         })),
                       });
+
                       setActiveBlock(null);
                     }}
-                    handleLinkPage={(choiceId: number) => {
-                      setLinkPage({
-                        choiceId,
-                        linkedPageId: choice.nextPageId,
-                      });
+                    linkPageData={{
+                      pageList:
+                        game?.pages
+                          .filter((page) => !page.isStarting)
+                          .map((page) => ({
+                            id: page.id,
+                            title: page.title,
+                          })) || [],
+                      linkedPageId: choice.nextPageId,
+                      handleChangePage: (pageId: number) => {
+                        setPage({
+                          ...page,
+                          choices: page.choices.map((choice) => ({
+                            ...choice,
+                            nextPageId: pageId,
+                          })),
+                        });
+                      },
                     }}
                   />
                 </div>
