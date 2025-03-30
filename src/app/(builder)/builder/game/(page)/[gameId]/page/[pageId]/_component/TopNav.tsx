@@ -6,7 +6,6 @@ import React from "react";
 export default function BuilderGamePageTopNav({
   pageTitle,
   handleComplete,
-  handleDelete,
 }: {
   gameTitle: string;
   pageTitle: string;

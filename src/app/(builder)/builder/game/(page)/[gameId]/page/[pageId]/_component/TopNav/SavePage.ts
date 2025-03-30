@@ -37,10 +37,6 @@ class PageValidator {
   }
 }
 
-class ChoiceValidator {
-  static validate(choices: SavePageProps["choices"]) {}
-}
-
 export default async function SavePage({
   gameId,
   page,
@@ -48,7 +44,6 @@ export default async function SavePage({
 }: SavePageProps) {
   try {
     PageValidator.validate(page);
-    ChoiceValidator.validate(choices);
 
     await updatePageCall(
       gameId,

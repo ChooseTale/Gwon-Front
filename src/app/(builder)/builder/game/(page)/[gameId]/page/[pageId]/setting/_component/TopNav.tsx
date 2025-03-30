@@ -1,8 +1,7 @@
 "use client";
 
 import Svg from "@/common/Svg";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function BuilderGamePageSettingTopNav({
@@ -10,7 +9,6 @@ export default function BuilderGamePageSettingTopNav({
 }: {
   handleComplete: () => void;
 }) {
-  const { gameId, pageId } = useParams();
   const router = useRouter();
   return (
     <div className="flex w-full relative h-[48px] justify-center items-center">

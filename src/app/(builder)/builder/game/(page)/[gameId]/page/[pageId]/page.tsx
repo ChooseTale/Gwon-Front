@@ -9,7 +9,6 @@ import React, {
   useRef,
 } from "react";
 import BuilderGamePageTopNav from "./_component/TopNav";
-import PageTitle from "./_component/PageTitle";
 import BottomSheet from "./_component/BottomSheet";
 import { getPage } from "@choosetale/nestia-type/lib/functional/game/page/index";
 import {
@@ -21,7 +20,6 @@ import Block from "./_component/Block";
 import ChoiceBlock from "./_component/ChoiceBlock";
 import Image from "next/image";
 import SavePage from "./_component/TopNav/SavePage";
-import LinkPageBottomSheet from "./_component/LinkPageBottomSheet";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
 import { toast } from "sonner";
