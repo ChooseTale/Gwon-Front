@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 interface InputProps {
   title: string;
+  titleColor?: string;
   placeholder: string;
   value: string;
   regExp: RegExp;
@@ -12,6 +13,7 @@ interface InputProps {
 
 export default function Input({
   title,
+  titleColor = "white",
   placeholder,
   value,
   regExp,
@@ -59,13 +61,15 @@ export default function Input({
   return (
     <div className="flex flex-col">
       <div className="flex flex-row items-center">
-        <div className="headline-sb text-white">{title}</div>
+        <div className="headline-sb text-white" style={{ color: titleColor }}>
+          {title}
+        </div>
         <span className="text-red-500 ml-[2px]">*</span>
       </div>
 
       <textarea
         className={`w-full  mt-[12px] bg-transparent
-        border rounded-[6px]
+        border rounded-[6px] resize-none
 
         ${isError ? "border-red-500" : "border-gray-600"}
         outline-none text-white
@@ -77,6 +81,7 @@ export default function Input({
         style={{
           padding: "10px",
           height: `${boxHeight ? boxHeight : 48}px`,
+          color: titleColor,
         }}
         placeholder={placeholder}
         value={inputValue}

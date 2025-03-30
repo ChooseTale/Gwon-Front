@@ -1,6 +1,6 @@
 import Svg from "@/common/Svg";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
 export default function BuilderGamePageTopNav({
@@ -13,7 +13,8 @@ export default function BuilderGamePageTopNav({
   handleComplete: () => void;
   handleDelete: () => void;
 }) {
-  const { gameId } = useParams();
+  const { gameId, pageId } = useParams();
+  const router = useRouter();
   return (
     <div className="flex w-full relative h-[48px] justify-center items-center">
       <div className="absolute left-0">
@@ -27,11 +28,22 @@ export default function BuilderGamePageTopNav({
         </Link>
       </div>
       <div className="title2-sb text-black headline-md">{pageTitle}</div>
-      <div className="absolute flex flex-row right-0 gap-3">
-        <div className="flex flex-row text-gray-400" onClick={handleDelete}>
-          삭제
+      <div className="absolute flex  flex-row right-0 gap-3">
+        <div
+          className="flex flex-row text-gray-400"
+          onClick={() => {
+            router.push(`/builder/game/${gameId}/page/${pageId}/setting`);
+          }}
+        >
+          <Svg
+            icon="settingsIcon"
+            options={{ size: { width: 18, height: 18 }, color: "gray-500" }}
+          />
         </div>
-        <div className="flex flex-row text-green-500" onClick={handleComplete}>
+        <div
+          className="flex headline-md flex-row justify-center items-center text-green-500"
+          onClick={handleComplete}
+        >
           완료
         </div>
       </div>

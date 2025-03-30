@@ -109,7 +109,9 @@ export default function GameBuilder() {
   );
 
   const onNodeClick = (event: any, node: any) => {
-    router.push(`/builder/game/${game?.id}/page/${node.id}`);
+    router.push(
+      `/builder/game/${game?.id}/page/${node.id}?title=${node.data.label}`
+    );
   };
 
   const handleNewPageButtonClick = async () => {

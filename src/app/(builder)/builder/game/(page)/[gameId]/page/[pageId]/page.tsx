@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, {
   useCallback,
   useEffect,
@@ -36,6 +36,8 @@ import { toast } from "sonner";
 
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
+  const pageTitle = useSearchParams().get("title");
+
   const router = useRouter();
 
   const [game, setGame] = useState<getAll.Output | null>(null);
@@ -266,7 +268,7 @@ export default function BuilderGamePage() {
         gameId: Number(gameId),
         page: {
           id: page.id,
-          title: page.title,
+          title: pageTitle ?? "",
           backgroundImage: backgroundImage,
           contents: page.contents,
           isEnding: page.isEnding,
@@ -308,7 +310,7 @@ export default function BuilderGamePage() {
         <BuilderGamePageTopNav
           handleComplete={handleComplete}
           gameTitle={game?.title ?? ""}
-          pageTitle={page.title}
+          pageTitle={pageTitle ?? ""}
           handleDelete={handleDelete}
         />
       </div>
