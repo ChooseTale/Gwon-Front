@@ -4,10 +4,12 @@ import { useParams } from "next/navigation";
 import React from "react";
 
 export default function BuilderGamePageTopNav({
+  pageTitle,
   handleComplete,
   handleDelete,
 }: {
   gameTitle: string;
+  pageTitle: string;
   handleComplete: () => void;
   handleDelete: () => void;
 }) {
@@ -24,7 +26,7 @@ export default function BuilderGamePageTopNav({
           </div>
         </Link>
       </div>
-      <div className="title2-sb text-black headline-md">새 페이지</div>
+      <div className="title2-sb text-black headline-md">{pageTitle}</div>
       <div className="absolute flex flex-row right-0 gap-3">
         <div className="flex flex-row text-gray-400" onClick={handleDelete}>
           삭제

@@ -44,7 +44,7 @@ export default function BuilderGamePage() {
   const [activeBlock, setActiveBlock] = useState<{
     idx: number;
     type: "block" | "choice";
-    isHighlight: boolean; // 다른 블럭들의 opacity를 줄이고 현재 블럭을 하이라이팅
+    // isBottomSheet: boolean; // 다른 블럭들의 opacity를 줄이고 현재 블럭을 하이라이팅
   } | null>(null);
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(true);
@@ -195,7 +195,6 @@ export default function BuilderGamePage() {
         setActiveBlock({
           idx: newBlockIdx,
           type: "block",
-          isHighlight: false,
         });
         break;
       case "choice":
@@ -224,7 +223,6 @@ export default function BuilderGamePage() {
         setActiveBlock({
           idx: newChoiceIdx,
           type: "choice",
-          isHighlight: false,
         });
         break;
       case "aiChoice":
@@ -339,16 +337,8 @@ export default function BuilderGamePage() {
         <BuilderGamePageTopNav
           handleComplete={handleComplete}
           gameTitle={game?.title ?? ""}
+          pageTitle={page.title}
           handleDelete={handleDelete}
-        />
-        <PageTitle
-          title={page.title}
-          setTitle={(title) => {
-            setPage({
-              ...page,
-              title: title,
-            });
-          }}
         />
       </div>
       {/* 본문 */}
@@ -363,24 +353,24 @@ export default function BuilderGamePage() {
 
           setActiveBlock(null);
         }}
-        onTouchStart={(e: any) => {
-          if (
-            e.target.id !== "page-content" &&
-            e.target.id !== "background-image"
-          )
-            return;
-          const touchStartTime = Date.now();
-          const touchEndHandler = () => {
-            const touchEndTime = Date.now();
-            const touchDuration = touchEndTime - touchStartTime;
-            if (touchDuration < 200) {
-              // 짧게 터치했을 때 이벤트 처리
-              setActiveBlock(null);
-            }
-            e.target.removeEventListener("touchend", touchEndHandler);
-          };
-          e.target.addEventListener("touchend", touchEndHandler);
-        }}
+        // onTouchStart={(e: any) => {
+        //   if (
+        //     e.target.id !== "page-content" &&
+        //     e.target.id !== "background-image"
+        //   )
+        //     return;
+        //   const touchStartTime = Date.now();
+        //   const touchEndHandler = () => {
+        //     const touchEndTime = Date.now();
+        //     const touchDuration = touchEndTime - touchStartTime;
+        //     if (touchDuration < 200) {
+        //       // 짧게 터치했을 때 이벤트 처리
+        //       setActiveBlock(null);
+        //     }
+        //     e.target.removeEventListener("touchend", touchEndHandler);
+        //   };
+        //   e.target.addEventListener("touchend", touchEndHandler);
+        // }}
       >
         {page.contents.length === 0 && (
           <div className="flex absolute bottom-[120px]  w-full  justify-center items-center ">
@@ -405,26 +395,28 @@ export default function BuilderGamePage() {
         <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
           <div className="flex flex-col mt-4 gap-2">
             <div>
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="checkbox"
-                  className="mr-2 w-[18px] h-[18px] opacity-80"
-                  checked={page.isEnding}
-                  onChange={(e) => {
-                    setPage({
-                      ...page,
-                      isEnding: e.target.checked,
-                    });
-                  }}
-                />
-                <label
-                  htmlFor="checkbox"
-                  className="text-body-md text-gray-800"
-                >
-                  엔딩 페이지
-                </label>
-              </div>
+              {!page.isStarting && (
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    className="mr-2 w-[18px] h-[18px] opacity-80"
+                    checked={page.isEnding}
+                    onChange={(e) => {
+                      setPage({
+                        ...page,
+                        isEnding: e.target.checked,
+                      });
+                    }}
+                  />
+                  <label
+                    htmlFor="checkbox"
+                    className="text-body-md text-gray-800"
+                  >
+                    엔딩 페이지
+                  </label>
+                </div>
+              )}
             </div>
             {page?.contents.map((content, idx) => (
               <div
@@ -432,22 +424,20 @@ export default function BuilderGamePage() {
                 id="page-content-container"
                 className={`relative flex   flex-1 flex-col
            rounded-[6px] bg-white   p-3 border ${
-             isActiveBlock(idx)
-               ? "border-green-500 border-[2px] "
-               : "border-gray-50"
+             isActiveBlock(idx) ? " " : "border-gray-50"
            }`}
               >
                 <Block
                   key={idx}
                   originalText={content.content}
                   isActive={isActiveBlock(idx)}
-                  isOpacity50={
-                    !activeBlock?.isHighlight
-                      ? true
-                      : idx === activeBlock?.idx &&
-                        activeBlock?.type === "block"
-                  }
-                  isModal={activeBlock?.isHighlight ?? false}
+                  // isOpacity50={
+                  //   !activeBlock?.isBottomSheet
+                  //     ? true
+                  //     : idx === activeBlock?.idx &&
+                  //       activeBlock?.type === "block"
+                  // }
+
                   handleDelete={() => {
                     const newContents = page.contents.filter((_, idx) => {
                       if (idx === activeBlock?.idx) {
@@ -479,16 +469,8 @@ export default function BuilderGamePage() {
                     setActiveBlock({
                       idx,
                       type: "block",
-                      isHighlight: false,
                     });
                     scrollToBlock(idx, "block");
-                  }}
-                  longPress={() => {
-                    setActiveBlock({
-                      idx,
-                      type: "block",
-                      isHighlight: true,
-                    });
                   }}
                 />
               </div>
@@ -512,14 +494,7 @@ export default function BuilderGamePage() {
                     order={idx + 1}
                     originalText={choice.text}
                     isModal={
-                      activeBlock?.type === "choice" &&
-                      activeBlock?.isHighlight &&
-                      activeBlock?.idx === idx
-                    }
-                    isOpacity50={
-                      !activeBlock?.isHighlight
-                        ? true
-                        : idx === activeBlock?.idx
+                      activeBlock?.type === "choice" && activeBlock?.idx === idx
                     }
                     isActive={isActive}
                     nextPageId={choice.nextPageId}
@@ -527,7 +502,6 @@ export default function BuilderGamePage() {
                       setActiveBlock({
                         idx,
                         type: "choice",
-                        isHighlight: false,
                       });
                       scrollToBlock(idx, "choice");
                     }}
@@ -535,7 +509,6 @@ export default function BuilderGamePage() {
                       setActiveBlock({
                         idx,
                         type: "choice",
-                        isHighlight: true,
                       });
                     }}
                     handleDelete={() => {
