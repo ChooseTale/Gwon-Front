@@ -21,8 +21,8 @@ export default function ProfileInput({
       title="닉네임"
       placeholder="닉네임을 입력해주세요."
       value={userData.nickname}
-      regExp={/^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]{2,30}$/}
-      maxLength={30}
+      regExp={/^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]{2,20}$/}
+      maxLength={20}
       onChange={(e: any) => handleInputChange("nickname", e)}
     />
   );

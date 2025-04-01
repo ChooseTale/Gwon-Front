@@ -8,7 +8,7 @@ export default function NewGameButton() {
   const router = useRouter();
   return (
     <div
-      className="fixed bottom-[88px] flex w-[136px] h-[52px] items-center justify-center
+      className="fixed bottom-[88px] flex w-[132px] h-[52px] items-center justify-center
     gap-1
     rounded-[58px] bg-green-500 text-black"
       onClick={() => {
@@ -21,7 +21,7 @@ export default function NewGameButton() {
           options={{ size: { width: 24, height: 24 }, color: "black" }}
         />
       </div>
-      <div>새 게임</div>
+      <div className="title2-sb">새 게임</div>
     </div>
   );
 }

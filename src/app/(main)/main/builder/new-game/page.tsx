@@ -107,7 +107,7 @@ export default function NewGameBuilder() {
           bottomSheetData={{
             textColor: "white",
             bgColor: "gray-800",
-            borderColor: "gray-600",
+            borderColor: "gray-800",
           }}
           currentValue={
             GenresKorean[newGame.genre as keyof typeof GenresKorean]

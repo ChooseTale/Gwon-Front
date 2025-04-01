@@ -68,7 +68,7 @@ export default function Thumbnail({
       <div className="flex flex-row items-center">
         <div className="headline-sb text-white">썸네일 (5장 중 1장 선택)</div>
       </div>
-      <div className="flex mt-[12px] h-[75px] border border-gray-600 rounded-[8px]">
+      <div className="flex mt-[12px] h-[75px] border border-gray-800 rounded-[8px]">
         <div className="flex flex-1 flex-col justify-center items-center">
           <input
             type="file"
@@ -88,12 +88,12 @@ export default function Thumbnail({
               options={{
                 size: { width: 24, height: 24 },
 
-                color: isMaxThumbnail() ? "gray-600" : "white",
+                color: isMaxThumbnail() ? "gray-600" : "gray-100",
               }}
             />
             <div
               className={`body-md ${
-                isMaxThumbnail() ? "text-gray-600" : "text-white"
+                isMaxThumbnail() ? "text-gray-600" : "text-gray-100"
               } mt-[2px]`}
             >
               사진추가
@@ -113,57 +113,48 @@ export default function Thumbnail({
           <div className="body-md text-gray-600 mt-[2px]">AI 생성</div>
         </div>
       </div>
-      <Swiper
-        className="mt-[12px] "
-        modules={[Navigation]}
-        navigation
-        loop
-        spaceBetween={10}
-        slidesPerView={1}
-      >
+      <div className="flex flex-row gap-[10px] mt-[12px] overflow-x-auto">
         {currentThumbnails.map((thumbnail, index) => (
-          <SwiperSlide key={index}>
-            <div className="w-full aspect-square  relative">
-              <Image
-                src={URL.createObjectURL(thumbnail)}
-                alt="thumbnail"
-                className=" object-cover rounded-[8px]"
-                fill
+          <div className="min-w-[140px] aspect-square  relative" key={index}>
+            <Image
+              src={URL.createObjectURL(thumbnail)}
+              alt="thumbnail"
+              className=" object-cover rounded-[8px]"
+              fill
+            />
+            <div
+              className="absolute top-3 right-3 w-[24px] h-[24px] bg-gray-800 rounded-full flex items-center justify-center"
+              onClick={() => handleDeleteThumbnail(index)}
+            >
+              <Svg
+                icon="xIcon"
+                options={{
+                  size: { width: 16, height: 16 },
+                  color: "white",
+                }}
               />
-              <div
-                className="absolute top-3 right-3 w-[24px] h-[24px] bg-gray-800 rounded-full flex items-center justify-center"
-                onClick={() => handleDeleteThumbnail(index)}
-              >
+            </div>
+            {isThumbnailIdx === index ? (
+              <div className="absolute bottom-3 left-3 w-[28px] h-[28px]  rounded-full flex items-center justify-center">
                 <Svg
-                  icon="xIcon"
+                  icon="checkThumbnailIcon"
                   options={{
-                    size: { width: 16, height: 16 },
-                    color: "white",
+                    size: { width: 28, height: 28 },
+                    viewBox: "0 0 28 28",
                   }}
                 />
               </div>
-              {isThumbnailIdx === index ? (
-                <div className="absolute bottom-3 left-3 w-[28px] h-[28px]  rounded-full flex items-center justify-center">
-                  <Svg
-                    icon="checkThumbnailIcon"
-                    options={{
-                      size: { width: 28, height: 28 },
-                      viewBox: "0 0 28 28",
-                    }}
-                  />
-                </div>
-              ) : (
-                <div
-                  onClick={() => handleThumbnailClick(index)}
-                  className="absolute bottom-3 left-3 w-[28px] h-[28px] border border-white  rounded-full flex items-center justify-center"
-                >
-                  <div className="w-full h-full bg-black opacity-10 rounded-full"></div>
-                </div>
-              )}
-            </div>
-          </SwiperSlide>
+            ) : (
+              <div
+                onClick={() => handleThumbnailClick(index)}
+                className="absolute bottom-3 left-3 w-[28px] h-[28px] border border-white  rounded-full flex items-center justify-center"
+              >
+                <div className="w-full h-full bg-black opacity-10 rounded-full"></div>
+              </div>
+            )}
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
   );
 }
