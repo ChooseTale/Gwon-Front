@@ -259,6 +259,7 @@ export default function GameBottomSheet({
                 </div>
               </div>
             </div>
+            <div className="mb-[60px]" />
           </div>
         </div>
       </SheetContent>

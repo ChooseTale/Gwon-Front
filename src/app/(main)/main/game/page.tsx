@@ -19,6 +19,7 @@ export default async function GamePage() {
       <TopNavBar />
 
       <GameList />
+      <div className="mb-[60px]" />
     </div>
   );
 }

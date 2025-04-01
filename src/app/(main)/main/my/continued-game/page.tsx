@@ -14,6 +14,7 @@ export default function ContinuedGame() {
       <TopNavBar />
       <div className="mt-6" />
       <ContinuedGamesList />
+      <div className="mb-[60px]" />
     </div>
   );
 }

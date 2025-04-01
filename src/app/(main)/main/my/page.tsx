@@ -14,7 +14,7 @@ export default function page() {
       <EndedGameNav />
       <div className="mt-[26px]" />
       <SignOut />
-      <div className="mb-[16px]" />
+      <div className="mb-[60px]" />
     </>
   );
 }

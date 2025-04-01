@@ -42,8 +42,8 @@ export function BottomSheetGradientButton({
   text,
   onClick,
   isActive,
-  svgIconName,
-}: BottomSheetButtonProps) {
+}: // svgIconName,
+BottomSheetButtonProps) {
   return (
     <div
       className={`${cardStyle}  p-[1px]  z-10 ${

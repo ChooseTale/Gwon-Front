@@ -147,6 +147,7 @@ export default function NewGameBuilder() {
           }}
           images={[]}
         />
+        <div className="mb-[60px]" />
       </div>
     </>
   );

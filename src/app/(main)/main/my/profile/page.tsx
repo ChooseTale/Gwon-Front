@@ -13,6 +13,17 @@ import { useRouter } from "next/navigation";
 
 import { useLoading } from "@/components/LoadingProvider";
 
+class ProfileValidator {
+  static validate(nickname: string) {
+    if (nickname.length < 2) {
+      throw new Error("닉네임은 2자 이상으로 작성해야 합니다.");
+    }
+    if (nickname.length > 20) {
+      throw new Error("닉네임은 20자 이하로 작성해야 합니다.");
+    }
+  }
+}
+
 export default function ProfilePage() {
   const me = useMeStore((state) => state.me);
   const [userData, setUserData] = useState(me);
@@ -58,6 +69,13 @@ export default function ProfilePage() {
           value="저장하기"
           onClick={() => {
             setIsLoading(true);
+            try {
+              ProfileValidator.validate(userData.nickname);
+            } catch (error: any) {
+              toast.error(error.message);
+              setIsLoading(false);
+              return;
+            }
             const formData = new FormData();
             formData.append("nickname", userData.nickname);
             formData.append("image", profileImageFile as Blob);

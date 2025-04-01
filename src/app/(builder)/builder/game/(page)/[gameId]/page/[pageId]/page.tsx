@@ -32,6 +32,23 @@ import { toast } from "sonner";
 // } from "@/(actions)/socket/connect-socket";
 // import { NAMESPACES } from "@/(actions)/socket/socket-type";
 
+class PageValidator {
+  static validate(
+    page: any
+    // choices: SavePageProps["choices"]
+  ) {
+    if (page.title.length === 0) {
+      throw new Error("제목이 필요합니다.");
+    }
+    // if (page.title.length > 30) {
+    //   throw new Error("제목은 30자 이하로 작성해야 합니다.");
+    // }
+    if (page.contents.length === 0) {
+      throw new Error("페이지에 블럭은 하나 이상 있어야 합니다.");
+    }
+  }
+}
+
 export default function BuilderGamePage() {
   const { gameId, pageId } = useParams();
   const pageTitle = useSearchParams().get("title");
@@ -76,6 +93,7 @@ export default function BuilderGamePage() {
       const response = await fetch(url);
       const data = await response.blob();
       const file = new File([data], "backgroundImage", { type: data.type });
+
       setBackgroundImage(file);
     };
 
@@ -262,6 +280,7 @@ export default function BuilderGamePage() {
 
   const handleComplete = async () => {
     try {
+      PageValidator.validate(page);
       await SavePage({
         gameId: Number(gameId),
         page: {
@@ -278,9 +297,7 @@ export default function BuilderGamePage() {
         })),
       });
       toast.success("페이지가 저장되었습니다.", {});
-      setTimeout(() => {
-        router.push(`/builder/game/${gameId}`);
-      }, 1000);
+      router.push(`/builder/game/${gameId}`);
     } catch (error: any) {
       toast.error(error.message, {});
     }
@@ -333,7 +350,7 @@ export default function BuilderGamePage() {
           </div>
         )}
         {backgroundImage && (
-          <div className="fixed justify-center items-center top-[120px] w-full min-w-[280px] max-w-[600px] h-full z-0 ">
+          <div className="fixed justify-center items-center  w-full min-w-[280px] max-w-[600px] h-full z-0 ">
             <div className="relative flex w-full h-full">
               <Image
                 id="background-image"

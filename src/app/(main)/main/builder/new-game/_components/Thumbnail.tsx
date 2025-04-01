@@ -3,8 +3,7 @@
 import Svg from "@/common/Svg";
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+
 import "swiper/css";
 import { toast } from "sonner";
 import { validateFileSize } from "@/lib/validation";

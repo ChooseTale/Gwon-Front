@@ -137,7 +137,7 @@ export default function GameBuilder() {
             newEdges.push({
               id: choice.toPageId
                 ? `${choice.fromPageId}-${choice.toPageId}`
-                : `${choice.fromPageId}-choice`,
+                : `${choice.fromPageId}-choice-${choice.id}`,
               source: choice.fromPageId.toString(),
               target: choice?.toPageId?.toString() ?? null,
             });
