@@ -116,7 +116,7 @@ export default function GameBuilder() {
 
   const handleNewPageButtonClick = async () => {
     const newPage = await createPageCall(Number(gameId), {});
-    router.push(`/builder/game/${game?.id}/page/${newPage.id}`);
+    router.push(`/builder/game/${game?.id}/page/${newPage.id}/setting`);
   };
 
   useEffect(() => {
@@ -172,7 +172,12 @@ export default function GameBuilder() {
           return {
             id: page.id.toString(),
             position: { x: idx * 100, y: page.depth * 100 },
-            data: { label: page.title },
+            data: {
+              label:
+                page.title.length > 10
+                  ? page.title.slice(0, 10) + "..."
+                  : page.title,
+            },
             style: style,
           };
         });

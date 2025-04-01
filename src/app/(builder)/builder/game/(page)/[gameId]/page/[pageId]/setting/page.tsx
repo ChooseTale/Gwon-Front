@@ -31,7 +31,9 @@ export default function BuilderGamePageSetting() {
           titleColor="black"
           placeholder="페이지 제목을 입력해주세요."
           value={title}
-          regExp={/^[a-zA-Z0-9가-힣\s]+$/}
+          regExp={
+            /^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s.,!?:;'"~`@#$%^&*()_+\-=[\]{}|<>\/\\]+$/
+          }
           maxLength={30}
           onChange={handleChangeTitle}
         />

@@ -91,8 +91,8 @@ export default function ChoiceEditBottomSheet({
                   className="flex body-md w-full mx-4 my-4  resize-none bg-gray-900 text-white"
                   value={editedText}
                   onChange={(e) => setEditedText(e.target.value)}
-                  placeholder={`이건 블럭이에요.
-게임을 할 때 터치 한번에 노출될 글을 한 블럭에 적으면 돼요.`}
+                  placeholder={`이건 선택지예요.
+플레이어가 선택할 선택지를 최대 4개 까지 만들 수 있어요.`}
                   maxLength={20}
                 />
               </div>

@@ -2,6 +2,7 @@ import arrowDownRightIcon from "./arrow-down-right.svg";
 import arrowRightIcon from "./arrow-right.svg";
 import arrowIcon from "./arrow.svg";
 import bookOpenIcon from "./book-open.svg";
+import blockIcon from "./block.svg";
 import cameraIcon from "./camera.svg";
 import cameraFillIcon from "./camera_fill.svg";
 import changeImageButtonIcon from "./change-image-button.svg";
@@ -51,6 +52,7 @@ export {
   arrowRightIcon,
   arrowIcon,
   bookOpenIcon,
+  blockIcon,
   cameraIcon,
   cameraFillIcon,
   changeImageButtonIcon,

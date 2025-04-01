@@ -3,31 +3,37 @@ import {
   BottomSheetButton,
   BottomSheetGradientButton,
 } from "./BottomSheet/Button";
+import { SvgName } from "@/common/Svg";
 
 const buttons: {
   key: "block" | "choice" | "aiChoice" | "background";
   text: string;
   isGradient: boolean;
+  svgIconName: SvgName;
 }[] = [
   {
     key: "block",
     text: "블럭",
     isGradient: false,
+    svgIconName: "blockIcon",
   },
   {
     key: "choice",
     text: "선택지",
     isGradient: false,
+    svgIconName: "cornerDownRightIcon",
   },
   {
     key: "aiChoice",
     text: "AI 선택지",
-    isGradient: true,
+    isGradient: false,
+    svgIconName: "generateBIcon",
   },
   {
     key: "background",
     text: "배경",
     isGradient: false,
+    svgIconName: "imageIcon",
   },
 ];
 
@@ -99,21 +105,8 @@ export default function BottomSheet({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div
-          className="flex w-[100px] h-[16px] bg-white justify-center items-center drop-shadow rounded-t-[20px] z-20"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              handleOpen(!isOpen);
-            }
-          }}
-        >
-          {/* 터치 영역 */}
-          <div className="flex w-[48px] h-[4px] rounded-[40px] bg-gray-100"></div>
-        </div>
-        {/* 쉐도우 용 */}
-        <div className="flex w-full h-[76px] bg-white rounded-t-[20px] drop-shadow z-10" />
         {/* 쉐도우 문제로 덮어 씌운 콘텐츠 박스 */}
-        <div className="absolute bottom-0 flex w-full h-[76px] bg-white rounded-t-[20px] z-30 justify-center gap-[6px] items-center">
+        <div className="absolute bottom-0 flex w-full h-[84px] bg-white border-t border-gray-50 z-30 justify-between px-[20px] items-start">
           {buttons.map((button) => {
             const isActive = activeType.find(
               (type) => type.key === button.key
@@ -126,6 +119,7 @@ export default function BottomSheet({
                 text={button.text}
                 onClick={isActive ? () => onClick(button.key) : undefined}
                 isActive={isActive}
+                svgIconName={button.svgIconName}
               />
             ) : (
               <BottomSheetButton
@@ -133,6 +127,7 @@ export default function BottomSheet({
                 text={button.text}
                 onClick={isActive ? () => onClick(button.key) : undefined}
                 isActive={isActive}
+                svgIconName={button.svgIconName}
               />
             );
           })}
