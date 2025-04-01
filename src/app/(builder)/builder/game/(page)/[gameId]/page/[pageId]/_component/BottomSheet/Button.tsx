@@ -31,7 +31,7 @@ export function BottomSheetButton({
           color: isActive ? "gray-500" : "gray-100",
         }}
       />
-      <p className={`${isActive ? "text-gray-500" : "text-gray-100"}`}>
+      <p className={`${isActive ? "text-gray-500" : "text-gray-100"} mt-[2px]`}>
         {text}
       </p>
     </div>
