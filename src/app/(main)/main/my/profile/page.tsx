@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import { useLoading } from "@/components/LoadingProvider";
+import MarginWrapper from "../../_component/MarginWrapper";
 
 class ProfileValidator {
   static validate(nickname: string) {
@@ -55,51 +56,60 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="relative h-full ">
-      <ProfileTopNav />
-      <div className="mt-[32px]" />
-      <Profile
-        userData={userData}
-        handleFileChange={handleProfileImageChange}
-      />
-      <div className="mt-[60px]" />
-      <ProfileInput userData={userData} handleInputChange={handleInputChange} />
-      <div className="absolute bottom-0 left-0 right-0 mb-[32px]">
-        <Button
-          value="저장하기"
-          onClick={() => {
-            setIsLoading(true);
-            try {
-              ProfileValidator.validate(userData.nickname);
-            } catch (error: any) {
-              toast.error(error.message);
-              setIsLoading(false);
-              return;
-            }
-            const formData = new FormData();
-            formData.append("nickname", userData.nickname);
-            formData.append("image", profileImageFile as Blob);
-            updateUserCall(formData)
-              .then(() => {
-                if (formData.entries().next().done === false) {
-                  useMeStore.getState().deleteMe();
-                }
-                toast.success("프로필 수정이 완료되었습니다.");
-                router.replace("/main/my");
-              })
-              .catch((error) => {
-                if (error.message == "File too large") {
-                  toast.error("파일 크기가 너무 큽니다.");
-                } else {
-                  toast.error("프로필 수정에 실패했습니다.");
-                }
-              })
-              .finally(() => {
-                setIsLoading(false);
-              });
-          }}
-        />
-      </div>
-    </div>
+    <>
+      <MarginWrapper>
+        <div className="flex flex-col w-full">
+          <ProfileTopNav />
+          <div className="mt-[32px]" />
+          <Profile
+            userData={userData}
+            handleFileChange={handleProfileImageChange}
+          />
+          <div className="mt-[60px]" />
+          <ProfileInput
+            userData={userData}
+            handleInputChange={handleInputChange}
+          />
+          <div className="absolute flex justify-center items-center bottom-0 left-0 right-0 mb-[32px]">
+            <div className="flex flex-col w-[calc(100%-40px)]  min-w-[280px] max-w-[560px]">
+              <Button
+                value="저장하기"
+                onClick={() => {
+                  setIsLoading(true);
+                  try {
+                    ProfileValidator.validate(userData.nickname);
+                  } catch (error: any) {
+                    toast.error(error.message);
+                    setIsLoading(false);
+                    return;
+                  }
+                  const formData = new FormData();
+                  formData.append("nickname", userData.nickname);
+                  formData.append("image", profileImageFile as Blob);
+                  updateUserCall(formData)
+                    .then(() => {
+                      if (formData.entries().next().done === false) {
+                        useMeStore.getState().deleteMe();
+                      }
+                      toast.success("프로필 수정이 완료되었습니다.");
+                      router.replace("/main/my");
+                    })
+                    .catch((error) => {
+                      if (error.message == "File too large") {
+                        toast.error("파일 크기가 너무 큽니다.");
+                      } else {
+                        toast.error("프로필 수정에 실패했습니다.");
+                      }
+                    })
+                    .finally(() => {
+                      setIsLoading(false);
+                    });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </MarginWrapper>
+    </>
   );
 }

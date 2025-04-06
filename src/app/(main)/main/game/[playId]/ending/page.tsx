@@ -25,7 +25,7 @@ export default function EndingPage() {
   if (!endingData) return <div>Loading...</div>;
 
   return (
-    <div className="flex">
+    <div className="flex flex-col w-full">
       <div className="w-full bg-background-dark">
         {/* 엔딩 */}
         <div className="flex justify-center items-center h-[48px] text-white headline-md">
