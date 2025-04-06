@@ -7,6 +7,7 @@ import PageEditBottomSheet from "./BottomSheet/PageEditBottomSheet";
 interface BlockProps {
   originalText: string;
   isActive: boolean;
+  isSheetOpen: boolean;
   handleCancel: () => void;
   handleComplete: (text: string) => void;
   handleDelete: () => void;
@@ -16,14 +17,15 @@ interface BlockProps {
 export default function Block({
   originalText,
   isActive,
-
+  isSheetOpen,
   handleCancel,
   handleComplete,
   handleDelete,
   clickBlock,
 }: BlockProps) {
   const [editedText, setEditedText] = useState(originalText);
-  const [isEditBottomSheetOpen, setIsEditBottomSheetOpen] = useState(false);
+  const [isEditBottomSheetOpen, setIsEditBottomSheetOpen] =
+    useState(isSheetOpen);
 
   const blockRef = useRef<HTMLDivElement>(null);
   const textArea = useRef<HTMLTextAreaElement>(null);

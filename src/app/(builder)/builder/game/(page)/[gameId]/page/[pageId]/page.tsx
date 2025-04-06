@@ -210,6 +210,7 @@ export default function BuilderGamePage() {
           idx: newBlockIdx,
           type: "block",
         });
+        // 쿼리 파라미터 추가
         break;
       case "choice":
         const choice = page.choices;
@@ -334,7 +335,7 @@ export default function BuilderGamePage() {
       <div
         id="page-content"
         ref={pageContentRef}
-        className="flex w-full h-full flex-1 flex-col mt-[12px] bg-gray-10 overflow-y-auto pb-[200px]"
+        className="flex w-full h-full flex-1 flex-col  bg-gray-10 overflow-y-auto pb-[200px]"
         style={{}}
         onClick={(e) => {
           if (e.target !== e.currentTarget) return;
@@ -401,6 +402,7 @@ export default function BuilderGamePage() {
                   key={idx}
                   originalText={content.content}
                   isActive={isActiveBlock(idx)}
+                  isSheetOpen={isActiveBlock(idx)}
                   handleDelete={() => {
                     const newContents = page.contents.filter((_, idx) => {
                       if (idx === activeBlock?.idx) {
@@ -456,6 +458,7 @@ export default function BuilderGamePage() {
                     order={idx + 1}
                     originalText={choice.text}
                     isActive={isActive}
+                    isSheetOpen={isActive}
                     nextPageId={choice.nextPageId}
                     clickBlock={() => {
                       setActiveBlock({

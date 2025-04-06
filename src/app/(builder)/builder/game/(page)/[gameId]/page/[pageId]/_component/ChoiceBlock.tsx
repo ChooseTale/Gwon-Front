@@ -15,6 +15,7 @@ interface ChoiceBlockProps {
   handleComplete: (text: string, nextPageId: number) => void;
 
   clickBlock: () => void;
+  isSheetOpen: boolean;
 
   handleDelete: () => void;
 
@@ -32,6 +33,7 @@ export default function ChoiceBlock({
   order,
   originalText,
   isActive,
+  isSheetOpen,
   nextPageId,
   linkPageData,
   handleCancel,
@@ -41,7 +43,8 @@ export default function ChoiceBlock({
 }: ChoiceBlockProps) {
   const [editedText, setEditedText] = useState(originalText);
 
-  const [isEditBottomSheetOpen, setIsEditBottomSheetOpen] = useState(false);
+  const [isEditBottomSheetOpen, setIsEditBottomSheetOpen] =
+    useState(isSheetOpen);
 
   useEffect(() => {
     setEditedText(originalText);

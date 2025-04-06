@@ -16,11 +16,16 @@ export default function RowCardList({
 
   return (
     <div className="flex flex-col w-full">
-      <span className="title2-sb text-white">{title}</span>
-      <div className="flex w-full overflow-x-auto gap-2 flex-nowrap   mt-4">
-        {gameListEntity.gameList.map((card) => {
+      <span className="ml-[20px] title2-sb text-white">{title}</span>
+      <div className="flex w-full overflow-x-auto gap-2  flex-nowrap   mt-4">
+        {gameListEntity.gameList.map((card, idx) => {
           return (
-            <div className="flex min-w-[171px] w-[171px] " key={card.game.id}>
+            <div
+              className={`flex ${
+                idx === 0 ? "ml-[20px]" : ""
+              } min-w-[171px] w-[171px] `}
+              key={card.game.id}
+            >
               <Card
                 cardData={{
                   id: card.game.id,

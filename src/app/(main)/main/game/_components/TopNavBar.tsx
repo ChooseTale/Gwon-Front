@@ -34,7 +34,7 @@ export default function TopNavBar() {
   };
 
   return (
-    <div className="">
+    <>
       {isGenreBottomSheetOpen && (
         <GenreBottomSheet
           userSelectedGenres={useGameFilterStore.getState().selectedGenres}
@@ -124,6 +124,6 @@ export default function TopNavBar() {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -22,6 +22,7 @@ import generateBIcon from "./generateB.svg";
 import link2Icon from "./link-2.svg";
 import linkIcon from "./link.svg";
 import lineIcon from "./line.svg";
+import infoIcon from "./info.svg";
 import checkIcon from "./check.svg";
 import imageIcon from "./image.svg";
 import plusIcon from "./plus.svg";
@@ -72,6 +73,7 @@ export {
   link2Icon,
   linkIcon,
   lineIcon,
+  infoIcon,
   checkIcon,
   imageIcon,
   plusIcon,
