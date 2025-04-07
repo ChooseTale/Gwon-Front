@@ -18,7 +18,7 @@ env:
   SERVER_SSH_PASSPHRASE: ${{ secrets.DEV_SERVER_SSH_PASSPHRASE }}
 
   IMAGE_TAG: ${{ inputs.command == 'dev' && '-dev' || '-prod' }}
-  PORT: ${{ inputs.command == 'dev' && '-p 3000:3000' || '-p 2000:2000' }}
+  PORT: ${{ inputs.command == 'dev' && '-p 3000:3000' || '-p 2000:3000' }}
 
   DEPLOY_PATH: choose-tale/Gwon-Front
   BRANCH: ${{github.ref_name}}
