@@ -44,7 +44,11 @@ jobs:
 
       - name: create env
         run: |
-          echo "${{ inputs.command == 'dev' ? secrets.DEV_FRONT_CONFIG : secrets.PROD_FRONT_CONFIG }}" > .env.production
+          if [[ "${{ inputs.command }}" == "dev" ]]; then
+            echo "${{ secrets.DEV_FRONT_CONFIG }}" > .env.production
+          else
+            echo "${{ secrets.PROD_FRONT_CONFIG }}" > .env.production
+          fi
 
       - name: aws login
         uses: aws-actions/configure-aws-credentials@v2
