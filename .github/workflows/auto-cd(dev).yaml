@@ -3,18 +3,23 @@ name: auto-cd(dev)
 on:
   workflow_dispatch:
     inputs:
-      dev_command:
+      command:
         type: choice
         required: true
-        description: "dev command"
+        description: "dev or prod"
         options:
-          - yarn dev
+          - dev
+          - prod
 
 env:
   SERVER_HOST: ${{ secrets.DEV_SERVER_HOST }}
   SERVER_USER: ${{ secrets.DEV_SERVER_USER }}
   SERVER_SSH_KEY: ${{ secrets.DEV_SERVER_SSH_KEY }}
   SERVER_SSH_PASSPHRASE: ${{ secrets.DEV_SERVER_SSH_PASSPHRASE }}
+
+  IMAGE_TAG: ${{ inputs.command == 'dev' && '-dev' || '-prod' }}
+  PORT: ${{ inputs.command == 'dev' && '-p 3000:3000' || '-p 2000:2000' }}
+
   DEPLOY_PATH: choose-tale/Gwon-Front
   BRANCH: ${{github.ref_name}}
 
@@ -39,7 +44,7 @@ jobs:
 
       - name: create env
         run: |
-          echo "${{ secrets.DEV_FRONT_CONFIG }}" > .env.production
+          echo "${{ inputs.command == 'dev' ? secrets.DEV_FRONT_CONFIG : secrets.PROD_FRONT_CONFIG }}" > .env.production
 
       - name: aws login
         uses: aws-actions/configure-aws-credentials@v2
@@ -56,11 +61,11 @@ jobs:
       - name: aws ecr build
         run: |
 
-          docker build  -t ${{ secrets.AWS_ECR_URI }}/choosetale:frontend .
+          docker build  -t ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }} .
 
       - name: aws ecr push
         run: |
-          docker push ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
+          docker push ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }}
 
       - name: Set up SSH key with passphrase
         uses: webfactory/ssh-agent@v0.5.3
@@ -72,18 +77,18 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'EOF'
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_URI }}
-          docker ps -q --filter "name=choosetale-frontend" | grep -q . && docker rm -f choosetale-frontend || echo "컨테이너가 없습니다."
-            docker images ${{ secrets.AWS_ECR_URI }}/choosetale:frontend && docker rmi ${{ secrets.AWS_ECR_URI }}/choosetale:frontend || echo "이미지가 없습니다."
-          docker pull ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
+          docker ps -a -q --filter "name=choosetale-frontend${{ env.IMAGE_TAG }}" | grep -q . && docker rm -f choosetale-frontend${{ env.IMAGE_TAG }} || echo "컨테이너가 없습니다."
+            docker images ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }}   && docker rmi ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }} || echo "이미지가 없습니다."
+          docker pull ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }}
 
-          docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d --net choosetale-network --name choosetale-frontend -p 3000:3000 ${{ secrets.AWS_ECR_URI }}/choosetale:frontend
+          docker run -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} -d --net choosetale-network --name choosetale-frontend${{ env.IMAGE_TAG }} ${{ env.PORT }} ${{ secrets.AWS_ECR_URI }}/choosetale:frontend${{ env.IMAGE_TAG }}
           EOF
 
       - name: 슬랙 메시지 전송
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_CHANNEL_WEBHOOK }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"프론트 배포가 완료되었습니다. port: 3000 , branch: ${{ env.BRANCH }}"}' $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"프론트 배포가 완료되었습니다. port: ${{ env.PORT }} "}' $SLACK_WEBHOOK_URL
 
       - name: SSH 키 정리
         run: rm -rf ~/.ssh
