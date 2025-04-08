@@ -12,7 +12,7 @@ type Props = {
 export default function BuilderTopNav(props: Props) {
   return (
     <div className="flex flex-col w-full items-center">
-      <div className="relative flex items-center justify-center h-[48px]">
+      <div className="relative flex w-full items-center justify-center h-[48px]">
         <div className="absolute h-full flex items-center left-0 cursor-pointer"></div>
         <span className="ml-2 text-white flex items-center">빌더</span>
       </div>

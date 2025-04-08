@@ -23,7 +23,7 @@ export default function ContinuedGamesCard({ game }: { game: any }) {
       {isOpen && (
         <GameBottomSheet gameId={game.game.id} handleClose={handleClose} />
       )}
-      <div>
+      <>
         <Image
           className="w-full  aspect-square object-cover rounded-[8px]"
           src={game.game.thumbnail.url ?? ""}
@@ -32,7 +32,8 @@ export default function ContinuedGamesCard({ game }: { game: any }) {
           width={100}
           height={100}
         />
-      </div>
+      </>
+
       <div className="flex  flex-col mt-[8px]">
         <span className="caption-rg text-gray-100 mt-[8px]">
           {convertDate(game.play.createdAt)}

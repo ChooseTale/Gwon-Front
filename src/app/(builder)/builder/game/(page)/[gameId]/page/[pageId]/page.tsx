@@ -365,161 +365,159 @@ export default function BuilderGamePage() {
         )}
         <div className="flex ml-[20px] mr-[20px] flex-col gap-2 z-10">
           <div className="flex flex-col mt-4 gap-2">
-            <div>
-              {!page.isStarting && (
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="checkbox"
-                    className="mr-2 w-[18px] h-[18px] opacity-80"
-                    checked={page.isEnding}
-                    onChange={(e) => {
-                      setPage({
-                        ...page,
-                        isEnding: e.target.checked,
-                      });
-                    }}
-                  />
-                  <label
-                    htmlFor="checkbox"
-                    className="text-body-md text-gray-800"
-                  >
-                    엔딩 페이지
-                  </label>
-                </div>
-              )}
-            </div>
-            {page?.contents.map((content, idx) => (
-              <div
-                key={idx}
-                id="page-content-container"
-                className={`relative flex   flex-1 flex-col
+            {!page.isStarting && (
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="checkbox"
+                  className="mr-2 w-[18px] h-[18px] opacity-80"
+                  checked={page.isEnding}
+                  onChange={(e) => {
+                    setPage({
+                      ...page,
+                      isEnding: e.target.checked,
+                    });
+                  }}
+                />
+                <label
+                  htmlFor="checkbox"
+                  className="text-body-md text-gray-800"
+                >
+                  엔딩 페이지
+                </label>
+              </div>
+            )}
+          </div>
+          {page?.contents.map((content, idx) => (
+            <div
+              key={idx}
+              id="page-content-container"
+              className={`relative flex   flex-1 flex-col
            rounded-[6px] bg-white   p-3 border ${
              isActiveBlock(idx) ? " " : "border-gray-50"
            }`}
+            >
+              <Block
+                key={idx}
+                originalText={content.content}
+                isActive={isActiveBlock(idx)}
+                isSheetOpen={isActiveBlock(idx)}
+                handleDelete={() => {
+                  const newContents = page.contents.filter((_, idx) => {
+                    if (idx === activeBlock?.idx) {
+                      return false;
+                    }
+                    return true;
+                  });
+                  setPage({
+                    ...page,
+                    contents: newContents,
+                  });
+                  toast.error("블럭을 삭제했어요");
+                  setActiveBlock(null);
+                }}
+                handleCancel={() => {
+                  setActiveBlock(null);
+                }}
+                handleComplete={(text: string) => {
+                  setPage({
+                    ...page,
+                    contents: page.contents.map((content, idx) => ({
+                      ...content,
+                      content:
+                        idx === activeBlock?.idx ? text : content.content,
+                    })),
+                  });
+                  setActiveBlock(null);
+                }}
+                clickBlock={() => {
+                  setActiveBlock({
+                    idx,
+                    type: "block",
+                  });
+                  scrollToBlock(idx, "block");
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        {/* 선택지 */}
+        <div id="choice-container" className="flex flex-col gap-2">
+          {page?.choices.map((choice, idx) => {
+            const isActive =
+              activeBlock?.idx === idx && activeBlock?.type === "choice";
+
+            return (
+              <div
+                className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2`}
+                key={idx}
               >
-                <Block
-                  key={idx}
-                  originalText={content.content}
-                  isActive={isActiveBlock(idx)}
-                  isSheetOpen={isActiveBlock(idx)}
+                <ChoiceBlock
+                  choiceId={choice.id}
+                  order={idx + 1}
+                  originalText={choice.text}
+                  isActive={isActive}
+                  isSheetOpen={isActive}
+                  nextPageId={choice.nextPageId}
+                  clickBlock={() => {
+                    setActiveBlock({
+                      idx,
+                      type: "choice",
+                    });
+                    scrollToBlock(idx, "choice");
+                  }}
                   handleDelete={() => {
-                    const newContents = page.contents.filter((_, idx) => {
+                    const newChoices = page.choices.filter((_, idx) => {
                       if (idx === activeBlock?.idx) {
                         return false;
                       }
                       return true;
                     });
-                    setPage({
-                      ...page,
-                      contents: newContents,
-                    });
-                    toast.error("블럭을 삭제했어요");
-                    setActiveBlock(null);
+                    setPage({ ...page, choices: newChoices });
                   }}
                   handleCancel={() => {
                     setActiveBlock(null);
                   }}
-                  handleComplete={(text: string) => {
+                  handleComplete={(text: string, nextPageId: number) => {
                     setPage({
                       ...page,
-                      contents: page.contents.map((content, idx) => ({
-                        ...content,
-                        content:
-                          idx === activeBlock?.idx ? text : content.content,
+                      choices: page.choices.map((choice, idx) => ({
+                        ...choice,
+                        text: idx === activeBlock?.idx ? text : choice.text,
+                        nextPageId:
+                          idx === activeBlock?.idx
+                            ? nextPageId
+                            : choice.nextPageId,
                       })),
                     });
+
                     setActiveBlock(null);
                   }}
-                  clickBlock={() => {
-                    setActiveBlock({
-                      idx,
-                      type: "block",
-                    });
-                    scrollToBlock(idx, "block");
+                  linkPageData={{
+                    pageList:
+                      game?.pages
+                        .filter((page) => !page.isStarting)
+                        .map((page) => ({
+                          id: page.id,
+                          title: page.title,
+                        })) || [],
+                    linkedPageId: choice.nextPageId,
+                    handleChangePage: (pageId: number) => {
+                      setPage({
+                        ...page,
+                        choices: page.choices.map((choice) => ({
+                          ...choice,
+                          nextPageId: pageId,
+                        })),
+                      });
+                    },
                   }}
                 />
               </div>
-            ))}
-          </div>
-          {/* 선택지 */}
-          <div id="choice-container" className="flex flex-col gap-2">
-            {page?.choices.map((choice, idx) => {
-              const isActive =
-                activeBlock?.idx === idx && activeBlock?.type === "choice";
-
-              return (
-                <div
-                  className={`flex relative p-3 bg-gray-800 rounded-[6px] flex-col gap-2`}
-                  key={idx}
-                >
-                  <ChoiceBlock
-                    choiceId={choice.id}
-                    order={idx + 1}
-                    originalText={choice.text}
-                    isActive={isActive}
-                    isSheetOpen={isActive}
-                    nextPageId={choice.nextPageId}
-                    clickBlock={() => {
-                      setActiveBlock({
-                        idx,
-                        type: "choice",
-                      });
-                      scrollToBlock(idx, "choice");
-                    }}
-                    handleDelete={() => {
-                      const newChoices = page.choices.filter((_, idx) => {
-                        if (idx === activeBlock?.idx) {
-                          return false;
-                        }
-                        return true;
-                      });
-                      setPage({ ...page, choices: newChoices });
-                    }}
-                    handleCancel={() => {
-                      setActiveBlock(null);
-                    }}
-                    handleComplete={(text: string, nextPageId: number) => {
-                      setPage({
-                        ...page,
-                        choices: page.choices.map((choice, idx) => ({
-                          ...choice,
-                          text: idx === activeBlock?.idx ? text : choice.text,
-                          nextPageId:
-                            idx === activeBlock?.idx
-                              ? nextPageId
-                              : choice.nextPageId,
-                        })),
-                      });
-
-                      setActiveBlock(null);
-                    }}
-                    linkPageData={{
-                      pageList:
-                        game?.pages
-                          .filter((page) => !page.isStarting)
-                          .map((page) => ({
-                            id: page.id,
-                            title: page.title,
-                          })) || [],
-                      linkedPageId: choice.nextPageId,
-                      handleChangePage: (pageId: number) => {
-                        setPage({
-                          ...page,
-                          choices: page.choices.map((choice) => ({
-                            ...choice,
-                            nextPageId: pageId,
-                          })),
-                        });
-                      },
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          {/* 선택지 끝 */}
+            );
+          })}
         </div>
+        {/* 선택지 끝 */}
       </div>
       {/* 본문 끝 */}
 

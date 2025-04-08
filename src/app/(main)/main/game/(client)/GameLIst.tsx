@@ -85,7 +85,7 @@ export default function GameList() {
   }, [selectedGenres, selectedOrder, page]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col w-full h-full">
       <CardList gameList={gameList} />
       {!isLoading && <div ref={ref} className="h-[1px]" />}
     </div>

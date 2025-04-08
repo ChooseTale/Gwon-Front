@@ -63,7 +63,7 @@ export default function Thumbnail({
   // const me = useMeStore((state) => state.me);
 
   return (
-    <div>
+    <>
       <div className="flex flex-row items-center">
         <div className="headline-sb text-white">썸네일 (5장 중 1장 선택)</div>
       </div>
@@ -154,6 +154,6 @@ export default function Thumbnail({
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }

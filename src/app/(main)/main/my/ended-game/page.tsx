@@ -9,7 +9,7 @@ import MarginWrapper from "../../_component/MarginWrapper";
 
 export default function EndedGamePage() {
   return (
-    <div>
+    <>
       <MarginWrapper>
         <div className="flex flex-col w-full">
           <EndedGameTopNav />
@@ -19,6 +19,6 @@ export default function EndedGamePage() {
           <div className="mb-[60px]" />
         </div>
       </MarginWrapper>
-    </div>
+    </>
   );
 }

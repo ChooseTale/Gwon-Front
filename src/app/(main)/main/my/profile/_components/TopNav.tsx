@@ -6,7 +6,7 @@ import React from "react";
 
 export default function ProfileTopNav() {
   return (
-    <div className="relative flex items-center justify-center h-[48px]">
+    <div className="relative flex w-full items-center justify-center h-[48px]">
       <div className="absolute h-full flex items-center left-0 cursor-pointer">
         <Link href="/main/my">
           <Svg
