@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserImage from "./Card/Image";
 import { GenresKorean } from "./Genre";
 import GameBottomSheet from "./DetailBottomSheet/GameBottomSheet";
@@ -38,6 +38,13 @@ export default function Card({
   const handleCloseBottomSheet = () => {
     setIsClicked(false);
   };
+
+  useEffect(() => {
+    const preloadBottomSheet = () =>
+      import("./DetailBottomSheet/GameBottomSheet");
+    preloadBottomSheet();
+  }, []);
+
   return (
     <div className="flex w-full flex-col flex-1 flex-shrink-0">
       {isClicked && (

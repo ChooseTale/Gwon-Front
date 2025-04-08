@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
     ],
   },
   /* config options here */
+  api: {
+    bodyParser: {
+      sizeLimit: "10mb", // 기본값 1mb에서 10mb로 증가
+    },
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,

@@ -39,10 +39,28 @@ export default function GameBottomSheet({
 
   useEffect(() => {
     useCommonStore.getState().setIsModalOrBottomSheetOpen(true);
+
+    // 바텀시트가 열릴 때 history state 추가
+    window.history.pushState(null, "", window.location.pathname);
+
+    // 뒤로가기 이벤트 리스너 등록
+    const handlePopState = () => {
+      setIsOpen(false);
+      useCommonStore.getState().setIsModalOrBottomSheetOpen(false);
+      handleClose();
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
     new Promise((resolve) => setTimeout(resolve, 100)).then(() => {
       setIsOpen(true);
     });
-  }, []);
+
+    // 정리 함수에서 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [handleClose]);
 
   const handleFirstStartGame = async () => {
     try {
