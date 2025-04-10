@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
     ],
   },
   /* config options here */
-  api: {
-    bodyParser: {
-      sizeLimit: "10mb", // 기본값 1mb에서 10mb로 증가
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
     },
   },
   webpack: (config) => {

@@ -56,16 +56,14 @@ export const updatePageCall = async (
   if (backgroundImage) {
     formData.append("image", backgroundImage);
   }
-  await fetchIncetance(
+  const res = await fetchIncetance(
     `${process.env.NEXT_PUBLIC_BACKEND_API}${update.path(gameId, pageId)}`,
     {
       method: update.METADATA.method,
-      // headers: {
-      //   "Content-Type": "multipart/form-data",
-      // },
       body: formData,
     }
   );
+  return await res.json();
 };
 
 export const getAllGameCall = async (

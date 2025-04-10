@@ -359,6 +359,11 @@ export default function BuilderGamePage() {
                 alt="background"
                 fill
                 style={{ objectFit: "cover" }}
+                onClick={(e) => {
+                  if (e.target !== e.currentTarget) return;
+
+                  setActiveBlock(null);
+                }}
               />
             </div>
           </div>
@@ -442,7 +447,10 @@ export default function BuilderGamePage() {
           ))}
         </div>
         {/* 선택지 */}
-        <div id="choice-container" className="flex flex-col gap-2">
+        <div
+          id="choice-container"
+          className="flex flex-col gap-2 mt-2 ml-[20px] mr-[20px]"
+        >
           {page?.choices.map((choice, idx) => {
             const isActive =
               activeBlock?.idx === idx && activeBlock?.type === "choice";

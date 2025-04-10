@@ -21,9 +21,10 @@ export default function RowCardList({
         {gameListEntity.gameList.map((card, idx) => {
           return (
             <div
-              className={`flex ${
-                idx === 0 ? "ml-[20px]" : ""
-              } min-w-[171px] w-[171px] `}
+              className={`flex ${idx === 0 ? "ml-[20px]" : ""} ${
+                idx === gameListEntity.gameList.length - 1 ? "mr-[20px]" : ""
+              }
+                min-w-[171px] w-[171px] `}
               key={card.game.id}
             >
               <Card
