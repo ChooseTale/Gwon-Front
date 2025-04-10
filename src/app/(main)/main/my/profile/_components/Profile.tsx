@@ -6,20 +6,27 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 import { useMeStore } from "@/store/User/Me/Me.store";
+import compressImage from "@/common/Image/ImageCompression";
 
 interface ProfileProps {
   userData: ReturnType<typeof useMeStore.getState>["me"];
-  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileChange: (file: File) => void;
 }
 
 export default function Profile({ userData, handleFileChange }: ProfileProps) {
   const [file, setFile] = useState<File | null>(null);
 
-  const handleCurrentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCurrentFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFile(file);
-      handleFileChange(e);
+      const compressedFile = await compressImage(file);
+
+      if (compressedFile) {
+        setFile(compressedFile);
+        handleFileChange(compressedFile);
+      }
     }
   };
 

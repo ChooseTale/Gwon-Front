@@ -5,8 +5,7 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 
 import "swiper/css";
-import { toast } from "sonner";
-import { validateFileSize } from "@/lib/validation";
+import compressImage from "@/common/Image/ImageCompression";
 
 interface ThumbnailProps {
   images: File[];
@@ -32,22 +31,21 @@ export default function Thumbnail({
     return currentThumbnails.length >= 5;
   }, [currentThumbnails]);
 
-  const handleAddThumbnail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAddThumbnail = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isMaxThumbnail()) {
       return;
     }
 
-    if (validateFileSize(e)) {
-      toast.error("파일 크기가 너무 큽니다.");
-      return;
-    }
     const file = e.target.files?.[0];
-
     if (file) {
-      setCurrentThumbnails([...currentThumbnails, file]);
-      onChange([...currentThumbnails, file]);
+      const compressedFile = await compressImage(file);
+      if (compressedFile) {
+        setCurrentThumbnails([...currentThumbnails, compressedFile]);
+        onChange([...currentThumbnails, compressedFile]);
+      }
     }
   };
+
   const handleDeleteThumbnail = (index: number) => {
     const newThumbnails = currentThumbnails.filter((_, i) => i !== index);
     setCurrentThumbnails(newThumbnails);

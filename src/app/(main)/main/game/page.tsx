@@ -8,7 +8,6 @@ import MarginWrapper from "../_component/MarginWrapper";
 import W600Wrapper from "../_component/W600Wrapper";
 
 export default async function GamePage() {
-  console.log("렌더링");
   return (
     <div className="flex flex-col w-full items-center">
       <MarginWrapper>

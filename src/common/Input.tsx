@@ -42,7 +42,6 @@ export default function Input({
   }, [inputValue, regExp]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(e.target.value.slice(0, maxLength));
     if (e.target.value.length > maxLength) {
       setInputValue(e.target.value.slice(0, maxLength));
       return;

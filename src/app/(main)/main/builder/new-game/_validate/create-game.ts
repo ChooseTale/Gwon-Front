@@ -5,7 +5,6 @@ export const titleValidate = (title: string) => {
 };
 
 export const descriptionValidate = (description: string) => {
-  console.log(description);
   if (description.length < 1) {
     throw new Error("설명은 1자 이상이어야 합니다.");
   }

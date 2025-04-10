@@ -23,6 +23,7 @@ import SavePage from "./_component/TopNav/SavePage";
 import { getAll } from "@choosetale/nestia-type/lib/functional/game";
 import BuilderModal from "../../../../_component/modal";
 import { toast } from "sonner";
+import compressImage from "@/common/Image/ImageCompression";
 
 // import { recommendChoices } from "@/(actions)/builder/choice/chat-gpt/recommend";
 // import { useMeStore } from "@/store/User/Me/Me.store";
@@ -266,10 +267,15 @@ export default function BuilderGamePage() {
         file.type = "file";
         file.accept = ".jpg, .png, .gif, .jpeg";
 
-        file.onchange = (e: any) => {
+        file.onchange = async (e: any) => {
           if (e.target) {
             const file = e.target.files[0];
-            setBackgroundImage(file);
+            if (file) {
+              const compressedFile = await compressImage(file);
+              if (compressedFile) {
+                setBackgroundImage(compressedFile);
+              }
+            }
           }
         };
         file.click();

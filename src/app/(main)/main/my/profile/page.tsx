@@ -37,15 +37,12 @@ export default function ProfilePage() {
     setUserData(me);
   }, [me]);
 
-  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setProfileImageFile(file);
-      setUserData({
-        ...userData,
-        profileImage: { url: URL.createObjectURL(file) },
-      });
-    }
+  const handleProfileImageChange = (file: File) => {
+    setProfileImageFile(file);
+    setUserData({
+      ...userData,
+      profileImage: { url: URL.createObjectURL(file) },
+    });
   };
 
   const handleInputChange = (
