@@ -86,6 +86,7 @@ export default function Thumbnail({
                 size: { width: 24, height: 24 },
 
                 color: isMaxThumbnail() ? "gray-600" : "gray-100",
+                fillColor: isMaxThumbnail() ? "gray-600" : "gray-100",
               }}
             />
             <div

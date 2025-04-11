@@ -159,6 +159,7 @@ export default function LinkPageBottomSheet({
                   handleClose();
                 }
               }}
+              role="button"
             >
               완료
             </button>

@@ -242,13 +242,13 @@ export default function GameBuilder() {
           isClickCompleteButton={isClickCompleteButton}
           setIsClickCompleteButton={setIsClickCompleteButton}
           handleComplete={async () => {
-            try {
-              await publishGameCall(Number(gameId));
-              toast.success("게임 게시에 성공했습니다.", {});
-              router.replace(`/main/builder`);
-            } catch (err: any) {
-              toast.error(err.message, {});
+            const res = await publishGameCall(Number(gameId));
+            if (!res?.success) {
+              toast.error(res?.message ?? "게임 게시에 실패했습니다.", {});
+              return;
             }
+            toast.success("게임 게시에 성공했습니다.", {});
+            router.replace(`/main/builder`);
           }}
           handleSave={() => {
             router.push(`/main/builder`);

@@ -9,10 +9,18 @@ import { fetchIncetance } from "../../fetch";
 import { publish } from "@choosetale/nestia-type/lib/functional/game";
 
 export const publishGameCall = async (gameId: number) => {
-  await fetchIncetance(
-    `${process.env.NEXT_PUBLIC_BACKEND_API}${publish.path(gameId)}`,
-    { method: publish.METADATA.method }
-  );
+  try {
+    await fetchIncetance(
+      `${process.env.NEXT_PUBLIC_BACKEND_API}${publish.path(gameId)}`,
+      { method: publish.METADATA.method }
+    );
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "게임 게시에 실패했습니다.",
+    };
+  }
 };
 
 export const createChoiceCall = async (gameId: number, body: create.Input) => {

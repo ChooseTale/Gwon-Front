@@ -29,6 +29,7 @@ export default function BuilderGamePageSettingTopNav({
 
       <div className="absolute flex  flex-row right-0 gap-3">
         <div
+          role="button"
           className="flex headline-md flex-row justify-center items-center text-green-500"
           onClick={handleComplete}
         >

@@ -93,7 +93,7 @@ export default function PlayGame({ page }: PlayGameProps) {
         <div className="absolute top-0 left-0 w-full h-full z-0 bg-black "></div>
       )}
       <div
-        className="flex flex-col   h-full z-10 ml-[20px] mr-[20px] mt-[20px]"
+        className="flex relative flex-col   h-full z-10 ml-[20px] mr-[20px] mt-[20px]"
         onClick={handleContentClick}
       >
         {/* content부분 */}
@@ -111,7 +111,7 @@ export default function PlayGame({ page }: PlayGameProps) {
                 {content.content}
               </div>
             ))}
-          <div className="flex p-3 text-headline-md text-gray-100 whitespace-pre-wrap">
+          <div className="flex p-3 text-headline-md text-gray-100 whitespace-pre-wrap mb-[320px]">
             {animateText}
           </div>
         </div>

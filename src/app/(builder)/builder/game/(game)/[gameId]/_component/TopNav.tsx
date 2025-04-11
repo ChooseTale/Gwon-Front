@@ -26,10 +26,18 @@ export default function BuilderGameTopNav({
       <div className="title2-sb text-black headline-md">{gameTitle}</div>
 
       <div className="absolute flex flex-row right-[20px] gap-3">
-        <div className="flex flex-row text-gray-500" onClick={handleTest}>
+        <div
+          className="flex flex-row text-gray-500"
+          onClick={handleTest}
+          role="button"
+        >
           테스트
         </div>
-        <div className="flex flex-row text-green-500" onClick={handleComplete}>
+        <div
+          className="flex flex-row text-green-500"
+          onClick={handleComplete}
+          role="button"
+        >
           완료
         </div>
       </div>
