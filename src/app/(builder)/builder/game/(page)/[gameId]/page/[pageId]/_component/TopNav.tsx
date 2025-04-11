@@ -43,7 +43,9 @@ export default function BuilderGamePageTopNav({
           className="flex headline-md flex-row justify-center items-center text-green-500"
           onClick={handleComplete}
         >
-          완료
+          <button className="flex headline-md flex-row justify-center items-center text-green-500">
+            완료
+          </button>
         </div>
       </div>
     </div>

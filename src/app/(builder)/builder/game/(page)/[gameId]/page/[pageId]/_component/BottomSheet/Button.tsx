@@ -6,6 +6,7 @@ interface BottomSheetButtonProps {
   onClick?: () => void;
   svgIconName: SvgName;
   isActive: boolean;
+  isSvgFillColor: boolean;
 }
 
 const cardStyle =
@@ -16,6 +17,7 @@ export function BottomSheetButton({
   onClick,
   isActive,
   svgIconName,
+  isSvgFillColor,
 }: BottomSheetButtonProps) {
   return (
     <div
@@ -29,6 +31,11 @@ export function BottomSheetButton({
         options={{
           size: { width: 24, height: 24 },
           color: isActive ? "gray-500" : "gray-100",
+          fillColor: isSvgFillColor
+            ? isActive
+              ? "gray-500"
+              : "gray-100"
+            : undefined,
         }}
       />
       <p className={`${isActive ? "text-gray-500" : "text-gray-100"} mt-[2px]`}>

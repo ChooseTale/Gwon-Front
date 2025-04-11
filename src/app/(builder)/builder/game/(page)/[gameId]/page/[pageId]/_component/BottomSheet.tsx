@@ -10,30 +10,35 @@ const buttons: {
   text: string;
   isGradient: boolean;
   svgIconName: SvgName;
+  isSvgFillColor: boolean;
 }[] = [
   {
     key: "block",
     text: "블럭",
     isGradient: false,
     svgIconName: "blockIcon",
+    isSvgFillColor: false,
   },
   {
     key: "choice",
     text: "선택지",
     isGradient: false,
     svgIconName: "cornerDownRightIcon",
+    isSvgFillColor: false,
   },
   {
     key: "aiChoice",
     text: "AI 선택지",
     isGradient: false,
     svgIconName: "generateBIcon",
+    isSvgFillColor: false,
   },
   {
     key: "background",
     text: "배경",
     isGradient: false,
     svgIconName: "imageIcon",
+    isSvgFillColor: true,
   },
 ];
 
@@ -120,6 +125,7 @@ export default function BottomSheet({
                 onClick={isActive ? () => onClick(button.key) : undefined}
                 isActive={isActive}
                 svgIconName={button.svgIconName}
+                isSvgFillColor={button.isSvgFillColor}
               />
             ) : (
               <BottomSheetButton
@@ -128,6 +134,7 @@ export default function BottomSheet({
                 onClick={isActive ? () => onClick(button.key) : undefined}
                 isActive={isActive}
                 svgIconName={button.svgIconName}
+                isSvgFillColor={button.isSvgFillColor}
               />
             );
           })}
