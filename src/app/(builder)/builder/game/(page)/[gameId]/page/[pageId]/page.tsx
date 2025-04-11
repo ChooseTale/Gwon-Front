@@ -90,20 +90,6 @@ export default function BuilderGamePage() {
   };
 
   useEffect(() => {
-    const convertUrlToFile = async (url: string) => {
-      const response = await fetch(url);
-      const data = await response.blob();
-      const file = new File([data], "backgroundImage", { type: data.type });
-
-      setBackgroundImage(file);
-    };
-
-    if (page?.backgroundImage.url) {
-      convertUrlToFile(page.backgroundImage.url);
-    }
-  }, [page?.backgroundImage]);
-
-  useEffect(() => {
     const fetchPage = async () => {
       const res = await getPageCall(Number(gameId), Number(pageId));
       setPage(res);
@@ -273,6 +259,12 @@ export default function BuilderGamePage() {
             if (file) {
               const compressedFile = await compressImage(file);
               if (compressedFile) {
+                setPage({
+                  ...page,
+                  backgroundImage: {
+                    url: URL.createObjectURL(compressedFile),
+                  },
+                });
                 setBackgroundImage(compressedFile);
               }
             }
@@ -314,7 +306,6 @@ export default function BuilderGamePage() {
     await deletePageCall(Number(gameId), Number(pageId));
     router.push(`/builder/game/${gameId}`);
   };
-
   return (
     <div className="flex w-full h-full flex-col bg-white ">
       {isDeleteModalOpen && (
@@ -356,12 +347,12 @@ export default function BuilderGamePage() {
             </div>
           </div>
         )}
-        {backgroundImage && (
+        {page.backgroundImage && page.backgroundImage.url && (
           <div className="fixed justify-center items-center  w-full min-w-[280px] max-w-[600px] h-full z-0 ">
             <div className="relative flex w-full h-full">
               <Image
                 id="background-image"
-                src={backgroundImageUrl ?? ""}
+                src={page.backgroundImage.url ?? ""}
                 alt="background"
                 fill
                 style={{ objectFit: "cover" }}
