@@ -1,44 +1,71 @@
 import React, { useState } from "react";
-import {
-  BottomSheetButton,
-  BottomSheetGradientButton,
-} from "./BottomSheet/Button";
-import { SvgName } from "@/common/Svg";
+import { BottomSheetButton } from "./BottomSheet/Button";
+import Svg from "@/common/Svg";
 
 const buttons: {
   key: "block" | "choice" | "aiChoice" | "background";
   text: string;
   isGradient: boolean;
-  svgIconName: SvgName;
-  isSvgFillColor: boolean;
+  svgComponent: (isActive: boolean) => React.ReactNode;
 }[] = [
   {
     key: "block",
     text: "블럭",
     isGradient: false,
-    svgIconName: "blockIcon",
-    isSvgFillColor: false,
+    svgComponent: (isActive: boolean) => (
+      <Svg
+        icon="blockIcon"
+        options={{
+          size: { width: 24, height: 24 },
+          color: isActive ? "gray-500" : "gray-100",
+          fillColor: isActive ? "gray-500" : "gray-100",
+        }}
+      />
+    ),
   },
   {
     key: "choice",
     text: "선택지",
     isGradient: false,
-    svgIconName: "cornerDownRightIcon",
-    isSvgFillColor: false,
+    svgComponent: (isActive: boolean) => (
+      <Svg
+        icon="cornerDownRightIcon"
+        options={{
+          size: { width: 24, height: 24 },
+          color: isActive ? "gray-500" : "gray-100",
+        }}
+      />
+    ),
   },
   {
     key: "aiChoice",
     text: "AI 선택지",
     isGradient: false,
-    svgIconName: "generateBIcon",
-    isSvgFillColor: false,
+    svgComponent: (isActive: boolean) => (
+      <Svg
+        icon="generateBIcon"
+        options={{
+          size: { width: 24, height: 24 },
+          color: isActive ? "gray-500" : "gray-100",
+          fillColor: isActive ? "gray-500" : "gray-100",
+        }}
+      />
+    ),
   },
   {
     key: "background",
     text: "배경",
     isGradient: false,
-    svgIconName: "imageIcon",
-    isSvgFillColor: true,
+    svgComponent: (isActive: boolean) => (
+      <Svg
+        icon="imageIcon"
+        options={{
+          size: { width: 24, height: 24 },
+
+          fillColor: isActive ? "gray-500" : "gray-100",
+        }}
+      />
+    ),
   },
 ];
 
@@ -118,23 +145,13 @@ export default function BottomSheet({
             )?.isActive;
             if (isActive === undefined) return null;
 
-            return button.isGradient ? (
-              <BottomSheetGradientButton
-                key={button.text}
-                text={button.text}
-                onClick={isActive ? () => onClick(button.key) : undefined}
-                isActive={isActive}
-                svgIconName={button.svgIconName}
-                isSvgFillColor={button.isSvgFillColor}
-              />
-            ) : (
+            return (
               <BottomSheetButton
                 key={button.text}
                 text={button.text}
                 onClick={isActive ? () => onClick(button.key) : undefined}
                 isActive={isActive}
-                svgIconName={button.svgIconName}
-                isSvgFillColor={button.isSvgFillColor}
+                svgComponent={button.svgComponent}
               />
             );
           })}

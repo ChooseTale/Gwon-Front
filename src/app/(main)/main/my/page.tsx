@@ -15,7 +15,7 @@ export default function page() {
           <ContinuedGames />
         </div>
       </MarginWrapper>
-      <div className="w-full min-h-[12px] h-[12px] bg-gray-900  mt-[40px] mb-[40px] relative" />
+      <div className="w-full min-h-[12px] h-[12px] bg-gray-900   relative" />
       <MarginWrapper>
         <div className="flex flex-col w-full">
           <EndedGameNav />

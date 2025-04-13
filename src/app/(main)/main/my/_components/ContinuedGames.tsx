@@ -44,7 +44,7 @@ export default function ContinuedGames() {
       </div>
       <div className="flex flex-row   gap-2 flex-nowrap  overflow-x-auto overflow-y-hidden mt-[12px]">
         {continuedGameList.length === 0 ? (
-          <div className="flex text-gray-400 body-sb w-full h-full justify-center items-center ">
+          <div className="flex text-gray-400 body-sb w-full h-[244px] justify-center items-center ">
             진행중인 게임이 없어요
           </div>
         ) : (

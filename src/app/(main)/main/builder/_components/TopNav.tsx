@@ -21,7 +21,7 @@ export default function BuilderTopNav(props: Props) {
         {["BUILDING", "PUBLISHED"].map((status) => (
           <div
             key={status}
-            className={`flex flex-1 rounded-[8px] mt-[2px] ml-[2px] mb-[2px] mr-[2px]
+            className={`flex flex-1 rounded-[8px]  headline-sb mt-[2px] ml-[2px] mb-[2px] mr-[2px]
                  ${
                    status === props.status
                      ? "bg-white text-black"

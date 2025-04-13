@@ -214,7 +214,7 @@ export default function GameBottomSheet({
                       onClick={() => {
                         router.push(`/play/${game.play?.id ?? 0}`);
                       }}
-                      className="flex flex-col w-full h-[52px] justify-center items-center bg-green-500 rounded-[4px] "
+                      className="flex flex-col w-full h-[52px] justify-center items-center bg-green-500 rounded-[8px] "
                     >
                       <div className="flex headline-sb text-black">
                         이어하기

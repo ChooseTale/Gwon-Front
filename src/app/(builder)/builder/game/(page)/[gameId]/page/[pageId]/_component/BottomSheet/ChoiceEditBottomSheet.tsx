@@ -93,7 +93,7 @@ export default function ChoiceEditBottomSheet({
                   onChange={(e) => setEditedText(e.target.value)}
                   placeholder={`이건 선택지예요.
 플레이어가 선택할 선택지를 최대 4개 까지 만들 수 있어요.`}
-                  maxLength={20}
+                  maxLength={30}
                 />
               </div>
             </div>
