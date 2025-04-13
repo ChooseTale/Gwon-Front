@@ -14,6 +14,10 @@ export const publishGameCall = async (gameId: number) => {
       `${process.env.NEXT_PUBLIC_BACKEND_API}${publish.path(gameId)}`,
       { method: publish.METADATA.method }
     );
+    return {
+      success: true,
+      message: "게임 게시에 성공했습니다.",
+    };
   } catch (error) {
     console.error(error);
     return {
