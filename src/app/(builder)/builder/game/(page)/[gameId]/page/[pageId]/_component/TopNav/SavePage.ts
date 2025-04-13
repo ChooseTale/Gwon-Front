@@ -36,7 +36,7 @@ export default async function SavePage({
         choices: choices.map((choice) => ({
           id: choice.id,
           title: choice.text,
-          childPageId: choice.nextPageId,
+          childPageId: choice.nextPageId == 0 ? null : choice.nextPageId,
         })),
       },
       page.backgroundImage?.name == "backgroundImage"
