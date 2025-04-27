@@ -53,7 +53,12 @@ export const getGameListCall = async ({
     `${process.env.NEXT_PUBLIC_BACKEND_API}${
       getList.METADATA.path
     }?${queryParams.toString()}`,
-    {}
+    {
+      next: {
+        revalidate: 3600,
+        tags: [`static-game-list-${genres.join("-") || "all"}-${order}`],
+      },
+    }
   );
 
   return await res.json();

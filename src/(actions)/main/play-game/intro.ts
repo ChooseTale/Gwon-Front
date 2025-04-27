@@ -11,7 +11,12 @@ export const getIntroScreenCall = async ({
 }): Promise<getIntroScreen.Output> => {
   const res = await fetchIncetance(
     `${process.env.NEXT_PUBLIC_BACKEND_API}${getIntroScreen.path(gameId)}`,
-    {}
+    {
+      next: {
+        revalidate: 3600,
+        tags: [`intro-screen-${gameId}`],
+      },
+    }
   );
 
   return await res.json();
