@@ -26,24 +26,27 @@ ChooseTale은 사용자가 직접 텍스트 기반의 인터랙티브 게임을 
 ## 페이지 소개
 
 ### 로그인 페이지
+![스크린샷 2025-05-06 오후 7 07 38](https://github.com/user-attachments/assets/f104f67d-deed-42da-82a4-ee2b22e6cb03)
 
-소셜 로그인(구글, 카카오 등)을 통해 간편하게 서비스를 이용할 수 있습니다.
+
 
 ### 메인 페이지
+![메인 페이지](https://github.com/user-attachments/assets/287e3adb-d348-4a67-9262-2a10821809cd)
 
-인기 게임, 추천 게임 등 다양한 게임 목록을 확인할 수 있습니다.
+
 
 ### 게임 제작 페이지
+![빌더 트리](https://github.com/user-attachments/assets/a8ad70eb-2b45-48a0-bd9a-46019847c861)
 
-직관적인 노드 기반 에디터를 통해 손쉽게 게임을 제작할 수 있습니다.
+![빌더페이지](https://github.com/user-attachments/assets/f7eba852-17c2-41b9-8406-eebfe7782295)
 
 ### 게임 플레이 페이지
-
-모바일에 최적화된 UI로 쾌적한 게임 경험을 제공합니다.
+![게임 플레이 화면](https://github.com/user-attachments/assets/e6e250fa-708b-4e27-869a-eaea74b77f1a)
 
 ### 마이페이지
+![유저 페이지](https://github.com/user-attachments/assets/27ae7c82-3154-4ed7-970c-888d103dfca5)
 
-제작한 게임, 플레이 기록, 찜한 게임 등을 관리할 수 있습니다.
+
 
 ## 사용 기술
 
