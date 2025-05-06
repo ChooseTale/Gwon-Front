@@ -6,6 +6,7 @@ import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { LoadingProvider } from "@/components/LoadingProvider";
+import PWAInstallButton from "@/components/PWAInstallButton";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -47,6 +48,7 @@ export default function RootLayout({
             <CheckAuth />
             {children}
             <Toaster />
+            <PWAInstallButton />
           </LoadingProvider>
         </SessionProvider>
       </body>
