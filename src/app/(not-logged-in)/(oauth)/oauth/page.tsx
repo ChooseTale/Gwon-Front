@@ -3,6 +3,8 @@ import { signIn } from "next-auth/react";
 import Svg from "@/common/Svg";
 import { testUserLoginCall } from "@/(actions)/user/auth";
 import { useRouter } from "next/navigation";
+import PWAInstallButton from "@/components/PWAInstallButton";
+import { Footer } from "@/components/Footer";
 
 export default function OAuthPage() {
   const router = useRouter();
@@ -55,6 +57,8 @@ export default function OAuthPage() {
           }}
         />
       </button>
+      <Footer />
+      <PWAInstallButton />
     </div>
   );
 }

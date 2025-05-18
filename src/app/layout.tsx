@@ -6,7 +6,6 @@ import CheckAuth from "./(not-logged-in)/(oauth)/authenticate/CheckAuth";
 import SessionProvider from "./(not-logged-in)/(oauth)/authenticate/SessionProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { LoadingProvider } from "@/components/LoadingProvider";
-import PWAInstallButton from "@/components/PWAInstallButton";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -38,17 +37,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("main");
   return (
     <html lang="ko" className={pretendard.variable}>
       <body
-        className={`font-pretendard flex justify-center w-full h-[100vh] bg-background-dark`}
+        className={`font-pretendard flex flex-col justify-between w-full h-[100vh] bg-background-dark`}
       >
         <SessionProvider>
           <LoadingProvider>
             <CheckAuth />
+            {/* <main className="flex-grow flex justify-center w-full"> */}
             {children}
+            {/* </main> */}
+
             <Toaster />
-            <PWAInstallButton />
           </LoadingProvider>
         </SessionProvider>
       </body>

@@ -41,3 +41,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PWA 관련 민감한 파일 및 빌드 결과물
+/my-pwa/android.keystore
+/my-pwa/*.apk
+/my-pwa/*.aab
+/my-pwa/*.idsig
+/my-pwa/build/
+/my-pwa/.gradle/
+/my-pwa/*
