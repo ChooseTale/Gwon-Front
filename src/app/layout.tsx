@@ -37,7 +37,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("main");
   return (
     <html lang="ko" className={pretendard.variable}>
       <body
@@ -46,9 +45,9 @@ export default function RootLayout({
         <SessionProvider>
           <LoadingProvider>
             <CheckAuth />
-            {/* <main className="flex-grow flex justify-center w-full"> */}
-            {children}
-            {/* </main> */}
+            <main className="flex-grow flex justify-center w-full">
+              {children}
+            </main>
 
             <Toaster />
           </LoadingProvider>
